@@ -201,4 +201,7 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,macos,gradle
+<<<<<<< HEAD
 backend/src/main/resources/application.properties
+=======
+>>>>>>> aa9ba42 (CHORE: 초기 구조 세팅 (#10))
