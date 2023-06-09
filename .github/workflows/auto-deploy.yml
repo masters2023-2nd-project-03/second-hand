@@ -72,5 +72,5 @@ jobs:
           username: ${{ secrets.USER }}
           script: |
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/back-end
-            sudo docker stop ${{ secrets.DOCKERHUB_USERNAME }}/back-end
+            sudo docker stop jmdb-be
             sudo docker run -d --rm --name jmdb-be -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/back-end
