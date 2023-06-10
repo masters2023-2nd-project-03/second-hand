@@ -81,10 +81,10 @@ const color = {
     background-color: rgba(249, 249, 249, 0.8);
   `,
   neutralBorder: css`
-    border-color: rgba(179, 179, 179, 0.39);
+    border: 1px solid rgba(179, 179, 179, 0.39);
   `,
   neutralBorderStrong: css`
-    border-color: rgba(60, 60, 67, 0.36);
+    border: 1px solid rgba(60, 60, 67, 0.36);
   `,
   neutralOveray: css`
     background-color: rgba(0, 0, 0, 0.2);

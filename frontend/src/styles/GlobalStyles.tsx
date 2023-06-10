@@ -6,6 +6,12 @@ const GlobalStyles = createGlobalStyle`
         padding:0;
         box-sizing: border-box;
     }
+
+    button{
+        background: inherit ; 
+        border:none; 
+        cursor:pointer
+    }
 `;
 
 export default GlobalStyles;
