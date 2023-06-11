@@ -13,7 +13,7 @@ const DropdownPanel: React.FC<DropdownPanelProps> = ({
 }) => {
   return (
     <S.dropdownPanel onClick={() => onClick(option)} isLastPanel={isLastPanel}>
-      <S.optionTitle>{option}</S.optionTitle>
+      <S.optionTitle isLastPanel={isLastPanel}>{option}</S.optionTitle>
     </S.dropdownPanel>
   );
 };
