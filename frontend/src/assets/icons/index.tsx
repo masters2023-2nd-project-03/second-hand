@@ -19,6 +19,7 @@ import { ReactComponent as Search } from './search.svg';
 import { ReactComponent as Slider } from './slider.svg';
 import { ReactComponent as Wifi } from './wifi.svg';
 import { ReactComponent as X } from './x.svg';
+import { ReactComponent as Label } from './label.svg';
 
 const iconfiles = {
   arrowUp: ArrowUp,
@@ -42,6 +43,7 @@ const iconfiles = {
   slider: Slider,
   wifi: Wifi,
   x: X,
+  label: Label,
 };
 
 export default iconfiles;
