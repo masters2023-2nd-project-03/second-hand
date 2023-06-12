@@ -9,12 +9,12 @@ interface IconProps {
   fill?: string;
 }
 
-const Icon: React.FC<IconProps> = ({
+const Icon = ({
   name = 'arrowUp',
   width = '24',
   height = '24',
   fill = 'black',
-}) => {
+}: IconProps) => {
   const IconComponent = iconfiles[name];
 
   return (
