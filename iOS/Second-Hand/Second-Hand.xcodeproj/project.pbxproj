@@ -61,7 +61,6 @@
 				4F05FF852A31AB6A00A1BF50 /* Resource */,
 				4F05FF842A31AB6000A1BF50 /* Application */,
 				4F05FF862A31AB7900A1BF50 /* UI */,
-				2A6295222A35C3B100B3AC7E /* FontStyle.swift */,
 			);
 			path = "Second-Hand";
 			sourceTree = "<group>";
@@ -130,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				4F05FF8F2A36FA3900A1BF50 /* ColorPalette.swift */,
+				2A6295222A35C3B100B3AC7E /* FontStyle.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
