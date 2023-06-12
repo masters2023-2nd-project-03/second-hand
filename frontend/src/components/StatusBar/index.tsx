@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from '../Icon/icon';
 
+import Icon from '../Icon';
 import * as S from './styles';
 import currentTime from './currentTime';
 

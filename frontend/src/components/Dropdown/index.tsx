@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 import DropdownPanel from './DropdownPanel';
-import Icon from '../Icon/icon';
-
+import Icon from '../Icon';
 import * as S from './styles';
 
 interface DropdownProps {
@@ -22,7 +21,7 @@ const Dropdown = ({ options }: DropdownProps) => {
     setIsOpen(!isOpen);
   };
 
-  // "내 동네 변경하기" 기능 추후 추가 필요
+  // TODO(sarang_daddy) : "내 동네 변경하기" 기능 추후 추가 필요
   const handleChangeOptionClick = () => {
     console.log('동네 변경 페이지로 넘어간다.');
     setIsOpen(false);
