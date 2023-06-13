@@ -4,7 +4,7 @@ const ErrorPage = () => {
   return (
     <>
       <NavBarHome type="low" />
-      <h1>관심 목록 이당</h1>
+      <h1>에러 페이지 입니다.</h1>
     </>
   );
 };
