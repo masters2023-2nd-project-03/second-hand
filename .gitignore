@@ -204,4 +204,5 @@ gradle-app.setting
 .idea
 .idea/
 .idea/**
-backend/src/main/resources/application.properties
+
+**/application.properties
