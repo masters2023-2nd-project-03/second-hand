@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
 
@@ -9,40 +9,25 @@ import SalesPage from '../SalesPage';
 import HeartPage from '../HeartPage';
 import ChatPage from '../ChatPage';
 import AccountPage from '../AccountPage';
+import ErrorPage from '../ErrorPage';
+import TabBar from '../TabBar';
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <HomePage />,
-      // TODO(sarang_daddy) : 에러 페이지 만들기
-      // errorElement: <ErrorPage />,
-    },
-    {
-      path: '/sales',
-      element: <SalesPage />,
-    },
-    {
-      path: '/heart',
-      element: <HeartPage />,
-    },
-    {
-      path: '/chat',
-      element: <ChatPage />,
-    },
-    {
-      path: '/account',
-      element: <AccountPage />,
-    },
-  ]);
-
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/sales" element={<SalesPage />} />
+          <Route path="/heart" element={<HeartPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Router>
+      <TabBar />
+    </ThemeProvider>
   );
 };
 

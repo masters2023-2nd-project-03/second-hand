@@ -21,10 +21,10 @@ const TABS: Tab[] = [
 ];
 
 const TabBar = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, seActiveTab] = useState(0);
 
   const handleClick = (id: number) => {
-    setActiveTab(id);
+    seActiveTab(id);
   };
 
   return (
