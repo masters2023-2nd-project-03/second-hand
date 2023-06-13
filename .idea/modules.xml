@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/second-hand.iml" filepath="$PROJECT_DIR$/.idea/modules/second-hand.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/second-hand.main.iml" filepath="$PROJECT_DIR$/.idea/modules/second-hand.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/second-hand.test.iml" filepath="$PROJECT_DIR$/.idea/modules/second-hand.test.iml" />
     </modules>
   </component>
 </project>
