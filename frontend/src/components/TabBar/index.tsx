@@ -1,6 +1,3 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-
 import iconfiles from '../../assets/icons/index';
 import Icon from '../Icon';
 import * as S from './styles';
@@ -23,31 +20,21 @@ const TABS: Tab[] = [
 ];
 
 const TabBar = () => {
-  const [activeTab, seActiveTab] = useState(0);
-
-  const handleClick = (id: number) => {
-    seActiveTab(id);
-  };
-
   return (
-    <S.tabBarContainer>
-      <S.tabBarMenu>
-        <S.Ul>
+    <S.TabBarContainer>
+      <S.TabBarMenu>
+        <S.TabsList>
           {TABS.map((tab: Tab) => (
-            <S.Li
-              key={tab.id}
-              active={activeTab === tab.id}
-              onClick={() => handleClick(tab.id)}
-            >
-              <Link to={tab.path}>
+            <li key={tab.id}>
+              <S.StyledNavLink to={tab.path}>
                 <Icon name={tab.name} width={'48'} height={'26'} />
-              </Link>
-              <span>{tab.label}</span>
-            </S.Li>
+                <div>{tab.label}</div>
+              </S.StyledNavLink>
+            </li>
           ))}
-        </S.Ul>
-      </S.tabBarMenu>
-    </S.tabBarContainer>
+        </S.TabsList>
+      </S.TabBarMenu>
+    </S.TabBarContainer>
   );
 };
 
