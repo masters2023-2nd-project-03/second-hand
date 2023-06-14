@@ -8,7 +8,6 @@ const HomePage = () => {
   return (
     <>
       <NavBarHome type="low" />
-      <h1>홈 이당</h1>
       <SecondHandItem
         title={sampleItem.title}
         createdAt={sampleItem.createdAt}
