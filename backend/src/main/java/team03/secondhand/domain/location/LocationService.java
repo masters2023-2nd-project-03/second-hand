@@ -24,6 +24,14 @@ public class LocationService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<ResponseLocationDTO> getAllLocationsByLocationDetailsLike(String searchKey) {
+        List<Location> locations = locationRepository.findAllByLocationDetailsLike("%" + searchKey + "%");
+        return locations.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private ResponseLocationDTO convertToDTO(Location location) {
         return ResponseLocationDTO.builder()
                 .locationId(location.getLocationId())
