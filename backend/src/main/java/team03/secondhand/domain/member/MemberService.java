@@ -3,6 +3,7 @@ package team03.secondhand.domain.member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team03.secondhand.domain.member.dto.request.RequestJoinDto;
 import team03.secondhand.domain.member.dto.response.ResponseMemberDTO;
 
 import java.util.Optional;
@@ -14,6 +15,10 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    public Optional<Member> getMemberById(Long id) {
+        return memberRepository.findByMemberId(id);
+    }
 
     public ResponseMemberDTO getMemberByOAuthId(String oauthId) {
         Member member = memberRepository.findByOauthId(oauthId).orElse(null);
@@ -28,7 +33,12 @@ public class MemberService {
         return memberRepository.findByOauthId(oauthId);
     }
 
-    public Member save(Member member) {
+    public Member save(RequestJoinDto memberDto) {
+        Member member = Member.builder()
+                .nickname(memberDto.getNickname())
+                .profileUrl(memberDto.getProfileUrl())
+                .oauthId(memberDto.getOauthId())
+                .build();
         return memberRepository.save(member);
     }
 
