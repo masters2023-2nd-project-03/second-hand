@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team03.secondhand.domain.member.dto.response.ResponseMemberDTO;
 
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,4 +24,17 @@ public class MemberService {
                 .profileUrl(member.getProfileUrl())
                 .build();
     }
+    public Optional<Member> findByOauthId(String oauthId) {
+        return memberRepository.findByOauthId(oauthId);
+    }
+
+    public Member save(Member member) {
+        return memberRepository.save(member);
+    }
+
+    public boolean isRegistrationBy(String oauthId) {
+        Optional<Member> optionalMember = memberRepository.findByOauthId(oauthId);
+        return optionalMember.isPresent();
+    }
+
 }

@@ -1,6 +1,7 @@
 package team03.secondhand.domain.member;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team03.secondhand.domain.product.Product;
@@ -27,6 +28,13 @@ public class Member {
 
     @Column(name = "oauth_id")
     private String oauthId;
+
+    @Builder
+    public Member(String nickname, String profileUrl, String oauthId) {
+        this.nickname = nickname;
+        this.profileUrl = profileUrl;
+        this.oauthId = oauthId;
+    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Product> products = new ArrayList<>();
