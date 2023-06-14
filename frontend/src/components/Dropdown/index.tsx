@@ -28,14 +28,14 @@ const Dropdown = ({ options }: DropdownProps) => {
   };
 
   return (
-    <S.dropdownContainer>
-      <S.dropdownWrapper />
-      <S.dropdownHeader onClick={toggleDropdown}>
-        <S.selectedOption>{selectedOption}</S.selectedOption>
+    <S.DropdownContainer>
+      <S.DropdownWrapper />
+      <S.DropdownHeader onClick={toggleDropdown}>
+        <S.SelectedOption>{selectedOption}</S.SelectedOption>
         <Icon name={'chevronDown'} width="17" />
-      </S.dropdownHeader>
+      </S.DropdownHeader>
       {isOpen && (
-        <S.panelContainer>
+        <S.PanelContainer>
           {options.map((option, index) => (
             <DropdownPanel
               key={index}
@@ -49,9 +49,9 @@ const Dropdown = ({ options }: DropdownProps) => {
             onClick={handleChangeOptionClick}
             isLastPanel={true}
           />
-        </S.panelContainer>
+        </S.PanelContainer>
       )}
-    </S.dropdownContainer>
+    </S.DropdownContainer>
   );
 };
 

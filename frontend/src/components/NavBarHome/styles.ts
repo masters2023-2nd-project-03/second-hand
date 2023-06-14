@@ -4,7 +4,7 @@ interface NavBarContainerProps {
   type: string;
 }
 
-export const navBarContainer = styled.div<NavBarContainerProps>`
+export const NavBarContainer = styled.div<NavBarContainerProps>`
   display: flex;
   align-items: flex-end;
   height: 100px;
@@ -17,10 +17,10 @@ export const navBarContainer = styled.div<NavBarContainerProps>`
       return 'rgba(249, 249, 249, 1)';
     }
   }};
-  border: solid 1px #b3b3b3;
+  border-bottom: solid 1px #b3b3b3;
 `;
 
-export const navBarBody = styled.div`
+export const NavBarBody = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;

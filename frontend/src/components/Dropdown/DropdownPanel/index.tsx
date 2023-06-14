@@ -12,9 +12,9 @@ const DropdownPanel = ({
   isLastPanel,
 }: DropdownPanelProps) => {
   return (
-    <S.dropdownPanel onClick={() => onClick(option)} isLastPanel={isLastPanel}>
-      <S.optionTitle isLastPanel={isLastPanel}>{option}</S.optionTitle>
-    </S.dropdownPanel>
+    <S.DropdownPanel onClick={() => onClick(option)} isLastPanel={isLastPanel}>
+      <S.OptionTitle isLastPanel={isLastPanel}>{option}</S.OptionTitle>
+    </S.DropdownPanel>
   );
 };
 

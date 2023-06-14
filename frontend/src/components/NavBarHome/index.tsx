@@ -8,12 +8,12 @@ interface NavBarHomeProps {
 
 const NavBarHome = ({ type }: NavBarHomeProps) => {
   return (
-    <S.navBarContainer type={type}>
-      <S.navBarBody>
+    <S.NavBarContainer type={type}>
+      <S.NavBarBody>
         <Dropdown options={['역삼1동', '역삼2동']} />
         <Icon name={'label'} />
-      </S.navBarBody>
-    </S.navBarContainer>
+      </S.NavBarBody>
+    </S.NavBarContainer>
   );
 };
 
