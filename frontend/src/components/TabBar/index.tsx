@@ -26,10 +26,10 @@ const TabBar = () => {
         <S.TabsList>
           {TABS.map((tab: Tab) => (
             <li key={tab.id}>
-              <S.StyledNavLink to={tab.path}>
+              <S.NavigationLink to={tab.path}>
                 <Icon name={tab.name} width={'48'} height={'26'} />
                 <div>{tab.label}</div>
-              </S.StyledNavLink>
+              </S.NavigationLink>
             </li>
           ))}
         </S.TabsList>
