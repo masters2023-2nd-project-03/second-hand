@@ -1,5 +1,8 @@
+import Button from '../Button';
+import Icon from '../Icon';
+import elapsedTime from '../../utils/elapsedTime';
+
 interface SecondHandItemProps {
-  id: number;
   title: string;
   createdAt: string;
   status: string;
@@ -8,10 +11,10 @@ interface SecondHandItemProps {
   chatCount: number;
   interestCount: number;
   imageURI: string;
+  option?: boolean;
 }
 
 const SecondHandItem = ({
-  id,
   title,
   createdAt,
   status,
@@ -20,11 +23,40 @@ const SecondHandItem = ({
   chatCount,
   interestCount,
   imageURI,
+  option = false,
 }: SecondHandItemProps) => {
   return (
-    <div>
-      {id}, {title}, {createdAt}, {status}, {price}, {location},{chatCount},{' '}
-      {interestCount},{imageURI}
+    <div className="ItemContainer">
+      <div
+        className="ItemImage"
+        style={{
+          width: '120px',
+          height: '120px',
+          backgroundImage: `url(${imageURI})`,
+          backgroundSize: 'contain',
+        }}
+      />
+      <div className="ItemInfo">
+        <div className="ItemContents">
+          <div className="Content">
+            <div className="ColumnTop">{title}</div>
+            <div className="ColumnMiddle">
+              {location} ・ {elapsedTime(createdAt)}
+            </div>
+            <div className="ColumnBottom">
+              <Button round={true}>{status}</Button>
+              <span>{price}원</span>
+            </div>
+          </div>
+          <div className="Option">
+            {option && <Icon name={'ellipsis'} width={'17'} height={'20'} />}
+          </div>
+        </div>
+        <div className="ItemIssue">
+          {chatCount}
+          {interestCount}
+        </div>
+      </div>
     </div>
   );
 };
