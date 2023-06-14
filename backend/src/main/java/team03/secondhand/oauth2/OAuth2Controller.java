@@ -1,59 +1,52 @@
 package team03.secondhand.oauth2;
 
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.oauth2.dto.MemberDto;
-import team03.secondhand.oauth2.dto.response.ResponseLogin;
+import team03.secondhand.oauth2.dto.response.ResponseLoginSuccess;
+import team03.secondhand.oauth2.error.RequireRegistrationError;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/oauth2")
 public class OAuth2Controller {
 
     private final OAuth2Service oAuth2Service;
-
-    @Autowired
-    public OAuth2Controller(OAuth2Service oAuth2Service) {
-        this.oAuth2Service = oAuth2Service;
-    }
+    private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/{platform}")
     public String authorizationUrlResponse(@PathVariable("platform") String platform) {
         return oAuth2Service.authorizationUrlResponse(platform);
     }
 
-    @GetMapping("/access")
-    public String getAccessToken(@RequestParam("platform") String platform, @RequestParam("code") String code) throws IOException, ExecutionException, InterruptedException {
-        return oAuth2Service.getAccessToken(platform, code);
-    }
-
     @GetMapping("/login")
-    public ResponseLogin login(@RequestParam("platform") String platform, @RequestParam("access") String access) throws IOException, ExecutionException, InterruptedException {
-        MemberDto memberDto = oAuth2Service.getMemberEntity(platform, access);
+    public ResponseEntity<ResponseLoginSuccess> login(@RequestParam("platform") String platform, @RequestParam("code") String code) throws IOException, ExecutionException, InterruptedException {
+        String accessToken = oAuth2Service.getAccessToken(platform, code);
+
+        // TODO : authorization code 가 유효하지 않을 수 있다.
+        MemberDto memberDto = oAuth2Service.getMemberEntity(platform, accessToken);
         Optional<Member> memberOptional = oAuth2Service.findMemberByOauthId(memberDto.getOauthId());
 
         if (memberOptional.isEmpty()) {
-            return new ResponseLogin(
-                    memberDto.getNickname(),
-                    memberDto.getProfileUrl()
-                    ,memberDto.getOauthId());
+            throw new RequireRegistrationError(memberDto);
         }
 
-        // TODO : jwt 비밀키가 단순하다. 대체 고려
-        return new ResponseLogin(
-                Jwts.builder()
-                .setSubject(memberDto.getOauthId())
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, platform)
-                .compact());
+        String jwt = getJwtByOptionalMember(memberOptional);
+        return ResponseEntity.ok(new ResponseLoginSuccess(jwt));
+    }
+
+    private String getJwtByOptionalMember(Optional<Member> memberOptional) {
+        String memberId = String.valueOf(memberOptional.get().getMemberId());
+        String token = jwtTokenProvider.createToken(memberId);
+        return token;
     }
 
 }
