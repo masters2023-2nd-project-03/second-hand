@@ -14,6 +14,7 @@
 		4F05FF7A2A31AB5900A1BF50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F05FF792A31AB5900A1BF50 /* Assets.xcassets */; };
 		4F05FF7D2A31AB5900A1BF50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F05FF7B2A31AB5900A1BF50 /* LaunchScreen.storyboard */; };
 		4F05FF902A36FA3900A1BF50 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FF8F2A36FA3900A1BF50 /* ColorPalette.swift */; };
+		4F05FF932A37F8C100A1BF50 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FF922A37F8C000A1BF50 /* SecondHandTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		4F05FF7C2A31AB5900A1BF50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F05FF7E2A31AB5900A1BF50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F05FF8F2A36FA3900A1BF50 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		4F05FF922A37F8C000A1BF50 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,10 +130,19 @@
 		4F05FF8C2A32C62900A1BF50 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4F05FF912A37F8AA00A1BF50 /* ViewController */,
 				4F05FF8F2A36FA3900A1BF50 /* ColorPalette.swift */,
 				2A6295222A35C3B100B3AC7E /* FontStyle.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		4F05FF912A37F8AA00A1BF50 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4F05FF922A37F8C000A1BF50 /* SecondHandTabBarController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +242,7 @@
 				4F05FF712A31AB5800A1BF50 /* AppDelegate.swift in Sources */,
 				4F05FF732A31AB5800A1BF50 /* SceneDelegate.swift in Sources */,
 				4F05FF902A36FA3900A1BF50 /* ColorPalette.swift in Sources */,
+				4F05FF932A37F8C100A1BF50 /* SecondHandTabBarController.swift in Sources */,
 				2A6295232A35C3B100B3AC7E /* FontStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
