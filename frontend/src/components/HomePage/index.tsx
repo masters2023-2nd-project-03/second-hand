@@ -1,24 +1,38 @@
 import NavBarHome from '../NavBarHome';
 import SecondHandItem from '../SecondHandItem';
 import { itemList } from '../../mocks/data';
+import ErrorPage from '../ErrorPage';
 
-const sampleItem = itemList[0];
+// TODO(sarang_daddy) : API에서 가져오기
+const sampleItems = itemList;
+
+const isReusltEmpty = sampleItems?.length === 0;
 
 const HomePage = () => {
   return (
     <>
       <NavBarHome type="low" />
-      <SecondHandItem
-        title={sampleItem.title}
-        createdAt={sampleItem.createdAt}
-        status={sampleItem.status}
-        price={sampleItem.price}
-        location={sampleItem.location}
-        chatCount={sampleItem.chatCount}
-        interestCount={sampleItem.interestCount}
-        imageURI={sampleItem.imageURI}
-        option={true}
-      />
+      {!isReusltEmpty ? (
+        sampleItems.map((item, index) => {
+          return (
+            <li key={index}>
+              <SecondHandItem
+                title={item.title}
+                createdAt={item.createdAt}
+                status={item.status}
+                price={item.price}
+                location={item.location}
+                chatCount={item.chatCount}
+                interestCount={item.interestCount}
+                imageURI={item.imageURI}
+                option={false}
+              />
+            </li>
+          );
+        })
+      ) : (
+        <ErrorPage />
+      )}
     </>
   );
 };

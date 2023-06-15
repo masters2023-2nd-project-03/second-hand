@@ -7,7 +7,7 @@ interface SecondHandItemProps {
   title: string;
   createdAt: string;
   status: string;
-  price: number;
+  price: number | null;
   location: string;
   chatCount: number;
   interestCount: number;
@@ -42,7 +42,7 @@ const SecondHandItem = ({
                   {status}
                 </S.StatusLabel>
               )}
-              <S.Price>{formatNumber(price)}원</S.Price>
+              {price !== null && <S.Price>{formatNumber(price)}원</S.Price>}
             </S.ColumnBot>
           </S.Content>
           <div className="Option">

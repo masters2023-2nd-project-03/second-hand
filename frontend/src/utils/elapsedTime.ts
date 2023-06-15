@@ -1,8 +1,10 @@
 const elapsedTime = (createdAt: string) => {
-  const minute = 60 * 1000; // 1분
-  const hour = 60 * minute; // 1시간
-  const day = 24 * hour; // 1일
-  const week = 7 * day; // 1주일
+  const minute = 60 * 1000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  const week = 7 * day;
+  const month = 4 * week;
+  const year = 12 * month;
 
   const currentDate = new Date();
   const createdDate = new Date(createdAt);
@@ -20,12 +22,20 @@ const elapsedTime = (createdAt: string) => {
       const days = Math.floor(elapsedTime / day);
       result = days + '일 전';
     }
+  } else if (elapsedTime < month) {
+    const weeks = Math.floor(elapsedTime / week);
+    result = weeks + '주 전';
+  } else if (elapsedTime < year) {
+    const months = Math.floor(elapsedTime / month);
+    result = months + '개월 전';
   } else {
-    if (!isNaN(createdDate.getTime())) {
-      const elapsedMonths = Math.floor(elapsedTime / (week * 4));
-      result = `${elapsedMonths}개월 전`;
+    const years = Math.floor(elapsedTime / year);
+    const remainingMonths = Math.floor((elapsedTime % year) / month);
+
+    if (remainingMonths === 0) {
+      result = years + '년 전';
     } else {
-      result = '작성일 없음';
+      result = years + '년 ' + remainingMonths + '개월 전';
     }
   }
 
