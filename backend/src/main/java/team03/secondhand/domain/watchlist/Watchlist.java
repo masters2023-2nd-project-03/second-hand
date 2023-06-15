@@ -1,6 +1,7 @@
 package team03.secondhand.domain.watchlist;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team03.secondhand.domain.member.Member;
@@ -27,5 +28,10 @@ public class Watchlist {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public Watchlist(Product product, Member member) {
+        this.product = product;
+        this.member = member;
+    }
     // Getter and Setter methods
 }
