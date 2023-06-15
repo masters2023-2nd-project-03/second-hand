@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import NavBarHome from '../NavBarHome';
 import SecondHandItem from '../SecondHandItem';
 import { itemList } from '../../mocks/data';
@@ -9,9 +11,15 @@ const sampleItems = itemList;
 const isReusltEmpty: boolean = sampleItems?.length === 0;
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleIconClick = () => {
+    navigate('/Catalog');
+  };
+
   return (
     <>
-      <NavBarHome type="medium" />
+      <NavBarHome type="medium" iconOnClick={handleIconClick} />
       {!isReusltEmpty ? (
         sampleItems.map((item) => {
           return (

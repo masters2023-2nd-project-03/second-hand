@@ -25,3 +25,7 @@ export const NavBarBody = styled.div`
   width: 100%;
   padding: 16px 11px 11px 16px;
 `;
+
+export const ClinkElement = styled.div`
+  cursor: pointer;
+`;
