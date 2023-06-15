@@ -31,4 +31,14 @@ public class WatchlistService {
 
         watchlistRepository.save(watchlist);
     }
+
+    @Transactional
+    public void deleteToWatchlist(Long productId, Long memberId) {
+        Watchlist watchlist = watchlistRepository.findByProduct_ProductIdAndMember_MemberId(productId, memberId);
+        if (watchlist == null) {
+            throw new IllegalArgumentException("Watchlist not found for memberId: " + memberId + " and productId: " + productId);
+        }
+
+        watchlistRepository.delete(watchlist);
+    }
 }
