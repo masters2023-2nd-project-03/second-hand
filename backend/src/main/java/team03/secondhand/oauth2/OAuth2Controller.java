@@ -27,8 +27,10 @@ public class OAuth2Controller {
     private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/{platform}")
-    public String authorizationUrlResponse(@PathVariable("platform") String platform) {
-        return oAuth2Service.authorizationUrlResponse(platform);
+    public ResponseEntity<String> authorizationUrlResponse(@PathVariable("platform") String platform) {
+        String authorizationUrl = oAuth2Service.authorizationUrlResponse(platform);
+        // TODO: DTO 만들기
+        return ResponseEntity.ok(authorizationUrl);
     }
 
     @GetMapping("/login")
@@ -45,14 +47,13 @@ public class OAuth2Controller {
             throw new InvalidKeyException();
         }
 
-        String jwt = getJwtByOptionalMember(memberOptional);
+        String jwt = getJwtByMember(member);
         return ResponseEntity.ok(new ResponseLoginSuccess(jwt));
     }
 
-    private String getJwtByOptionalMember(Optional<Member> memberOptional) {
-        String memberId = String.valueOf(memberOptional.get().getMemberId());
-        String token = jwtTokenProvider.createToken(memberId);
-        return token;
+    private String getJwtByMember(Member member) {
+        String memberId = String.valueOf(member.getMemberId());
+        return jwtTokenProvider.createToken(memberId);
     }
 
 }
