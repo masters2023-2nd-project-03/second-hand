@@ -20,7 +20,7 @@ public class LocationController {
     private final LocationService locationService;
 
     @GetMapping
-    public ResponseEntity<List<ResponseLocationDTO>> getAllLocations(@RequestParam("search-key") String searchKey) {
+    public ResponseEntity<List<ResponseLocationDTO>> getAllLocations(@RequestParam(value = "search-key", required = false) String searchKey) {
         if (searchKey == null) {
             log.debug("동네 목록 호출(ALL)");
             return ResponseEntity.ok(locationService.getAllLocations());
