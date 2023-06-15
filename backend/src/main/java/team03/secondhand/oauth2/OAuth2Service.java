@@ -43,7 +43,7 @@ public class OAuth2Service {
         return memberRepository.findByOauthId(oauthId);
     }
 
-    public String getAccessToken(String platform, String code) throws IOException, ExecutionException, InterruptedException {
+    public String getAccessToken(String platform, String code) throws Exception {
         AuthModule authModule = getAuthModule(platform);
         OAuth2AccessToken oAuth2AccessToken = authModule.getAccessToken(code);
         return oAuth2AccessToken.getAccessToken();

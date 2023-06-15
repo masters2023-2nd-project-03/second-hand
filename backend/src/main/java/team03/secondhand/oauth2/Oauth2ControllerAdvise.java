@@ -8,7 +8,9 @@ import team03.secondhand.oauth2.dto.MemberDto;
 import team03.secondhand.oauth2.dto.response.ResponseLoginFail;
 import team03.secondhand.oauth2.error.RequireRegistrationError;
 
-@RestControllerAdvice
+import java.security.InvalidKeyException;
+
+@RestControllerAdvice("team03.secondhand.oauth2")
 public class Oauth2ControllerAdvise {
 
     @ExceptionHandler(RequireRegistrationError.class)
@@ -20,6 +22,13 @@ public class Oauth2ControllerAdvise {
                         memberDto.getNickname(),
                         memberDto.getProfileUrl(),
                         memberDto.getOauthId()));
+    }
+
+    @ExceptionHandler(InvalidKeyException.class)
+    public ResponseEntity<String> invalidTokenHandler() {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body("유효하지 않는 인증 코드");
     }
 
 }

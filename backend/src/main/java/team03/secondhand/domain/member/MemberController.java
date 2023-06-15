@@ -2,15 +2,16 @@ package team03.secondhand.domain.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.member.dto.request.RequestJoinDto;
 import team03.secondhand.domain.member.dto.response.ResponseJoinSuccessDto;
-import team03.secondhand.domain.member.dto.response.ResponseMemberDTO;
 import team03.secondhand.domain.member.dto.response.ResponseShowSuccessDto;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,20 +22,12 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
 
-
-    @GetMapping
-    public ResponseEntity<ResponseMemberDTO> getMember(@RequestParam String oauthId) {
-        log.info("getMember");
-        return ResponseEntity.ok(memberService.getMemberByOAuthId(oauthId));
-    }
-
     @PostMapping("/join")
     public ResponseEntity<ResponseJoinSuccessDto> join(@RequestBody RequestJoinDto requestJoinDto) {
         if (memberService.isRegistrationBy(requestJoinDto.getOauthId())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 회원가입된 맴버입니다.");
+            throw new DataIntegrityViolationException("");
         }
 
-        // TODO: 로그인 실패 할 경우는?
         Member member = memberService.join(requestJoinDto);
         String jwt = createToken(member);
         return ResponseEntity.ok(

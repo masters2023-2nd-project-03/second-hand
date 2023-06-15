@@ -43,12 +43,13 @@ public class MemberService {
                 .profileUrl(requestJoinDto.getProfileUrl())
                 .oauthId(requestJoinDto.getOauthId())
                 .build();
-        // TODO: 리펙토링 필요 (위의 로직과 분리?)
+        // TODO: 리펙토링 필요 (JPA 제대로 사용)
+        // TODO: 한번에 location 을 찾도록 수정
+        // TODO: 데이터 베이스와 관련된 예외를 한 곳에 모으면 좋을 뜻
         List<Long> locationIdList = requestJoinDto.getLocationIdList();
         for (Long locationId : locationIdList) {
-            //TODO: 한번에 location 을 찾도록 수정
-            //TODO: 로케이션을 찾지 못했을 경우는?
-            Location location = locationRepository.findById(locationId).get();
+            Location location = locationRepository.findById(locationId)
+                    .orElseThrow(NoSuchFieldError::new); // 과연 적절한 에러일까?
             MemberAndLocation memberAndLocation = new MemberAndLocation(member, location);
             member.add(memberAndLocation);
         }

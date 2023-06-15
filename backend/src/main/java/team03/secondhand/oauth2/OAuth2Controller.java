@@ -3,15 +3,19 @@ package team03.secondhand.oauth2;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.member.Member;
+import team03.secondhand.domain.member.dto.request.RequestLoginDto;
 import team03.secondhand.oauth2.dto.MemberDto;
 import team03.secondhand.oauth2.dto.response.ResponseLoginSuccess;
 import team03.secondhand.oauth2.error.RequireRegistrationError;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.security.InvalidKeyException;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -28,15 +32,17 @@ public class OAuth2Controller {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<ResponseLoginSuccess> login(@RequestParam("platform") String platform, @RequestParam("code") String code) throws IOException, ExecutionException, InterruptedException {
-        String accessToken = oAuth2Service.getAccessToken(platform, code);
+    public ResponseEntity<ResponseLoginSuccess> login(RequestLoginDto requestLoginDto) throws InvalidKeyException, IOException, ExecutionException, InterruptedException {
+        Member member = null;
 
-        // TODO : authorization code 가 유효하지 않을 수 있다.
-        MemberDto memberDto = oAuth2Service.getMemberEntity(platform, accessToken);
-        Optional<Member> memberOptional = oAuth2Service.findMemberByOauthId(memberDto.getOauthId());
-
-        if (memberOptional.isEmpty()) {
-            throw new RequireRegistrationError(memberDto);
+        // TODO: 딱 봐도 깔끔하지 않
+        try {
+            String accessToken = oAuth2Service.getAccessToken(requestLoginDto.getPlatform(), requestLoginDto.getCode());
+            MemberDto memberDto = oAuth2Service.getMemberEntity(requestLoginDto.getPlatform(), accessToken);
+            member = oAuth2Service.findMemberByOauthId(memberDto.getOauthId())
+                    .orElseThrow(() -> new RequireRegistrationError(memberDto));
+        } catch (Exception e) {
+            throw new InvalidKeyException();
         }
 
         String jwt = getJwtByOptionalMember(memberOptional);
