@@ -16,7 +16,10 @@ final class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addSubViews()
-        self.setupUI()
+        self.setupSignUpAppearance()
+        self.setupViewConstraint()
+        self.setupNavigationBarItem()
+        self.setupSheet()
     }
 }
 
@@ -28,20 +31,25 @@ extension SignUpViewController {
         self.view.addSubview(self.navigationBar)
     }
     
-    private func setupUI() {
-        self.view.backgroundColor = .white
+    private func setupViewConstraint() {
         self.setupImageSelectButtonLayoutConstraint()
         self.setupIDInputViewLayoutConstraint()
         self.setupLoactionAddButtonLayoutConstraint()
         self.setupNavigationBarLayoutConstraint()
+    }
+    
+    private func setupSignUpAppearance() {
+        self.view.backgroundColor = ColorPalette.white
+    }
+    
+    private func setupNavigationBarItem() {
         self.makeNavigationBarItem()
-        self.setupNavigationBarItem()
-        self.setupSheet()
+        self.setupNavigationBarItemAppearance()
     }
     
     // swiftlint:disable:next function_body_length
     private func setupImageSelectButtonLayoutConstraint() {
-        let iamgeButtonTopPadding: CGFloat = 80
+        let imageButtonTopPadding: CGFloat = 80
         
         self.idInputView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -49,7 +57,7 @@ extension SignUpViewController {
             [
                 self.imageSelectButton.topAnchor.constraint(
                     equalTo: self.navigationBar.bottomAnchor,
-                    constant: iamgeButtonTopPadding
+                    constant: imageButtonTopPadding
                 ),
                 self.imageSelectButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ]
@@ -114,11 +122,13 @@ extension SignUpViewController {
     }
     
     private func setupSheet() {
-        if let sheet = sheetPresentationController {
-            sheet.detents = [ .large(), .medium() ]
-            sheet.selectedDetentIdentifier = .large
-            sheet.largestUndimmedDetentIdentifier = .large
+        guard let sheet = sheetPresentationController else {
+            return
         }
+        
+        sheet.detents = [ .large(), .medium() ]
+        sheet.selectedDetentIdentifier = .large
+        sheet.largestUndimmedDetentIdentifier = .large
     }
     
     private func makeNavigationBarItem() {
@@ -133,9 +143,9 @@ extension SignUpViewController {
         self.navigationItem.rightBarButtonItem = completionButton
     }
     
-    private func setupNavigationBarItem() {
-        self.navigationItem.rightBarButtonItem?.tintColor = ColorPalette.black
-        self.navigationItem.leftBarButtonItem?.tintColor = ColorPalette.black
+    private func setupNavigationBarItemAppearance() {
+        self.navigationItem.rightBarButtonItem?.tintColor = ColorPalette.gray800
+        self.navigationItem.leftBarButtonItem?.tintColor = ColorPalette.gray900
         self.navigationItem.title = "회원가입"
         self.navigationBar.setItems([self.navigationItem], animated: false)
     }

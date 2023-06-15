@@ -13,20 +13,12 @@ final class ImageSelectButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupImageSelectButtonLayer()
-        self.setupButtonLayoutConstraint()
-        self.setupImageSelectButtonConfiguration()
-        self.setupImageSelectButtonContent()
-        self.setupImageSelectButtonAppearance()
+        self.setupImageSelectButton()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.setupImageSelectButtonLayer()
-        self.setupButtonLayoutConstraint()
-        self.setupImageSelectButtonConfiguration()
-        self.setupImageSelectButtonContent()
-        self.setupImageSelectButtonAppearance()
+        self.setupImageSelectButton()
     }
 }
 
@@ -57,6 +49,14 @@ extension ImageSelectButton {
             bottom: verticalPadding,
             trailing: horizontalPadding
         )
+    }
+    
+    private func setupImageSelectButton() {
+        self.setupImageSelectButtonLayer()
+        self.setupButtonLayoutConstraint()
+        self.setupImageSelectButtonConfiguration()
+        self.setupImageSelectButtonContent()
+        self.setupImageSelectButtonAppearance()
     }
     
     private func setupButtonLayoutConstraint() {
