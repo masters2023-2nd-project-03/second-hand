@@ -10,6 +10,7 @@ import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.member.dto.request.RequestJoinDto;
 import team03.secondhand.domain.member.dto.response.ResponseJoinSuccessDto;
 import team03.secondhand.domain.member.dto.response.ResponseMemberDTO;
+import team03.secondhand.domain.member.dto.response.ResponseShowSuccessDto;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,12 +34,22 @@ public class MemberController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 회원가입된 맴버입니다.");
         }
 
-        Member savedMember = memberService.save(requestJoinDto);
-        String jwt = createToken(savedMember);
-
+        // TODO: 로그인 실패 할 경우는?
+        Member member = memberService.join(requestJoinDto);
+        String jwt = createToken(member);
         return ResponseEntity.ok(
                 ResponseJoinSuccessDto.builder()
                         .jwt(jwt)
+                        .build());
+    }
+
+    @GetMapping("show/{id}")
+    public ResponseEntity<ResponseShowSuccessDto> show(@PathVariable Long id) {
+        // TODO: 회원을 못 찾을 경우는?
+        Member member = memberService.getMemberById(id).get();
+        return ResponseEntity.ok(
+                ResponseShowSuccessDto.builder()
+                        .member(member)
                         .build());
     }
 

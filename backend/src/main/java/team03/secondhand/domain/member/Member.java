@@ -1,9 +1,11 @@
 package team03.secondhand.domain.member;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team03.secondhand.domain.memberAndLocation.MemberAndLocation;
 import team03.secondhand.domain.product.Product;
 
 import javax.persistence.*;
@@ -29,6 +31,14 @@ public class Member {
     @Column(name = "oauth_id")
     private String oauthId;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "member" ,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<MemberAndLocation> memberAndLocationList = new ArrayList<>();
+
+    public void add(MemberAndLocation memberAndLocation) {
+        memberAndLocationList.add(memberAndLocation);
+    }
+
     @Builder
     public Member(String nickname, String profileUrl, String oauthId) {
         this.nickname = nickname;
@@ -39,5 +49,4 @@ public class Member {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Product> products = new ArrayList<>();
 
-    // Getter and Setter methods
 }
