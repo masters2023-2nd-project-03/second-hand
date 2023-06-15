@@ -39,13 +39,13 @@ export const ItemContents = styled.div`
 export const Content = styled.div`
   display: block;
   width: 220px;
+  height: 100px;
 `;
 
 export const ColumnTop = styled.div`
   margin-bottom: 4px;
   ${({ theme }) => theme.typo.subhead}
   ${({ theme }) => theme.color.neutralText}
-  max-width: calc(100%);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -83,7 +83,6 @@ export const Price = styled.span`
 
 export const ItemIssue = styled.div`
   display: flex;
-  margin-top: 24px;
   align-items: center;
   justify-content: flex-end;
 `;

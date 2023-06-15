@@ -11,7 +11,7 @@ const isReusltEmpty = sampleItems?.length === 0;
 const HomePage = () => {
   return (
     <>
-      <NavBarHome type="low" />
+      <NavBarHome type="medium" />
       {!isReusltEmpty ? (
         sampleItems.map((item, index) => {
           return (
