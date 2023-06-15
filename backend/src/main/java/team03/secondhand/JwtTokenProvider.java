@@ -7,21 +7,19 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team03.secondhand.domain.member.Member;
-import team03.secondhand.domain.member.MemberService;
 
 import javax.annotation.PostConstruct;
 import java.util.Date;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
+
+    // TODO: 공개 되면 안됨
     private String secretKey = "llshlllshlllshlllshl";
 
     // 토큰 유효시간 30분
     private long tokenValidTime = 30 * 60 * 1000L;
-    private final MemberService memberService;
 
     @PostConstruct
     protected void init() {
@@ -39,14 +37,10 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // JWT 토큰에서 인증 정보 조회
-    public Boolean getAuthentication(String token) {
-        Optional<Member> memberOptional = memberService.getMemberById(this.getMemberId(token));
-        return memberOptional.isPresent();
-    }
 
     public Long getMemberId(String token) {
-        return Long.getLong(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject());
+        // TODO: 숫자가 아닌 다른 값이 들어오면?
+        return Long.parseLong(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject());
     }
 
     // 토큰의 유효성 + 만료일자 확인

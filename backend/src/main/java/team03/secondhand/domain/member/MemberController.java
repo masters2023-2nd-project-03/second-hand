@@ -43,10 +43,11 @@ public class MemberController {
                         .build());
     }
 
-    @GetMapping("show/{id}")
-    public ResponseEntity<ResponseShowSuccessDto> show(@PathVariable Long id) {
-        // TODO: 회원을 못 찾을 경우는?
-        Member member = memberService.getMemberById(id).get();
+    @GetMapping
+    public ResponseEntity<ResponseShowSuccessDto> show(HttpServletRequest request) {
+        Long memberId = (Long) request.getAttribute("memberId");
+        Member member = memberService.getMemberById(memberId)
+                .orElseThrow(NoSuchElementException::new);
         return ResponseEntity.ok(
                 ResponseShowSuccessDto.builder()
                         .member(member)
