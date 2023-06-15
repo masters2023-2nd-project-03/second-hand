@@ -62,7 +62,7 @@ public class Product {
     private final List<ProductImg> productImgList = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private final List<Watchlist> watchlistList = new ArrayList<>();
+    private final List<Watchlist> watchlistArrayList = new ArrayList<>();
 
     // Getter and Setter methods
     @Builder
