@@ -14,6 +14,7 @@ extension LocationAddButton {
 extension LocationAddButton.Constant {
     enum StringLiteral { }
     enum ImageAsset { }
+    enum Layout { }
 }
 
 extension LocationAddButton.Constant.StringLiteral {
@@ -22,4 +23,11 @@ extension LocationAddButton.Constant.StringLiteral {
 
 extension LocationAddButton.Constant.ImageAsset {
     static let plusImage = UIImage(systemName: "plus")
+}
+
+extension LocationAddButton.Constant.Layout {
+    static let imagePadding: CGFloat = 4
+    static let height: CGFloat = 52
+    static let borderWidth: CGFloat = 1
+    static let borderRadius: CGFloat = 8
 }

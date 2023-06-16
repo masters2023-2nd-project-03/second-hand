@@ -8,13 +8,10 @@
 import UIKit
 
 class LocationAddButton: UIButton {
-    private let plusIamge = Constant.ImageAsset.plusImage
-    private let buttonTitle = Constant.StringLiteral.title
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLocationButtonConfiguration()
-        self.setupButtonLayoutContraint()
+        self.setupButtonLayoutConstraint()
         self.setupLocationAddButtonLayer()
         self.setupLocationAddButtonContent()
         self.setupLocationAddButtonAppearance()
@@ -23,7 +20,7 @@ class LocationAddButton: UIButton {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setupLocationButtonConfiguration()
-        self.setupButtonLayoutContraint()
+        self.setupButtonLayoutConstraint()
         self.setupLocationAddButtonLayer()
         self.setupLocationAddButtonContent()
         self.setupLocationAddButtonAppearance()
@@ -32,21 +29,20 @@ class LocationAddButton: UIButton {
 
 extension LocationAddButton {
     private func setupLocationButtonConfiguration() {
-        let imagePadding: CGFloat = 4
         self.configuration = .plain()
-        self.configuration?.imagePadding = imagePadding
+        self.configuration?.imagePadding = Constant.Layout.imagePadding
     }
     
     private func setupLocationAddButtonLayer() {
         self.layer.borderColor = ColorPalette.gray500?.cgColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 8
+        self.layer.borderWidth = Constant.Layout.borderWidth
+        self.layer.cornerRadius = Constant.Layout.borderRadius
         self.clipsToBounds = true
     }
     
     private func setupLocationAddButtonContent() {
-        self.setTitle(self.buttonTitle, for: .normal)
-        self.setImage(self.plusIamge, for: .normal)
+        self.setTitle(Constant.StringLiteral.title, for: .normal)
+        self.setImage(Constant.ImageAsset.plusImage, for: .normal)
     }
     
     private func setupLocationAddButtonAppearance() {
@@ -54,11 +50,10 @@ extension LocationAddButton {
         self.tintColor = ColorPalette.black
     }
     
-    private func setupButtonLayoutContraint() {
-        let height: CGFloat = 52
+    private func setupButtonLayoutConstraint() {
         NSLayoutConstraint.activate(
             [
-                self.heightAnchor.constraint(equalToConstant: height)
+                self.heightAnchor.constraint(equalToConstant: Constant.Layout.height)
             ]
         )
     }
