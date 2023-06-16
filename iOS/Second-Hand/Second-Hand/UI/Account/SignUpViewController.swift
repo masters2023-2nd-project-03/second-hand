@@ -133,12 +133,17 @@ extension SignUpViewController {
     
     private func makeNavigationBarItem() {
         let closeButton = UIBarButtonItem(
-            title: "닫기",
+            title: Constant.StringLiteral.NavigationItem.closeButton,
             style: .plain,
             target: self,
             action: #selector(self.tappedBackButton)
         )
-        let completionButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: nil)
+        let completionButton = UIBarButtonItem(
+            title: Constant.StringLiteral.NavigationItem.completionButton,
+            style: .plain,
+            target: self,
+            action: nil
+        )
         self.navigationItem.leftBarButtonItem = closeButton
         self.navigationItem.rightBarButtonItem = completionButton
     }
@@ -146,7 +151,7 @@ extension SignUpViewController {
     private func setupNavigationBarItemAppearance() {
         self.navigationItem.rightBarButtonItem?.tintColor = ColorPalette.gray800
         self.navigationItem.leftBarButtonItem?.tintColor = ColorPalette.gray900
-        self.navigationItem.title = "회원가입"
+        self.navigationItem.title = Constant.StringLiteral.NavigationItem.title
         self.navigationBar.setItems([self.navigationItem], animated: false)
     }
     
