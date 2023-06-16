@@ -10,14 +10,14 @@ import UIKit
 final class IDInputView: UIView {
     private let idLabel: UILabel = {
         let label = UILabel()
-        label.text = "아이디"
+        label.text = Constant.StringLiteral.idLabel
         label.font = FontStyle.body
         return label
     }()
     
     private let idTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "아이디를 입력하세요"
+        textField.placeholder = Constant.StringLiteral.placeholder
         return textField
     }()
     
