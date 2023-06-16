@@ -5,11 +5,9 @@ interface NavBarContainerProps {
 }
 
 export const NavBarContainer = styled.div<NavBarContainerProps>`
-  position: sticky;
-  top: 0;
   display: flex;
   align-items: flex-end;
-  height: 50px;
+  height: 100px;
   background-color: ${(props) => {
     if (props.type === 'low') {
       return 'rgba(249, 249, 249, 0)';

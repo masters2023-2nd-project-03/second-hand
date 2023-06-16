@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const TabBarContainer = styled.div`
-  position: sticky;
+  position: absolute;
   bottom: 0px;
   height: 80px;
   justify-content: space-between;
