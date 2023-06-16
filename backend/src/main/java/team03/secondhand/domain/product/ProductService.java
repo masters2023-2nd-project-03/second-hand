@@ -64,7 +64,6 @@ public class ProductService {
     @Transactional
     public List<ResponseProductHomeDTO> getAllProductByFilter(Long locationId, Long categoryId) {
         List<Product> products = productRepository.findProductByFilter(locationId, categoryId);
-        log.info(products.toString());
         return products.stream()
                 .map(this::convertToHomeDTO)
                 .collect(Collectors.toList());
