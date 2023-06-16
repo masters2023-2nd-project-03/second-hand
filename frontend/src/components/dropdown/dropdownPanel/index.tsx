@@ -3,16 +3,11 @@ import * as S from './styles';
 interface DropdownPanelProps {
   option: string;
   onClick: (option: string) => void;
-  isLastPanel?: boolean;
 }
 
-const DropdownPanel: React.FC<DropdownPanelProps> = ({
-  option,
-  onClick,
-  isLastPanel,
-}) => {
+const DropdownPanel: React.FC<DropdownPanelProps> = ({ option, onClick }) => {
   return (
-    <S.dropdownPanel onClick={() => onClick(option)} isLastPanel={isLastPanel}>
+    <S.dropdownPanel onClick={() => onClick(option)}>
       <S.optionTitle>{option}</S.optionTitle>
     </S.dropdownPanel>
   );

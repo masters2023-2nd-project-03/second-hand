@@ -47,7 +47,6 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
             key={2}
             option={'내 동네 변경하기'}
             onClick={handleChangeOptionClick}
-            isLastPanel={true}
           />
         </S.panelContainer>
       )}
