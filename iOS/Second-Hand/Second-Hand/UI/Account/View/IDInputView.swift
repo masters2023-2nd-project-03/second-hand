@@ -44,9 +44,6 @@ extension IDInputView {
     
     // swiftlint:disable:next function_body_length
     private func setupIDLabelLayoutConstraint() {
-        let labelLeadingPadding: CGFloat = 16
-        let labelWidth: CGFloat = 47
-        
         self.idLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate(
@@ -54,19 +51,16 @@ extension IDInputView {
                 self.idLabel.topAnchor.constraint(equalTo: self.topAnchor),
                 self.idLabel.leadingAnchor.constraint(
                     equalTo: self.leadingAnchor,
-                    constant: labelLeadingPadding
+                    constant: Constant.Layout.IDLabel.labelLeadingPadding
                 ),
                 self.idLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-                self.idLabel.widthAnchor.constraint(equalToConstant: labelWidth)
+                self.idLabel.widthAnchor.constraint(equalToConstant: Constant.Layout.IDLabel.labelWidth)
             ]
         )
     }
     
     // swiftlint:disable:next function_body_length
     private func setupIDTextFieldLayoutConstraint() {
-        let textFieldLeadingPadding: CGFloat = 52
-        let textFieldTrailingPadding: CGFloat = -16
-        
         self.idTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
@@ -74,11 +68,11 @@ extension IDInputView {
                 self.idTextField.topAnchor.constraint(equalTo: self.topAnchor),
                 self.idTextField.leadingAnchor.constraint(
                     equalTo: self.idLabel.trailingAnchor,
-                    constant: textFieldLeadingPadding
+                    constant: Constant.Layout.IDTextField.textFieldLeadingPadding
                 ),
                 self.idTextField.trailingAnchor.constraint(
                     equalTo: self.trailingAnchor,
-                    constant: textFieldTrailingPadding
+                    constant: Constant.Layout.IDTextField.textFieldTrailingPadding
                 ),
                 self.idTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor)
             ]
