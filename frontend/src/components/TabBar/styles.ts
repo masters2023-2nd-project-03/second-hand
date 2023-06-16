@@ -25,7 +25,7 @@ export const TabsList = styled.ul`
   justify-content: space-between;
 `;
 
-export const NavigationLink = styled(NavLink)`
+export const StyledNavLink = styled(NavLink)`
   display: flex;
   flex-direction: column;
   align-items: center;
