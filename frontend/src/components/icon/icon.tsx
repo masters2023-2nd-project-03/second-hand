@@ -1,10 +1,7 @@
 import iconfiles from '../../assets/icons/index';
-import PropTypes, { InferProps } from 'prop-types';
-
-type IconName = keyof typeof iconfiles;
 
 interface IconProps {
-  name?: IconName;
+  name?: keyof typeof iconfiles;
   width?: string;
   height?: string;
   fill?: string;
@@ -12,26 +9,19 @@ interface IconProps {
 
 const Icon: React.FC<IconProps> = ({
   name = 'arrowUp',
-  width = '24',
-  height = '24',
-  fill = 'black',
+  width = '16',
+  height = '16',
+  fill = 'var(--color-gray-1000)',
 }) => {
   const IconComponent = iconfiles[name];
 
   return (
     <div style={{ width: `${width}px`, height: `${height}px` }}>
-      <IconComponent width={width} height={height} fill={fill} />
+      {IconComponent && (
+        <IconComponent width={width} height={height} fill={fill} />
+      )}
     </div>
   );
-};
-
-Icon.propTypes = {
-  name: PropTypes.oneOf(
-    Object.values(iconfiles),
-  ) as InferProps<IconProps>['name'],
-  width: PropTypes.string,
-  height: PropTypes.string,
-  fill: PropTypes.string,
 };
 
 export default Icon;
