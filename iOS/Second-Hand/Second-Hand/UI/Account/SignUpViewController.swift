@@ -49,15 +49,13 @@ extension SignUpViewController {
     
     // swiftlint:disable:next function_body_length
     private func setupImageSelectButtonLayoutConstraint() {
-        let imageButtonTopPadding: CGFloat = 80
-        
         self.idInputView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
             [
                 self.imageSelectButton.topAnchor.constraint(
                     equalTo: self.navigationBar.bottomAnchor,
-                    constant: imageButtonTopPadding
+                    constant: Constant.Layout.ImageSelectButton.imageButtonTopPadding
                 ),
                 self.imageSelectButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ]
@@ -66,20 +64,17 @@ extension SignUpViewController {
     
     // swiftlint:disable:next function_body_length
     private func setupIDInputViewLayoutConstraint() {
-        let idInputViewHeight: CGFloat = 44
-        let idInputViewTopPadding: CGFloat = 24
-        
         self.imageSelectButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
             [
                 self.idInputView.topAnchor.constraint(
                     equalTo: self.imageSelectButton.bottomAnchor,
-                    constant: idInputViewTopPadding
+                    constant: Constant.Layout.IDInputView.idInputViewTopPadding
                 ),
                 self.idInputView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
                 self.idInputView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-                self.idInputView.heightAnchor.constraint(equalToConstant: idInputViewHeight)
+                self.idInputView.heightAnchor.constraint(equalToConstant: Constant.Layout.IDInputView.idInputViewHeight)
             ]
         )
     }
@@ -97,25 +92,21 @@ extension SignUpViewController {
     }
     // swiftlint:disable:next function_body_length
     private func setupLoactionAddButtonLayoutConstraint() {
-        let locationAddButtonTopPadding: CGFloat = 51
-        let locationAddButtonleadingPadding: CGFloat = 16
-        let locationAddButtonTrailingPadding: CGFloat = -16
-        
         self.locationAddButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
             [
                 self.locationAddButton.topAnchor.constraint(
                     equalTo: self.idInputView.bottomAnchor,
-                    constant: locationAddButtonTopPadding
+                    constant: Constant.Layout.LocationAddButton.locationAddButtonTopPadding
                 ),
                 self.locationAddButton.leadingAnchor.constraint(
                     equalTo: self.view.leadingAnchor,
-                    constant: locationAddButtonleadingPadding
+                    constant: Constant.Layout.LocationAddButton.locationAddButtonleadingPadding
                 ),
                 self.locationAddButton.trailingAnchor.constraint(
                     equalTo: self.view.trailingAnchor,
-                    constant: locationAddButtonTrailingPadding
+                    constant: Constant.Layout.LocationAddButton.locationAddButtonTrailingPadding
                 )
             ]
         )
