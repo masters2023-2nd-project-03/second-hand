@@ -9,8 +9,8 @@ export const dropdownPanel = styled.div<{ isLastPanel?: boolean }>`
   ${({ isLastPanel }) => isLastPanel && `border-bottom: none;`}
 `;
 
-export const optionTitle = styled.span<{ isLastPanel?: boolean }>`
-  font-weight: ${({ isLastPanel }) => (isLastPanel ? '400' : '510')};
+export const optionTitle = styled.span`
+  font-weight: 510;
   font-size: 15px;
   line-height: 22px;
   color: #000000;
