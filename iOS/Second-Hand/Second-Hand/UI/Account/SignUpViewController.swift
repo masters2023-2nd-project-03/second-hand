@@ -47,7 +47,6 @@ extension SignUpViewController {
         self.setupNavigationBarItemAppearance()
     }
     
-    // swiftlint:disable:next function_body_length
     private func setupImageSelectButtonLayoutConstraint() {
         self.idInputView.translatesAutoresizingMaskIntoConstraints = false
         
