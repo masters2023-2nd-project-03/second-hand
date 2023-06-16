@@ -6,16 +6,16 @@ import ErrorPage from '../ErrorPage';
 // TODO(sarang_daddy) : API에서 가져오기
 const sampleItems = itemList;
 
-const isReusltEmpty: boolean = sampleItems?.length === 0;
+const isReusltEmpty = sampleItems?.length === 0;
 
 const HomePage = () => {
   return (
     <>
       <NavBarHome type="medium" />
       {!isReusltEmpty ? (
-        sampleItems.map((item) => {
+        sampleItems.map((item, index) => {
           return (
-            <li key={item.id}>
+            <li key={index}>
               <SecondHandItem
                 title={item.title}
                 createdAt={item.createdAt}
