@@ -10,6 +10,7 @@ const HomePage = () => {
       <NavBarHome type="low" />
       <h1>홈 이당</h1>
       <SecondHandItem
+        id={sampleItem.id}
         title={sampleItem.title}
         createdAt={sampleItem.createdAt}
         status={sampleItem.status}
@@ -18,7 +19,6 @@ const HomePage = () => {
         chatCount={sampleItem.chatCount}
         interestCount={sampleItem.interestCount}
         imageURI={sampleItem.imageURI}
-        option={true}
       />
     </>
   );
