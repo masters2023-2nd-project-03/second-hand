@@ -29,7 +29,6 @@ const Dropdown = ({ options }: DropdownProps) => {
 
   return (
     <S.dropdownContainer>
-      <S.dropdownWrapper />
       <S.dropdownHeader onClick={toggleDropdown}>
         <S.selectedOption>{selectedOption}</S.selectedOption>
         <Icon name={'chevronDown'} width="17" />

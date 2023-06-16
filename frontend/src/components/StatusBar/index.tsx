@@ -8,7 +8,7 @@ interface StatusBarProps {
   color: string;
 }
 
-const StatusBar = ({ color }: StatusBarProps) => {
+const StatusBar: React.FC<StatusBarProps> = ({ color }) => {
   const timeTextColor = color === 'black' ? 'black' : 'white';
 
   return (
