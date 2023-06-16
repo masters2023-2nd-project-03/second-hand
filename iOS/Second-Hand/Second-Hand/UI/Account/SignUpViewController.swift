@@ -18,7 +18,7 @@ final class SignUpViewController: UIViewController {
         self.addSubViews()
         self.setupSignUpAppearance()
         self.setupViewConstraint()
-        self.setupNavigationBarItem()
+        self.setupNavigationBar()
         self.setupSheet()
     }
 }
@@ -42,8 +42,8 @@ extension SignUpViewController {
         self.view.backgroundColor = ColorPalette.white
     }
     
-    private func setupNavigationBarItem() {
-        self.makeNavigationBarItem()
+    private func setupNavigationBar() {
+        self.setupNavigationBarButtonItem()
         self.setupNavigationBarItemAppearance()
     }
     
@@ -131,19 +131,13 @@ extension SignUpViewController {
         sheet.largestUndimmedDetentIdentifier = .large
     }
     
-    private func makeNavigationBarItem() {
-        let closeButton = UIBarButtonItem(
+    private func setupNavigationBarButtonItem() {
+        let closeButton = self.makeBarButtonItem(
             title: Constant.StringLiteral.NavigationItem.closeButton,
-            style: .plain,
-            target: self,
-            action: #selector(self.tappedBackButton)
+            action: #selector(self.tappedCloseButton)
         )
-        let completionButton = UIBarButtonItem(
-            title: Constant.StringLiteral.NavigationItem.completionButton,
-            style: .plain,
-            target: self,
-            action: nil
-        )
+        let completionButton = self.makeBarButtonItem(title: Constant.StringLiteral.NavigationItem.completionButton)
+        
         self.navigationItem.leftBarButtonItem = closeButton
         self.navigationItem.rightBarButtonItem = completionButton
     }
@@ -155,7 +149,21 @@ extension SignUpViewController {
         self.navigationBar.setItems([self.navigationItem], animated: false)
     }
     
-    @objc func tappedBackButton() {
+    @objc func tappedCloseButton() {
         self.dismiss(animated: true)
+    }
+    
+    private func makeBarButtonItem(
+        title: String,
+        style: UIBarButtonItem.Style = .plain,
+        action: Selector? = nil
+    ) -> UIBarButtonItem {
+        
+        return UIBarButtonItem(
+            title: title,
+            style: style,
+            target: self,
+            action: action
+        )
     }
 }
