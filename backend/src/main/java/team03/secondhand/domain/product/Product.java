@@ -8,6 +8,7 @@ import team03.secondhand.domain.category.Category;
 import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.productImg.ProductImg;
+import team03.secondhand.domain.watchlist.Watchlist;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -59,6 +60,9 @@ public class Product {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private final List<ProductImg> productImgList = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private final List<Watchlist> watchlistList = new ArrayList<>();
 
     // Getter and Setter methods
     @Builder
