@@ -9,13 +9,15 @@ export const dropdownHeader = styled.div`
 `;
 
 export const selectedOption = styled.div`
-  ${({ theme }) => theme.typo.headline}
+  font-weight: 590;
+  font-size: 17px;
+  line-height: 22px;
 `;
 
 export const panelContainer = styled.div`
   width: 240px;
-  ${({ theme }) => theme.color.neutralBackground}
-  ${({ theme }) => theme.color.neutralBorderStrong}
+  background: #ffffff;
+  border: 1px solid rgba(60, 60, 67, 0.36);
   border-radius: 12px;
   margin-top: 4px;
 `;
