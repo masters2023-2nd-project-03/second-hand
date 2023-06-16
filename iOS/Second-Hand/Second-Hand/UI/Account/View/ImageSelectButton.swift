@@ -8,9 +8,6 @@
 import UIKit
 
 final class ImageSelectButton: UIButton {
-    private let length: CGFloat = 80
-    private let cameraImage = Constant.ImageAsset.cameraImage
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupImageSelectButton()
@@ -24,9 +21,9 @@ final class ImageSelectButton: UIButton {
 
 extension ImageSelectButton {
     private func setupImageSelectButtonLayer() {
-        self.layer.borderWidth = 1
+        self.layer.borderWidth = Constant.Layout.borderWidth
         self.layer.borderColor = ColorPalette.gray500?.cgColor
-        self.layer.cornerRadius = length / 2
+        self.layer.cornerRadius = Constant.Layout.diameter / 2
         self.clipsToBounds = true
     }
     
@@ -35,19 +32,16 @@ extension ImageSelectButton {
     }
     
     private func setupImageSelectButtonContent() {
-        self.setImage(cameraImage, for: .normal)
+        self.setImage(Constant.ImageAsset.camera, for: .normal)
     }
     
     private func setupImageSelectButtonConfiguration() {
-        let horizontalPadding = 22.5
-        let verticalPadding = 25.5
-        
         self.configuration = .plain()
         self.configuration?.contentInsets = NSDirectionalEdgeInsets(
-            top: verticalPadding,
-            leading: horizontalPadding,
-            bottom: verticalPadding,
-            trailing: horizontalPadding
+            top: Constant.Layout.verticalPadding,
+            leading: Constant.Layout.horizontalPadding,
+            bottom: Constant.Layout.verticalPadding,
+            trailing: Constant.Layout.horizontalPadding
         )
     }
     
@@ -62,8 +56,8 @@ extension ImageSelectButton {
     private func setupButtonLayoutConstraint() {
         NSLayoutConstraint.activate(
             [
-                self.widthAnchor.constraint(equalToConstant: self.length),
-                self.heightAnchor.constraint(equalToConstant: self.length)
+                self.widthAnchor.constraint(equalToConstant: Constant.Layout.diameter),
+                self.heightAnchor.constraint(equalToConstant: Constant.Layout.diameter)
             ]
         )
     }

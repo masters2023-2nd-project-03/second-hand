@@ -13,8 +13,16 @@ extension ImageSelectButton {
 
 extension ImageSelectButton.Constant {
     enum ImageAsset { }
+    enum Layout { }
 }
 
 extension ImageSelectButton.Constant.ImageAsset {
-    static let cameraImage = UIImage(systemName: "camera")
+    static let camera = UIImage(systemName: "camera")
+}
+
+extension ImageSelectButton.Constant.Layout {
+    static let diameter: CGFloat = 80
+    static let borderWidth: CGFloat = 1
+    static let horizontalPadding: CGFloat = 22.5
+    static let verticalPadding: CGFloat = 25.5
 }
