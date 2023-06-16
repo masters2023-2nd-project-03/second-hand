@@ -22,6 +22,7 @@
 		4F3709712A3BFA1500918DF5 /* SignUpViewController+Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3709702A3BFA1500918DF5 /* SignUpViewController+Constant.swift */; };
 		4F3709732A3BFB3E00918DF5 /* IDInputView+Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3709722A3BFB3E00918DF5 /* IDInputView+Constant.swift */; };
 		4F3709752A3BFCA100918DF5 /* LocationAddButton+Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3709742A3BFCA100918DF5 /* LocationAddButton+Constant.swift */; };
+		4F3709772A3C0A9400918DF5 /* ImageSelectButton+Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3709762A3C0A9400918DF5 /* ImageSelectButton+Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		4F3709702A3BFA1500918DF5 /* SignUpViewController+Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignUpViewController+Constant.swift"; sourceTree = "<group>"; };
 		4F3709722A3BFB3E00918DF5 /* IDInputView+Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDInputView+Constant.swift"; sourceTree = "<group>"; };
 		4F3709742A3BFCA100918DF5 /* LocationAddButton+Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAddButton+Constant.swift"; sourceTree = "<group>"; };
+		4F3709762A3C0A9400918DF5 /* ImageSelectButton+Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageSelectButton+Constant.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 				4F3709702A3BFA1500918DF5 /* SignUpViewController+Constant.swift */,
 				4F3709722A3BFB3E00918DF5 /* IDInputView+Constant.swift */,
 				4F3709742A3BFCA100918DF5 /* LocationAddButton+Constant.swift */,
+				4F3709762A3C0A9400918DF5 /* ImageSelectButton+Constant.swift */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				4F05FF902A36FA3900A1BF50 /* ColorPalette.swift in Sources */,
 				4F05FF932A37F8C100A1BF50 /* SecondHandTabBarController.swift in Sources */,
 				2A4F263C2A38736D00A55FF5 /* IDInputView.swift in Sources */,
+				4F3709772A3C0A9400918DF5 /* ImageSelectButton+Constant.swift in Sources */,
 				4F3709752A3BFCA100918DF5 /* LocationAddButton+Constant.swift in Sources */,
 				4F3709712A3BFA1500918DF5 /* SignUpViewController+Constant.swift in Sources */,
 				2A6295232A35C3B100B3AC7E /* FontStyle.swift in Sources */,

@@ -9,7 +9,7 @@ import UIKit
 
 final class ImageSelectButton: UIButton {
     private let length: CGFloat = 80
-    private let cameraImage = UIImage(systemName: "camera")
+    private let cameraImage = Constant.ImageAsset.cameraImage
     
     override init(frame: CGRect) {
         super.init(frame: frame)
