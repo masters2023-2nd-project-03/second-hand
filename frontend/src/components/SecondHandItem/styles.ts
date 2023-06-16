@@ -48,7 +48,7 @@ export const ColumnTop = styled.div`
   max-width: calc(100%);
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
+  display: -webkit-box; // 얘네를 추가히준다
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
