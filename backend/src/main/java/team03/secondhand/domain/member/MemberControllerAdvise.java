@@ -27,7 +27,7 @@ public class MemberControllerAdvise {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> notFoundMemberHandler() {
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(HttpStatus.ACCEPTED)
                 .body("존재하지 않는 회원");
     }
 
