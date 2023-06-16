@@ -1,40 +1,41 @@
-import { NavLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
-import styled from 'styled-components';
+type TabBarProps = {
+  active: boolean;
+};
 
-export const TabBarContainer = styled.div`
+export const tabBarContainer = styled.div`
   position: absolute;
   bottom: 0px;
   height: 80px;
   justify-content: space-between;
   width: 100%;
   background: #fafafa;
-  ${({ theme }) => theme.color.neutralBorder}
+  border-top: 1px solid rgba(179, 179, 179, 0.39);
   padding: 7px 16px 0 16px;
 `;
 
-export const TabBarMenu = styled.div`
+export const tabBarMenu = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
 `;
 
-export const TabsList = styled.ul`
+export const Ul = styled.ul`
   display: flex;
   width: 100%;
   justify-content: space-between;
 `;
 
-export const StyledNavLink = styled(NavLink)`
+export const Li = styled.li<TabBarProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 7px;
   opacity: 0.6;
-  ${({ theme }) => theme.color.neutralText}
-
-  &.active {
-    opacity: 1;
-    ${({ theme }) => theme.color.neutralTextStrong}
-  }
+  ${(props) =>
+    props.active &&
+    css`
+      opacity: 1;
+    `}
 `;
