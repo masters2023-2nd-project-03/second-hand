@@ -1,7 +1,6 @@
+import Button from '../Button';
 import Icon from '../Icon';
 import elapsedTime from '../../utils/elapsedTime';
-import formatNumber from '../../utils/formatNumber';
-import * as S from './styles';
 
 interface SecondHandItemProps {
   title: string;
@@ -27,44 +26,38 @@ const SecondHandItem = ({
   option = false,
 }: SecondHandItemProps) => {
   return (
-    <S.ItemContainer>
-      <S.ItemImage imageURI={imageURI} />
-      <S.ItemInfo>
-        <S.ItemContents>
-          <S.Content>
-            <S.ColumnTop>{title}</S.ColumnTop>
-            <S.ColumnMid>
+    <div className="ItemContainer">
+      <div
+        className="ItemImage"
+        style={{
+          width: '120px',
+          height: '120px',
+          backgroundImage: `url(${imageURI})`,
+          backgroundSize: 'contain',
+        }}
+      />
+      <div className="ItemInfo">
+        <div className="ItemContents">
+          <div className="Content">
+            <div className="ColumnTop">{title}</div>
+            <div className="ColumnMiddle">
               {location} ・ {elapsedTime(createdAt)}
-            </S.ColumnMid>
-            <S.ColumnBot>
-              {status !== '판매중' && (
-                <S.StatusLabel round={true} status={status}>
-                  {status}
-                </S.StatusLabel>
-              )}
-              <S.Price>{formatNumber(price)}원</S.Price>
-            </S.ColumnBot>
-          </S.Content>
+            </div>
+            <div className="ColumnBottom">
+              <Button round={true}>{status}</Button>
+              <span>{price}원</span>
+            </div>
+          </div>
           <div className="Option">
             {option && <Icon name={'ellipsis'} width={'17'} height={'20'} />}
           </div>
-        </S.ItemContents>
-        <S.ItemIssue>
-          {chatCount > 0 && (
-            <S.Message>
-              <Icon name={'message'} width={'24'} height={'20'} />
-              <span>{chatCount}</span>
-            </S.Message>
-          )}
-          {interestCount > 0 && (
-            <S.heart>
-              <Icon name={'heart'} width={'24'} height={'20'} />
-              <span>{interestCount}</span>
-            </S.heart>
-          )}
-        </S.ItemIssue>
-      </S.ItemInfo>
-    </S.ItemContainer>
+        </div>
+        <div className="ItemIssue">
+          {chatCount}
+          {interestCount}
+        </div>
+      </div>
+    </div>
   );
 };
 

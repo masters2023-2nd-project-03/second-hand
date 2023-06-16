@@ -1,11 +1,11 @@
 export const itemList = [
   {
     id: 1,
-    title: '호눅스가 사용하던 게임기 팝니다.',
-    createdAt: '2023-06-12T15:02:07.759Z',
+    title: 'Item 1',
+    createdAt: '2022-12-17T15:02:07.759Z',
     status: '예약중',
     price: 398072,
-    location: '역삼1동',
+    location: '경남',
     chatCount: 62,
     interestCount: 45,
     imageURI:
@@ -15,7 +15,7 @@ export const itemList = [
     id: 2,
     title: 'Item 2',
     createdAt: '2022-05-10T03:32:34.982Z',
-    status: '판매완료',
+    status: '판매 완료',
     price: 325917,
     location: '충남',
     chatCount: 74,
@@ -59,7 +59,7 @@ export const itemList = [
     id: 6,
     title: 'Item 6',
     createdAt: '2022-02-22T19:42:52.408Z',
-    status: '판매완료',
+    status: '판매 완료',
     price: 324669,
     location: '대구',
     chatCount: 41,
