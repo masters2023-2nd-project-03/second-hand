@@ -11,7 +11,8 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/react-in-jsx-scope": 0,
     "react/self-closing-comp": "error",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "react/prop-types": "off"
   },
   "settings": {
     "react": {
