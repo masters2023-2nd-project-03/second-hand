@@ -9,7 +9,7 @@ import UIKit
 
 class LocationAddButton: UIButton {
     private let plusIamge = UIImage(systemName: "plus")
-    private let buttonTitle = "위치 추가"
+    private let buttonTitle = Constant.StringLiteral.title
     
     override init(frame: CGRect) {
         super.init(frame: frame)
