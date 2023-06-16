@@ -8,7 +8,7 @@
 import UIKit
 
 class LocationAddButton: UIButton {
-    private let plusIamge = UIImage(systemName: "plus")
+    private let plusIamge = Constant.ImageAsset.plusImage
     private let buttonTitle = Constant.StringLiteral.title
     
     override init(frame: CGRect) {
