@@ -1,6 +1,5 @@
 package team03.secondhand.domain.member;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,12 +31,15 @@ public class Member {
     @Column(name = "oauth_id")
     private String oauthId;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "member" ,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberAndLocation> memberAndLocationList = new ArrayList<>();
 
-    public void add(MemberAndLocation memberAndLocation) {
+    public void addLocation(MemberAndLocation memberAndLocation) {
         memberAndLocationList.add(memberAndLocation);
+    }
+
+    public void deleteAllLocation() {
+        memberAndLocationList.clear();
     }
 
     @Builder
