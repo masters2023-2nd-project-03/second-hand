@@ -60,11 +60,11 @@ public class OAuth2Service {
        }
     }
 
-    public Oauth2DataResponse.Login findMember(Oauth2Data.LoginInfo loginInfo) {
+    public Oauth2DataResponse.LoginInfo findMember(Oauth2Data.LoginInfo loginInfo) {
         Member member = memberRepository.findByOauthId(loginInfo.getOauthId())
                 .orElseThrow(() -> new RequireRegistrationError(loginInfo));
         String jwt = getJwtByMember(member);
-        return new Oauth2DataResponse.Login(member, jwt);
+        return new Oauth2DataResponse.LoginInfo(member, jwt);
     }
 
     private AuthModule getAuthModule(String platform) {

@@ -20,9 +20,9 @@ public class Oauth2DataResponse {
 
     @Data
     @NoArgsConstructor
-    public static class Login extends MemberDataResponse.Join {
+    public static class LoginInfo extends MemberDataResponse.Join {
 
-        public Login(Member member, String jwt) {
+        public LoginInfo(Member member, String jwt) {
             super(member, jwt);
         }
     }
