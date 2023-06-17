@@ -3,7 +3,7 @@ package team03.secondhand.configure;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import team03.secondhand.oauth2.module.GithubAuthModule;
+import team03.secondhand.domain.oauth2.module.GithubAuthModule;
 
 @Configuration
 public class OAuthConfiguration {

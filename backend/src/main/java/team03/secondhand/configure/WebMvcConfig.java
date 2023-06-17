@@ -14,7 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(memberInterceptor).addPathPatterns("/api/members");
+        registry.addInterceptor(memberInterceptor).addPathPatterns("/api/members", "/api/members/locations");
     }
 
 }

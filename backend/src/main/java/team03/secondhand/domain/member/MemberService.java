@@ -1,16 +1,18 @@
 package team03.secondhand.domain.member;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
-import team03.secondhand.domain.member.dto.request.RequestJoinDto;
-import team03.secondhand.domain.member.dto.response.ResponseMemberDTO;
+import team03.secondhand.domain.member.dto.MemberDataRequest;
+import team03.secondhand.domain.member.dto.MemberDataResponse;
 import team03.secondhand.domain.memberAndLocation.MemberAndLocation;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -21,23 +23,18 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final LocationRepository locationRepository;
 
-    public Optional<Member> getMemberById(Long id) {
-        Optional<Member> byMemberId = memberRepository.findByMemberId(id);
-        return memberRepository.findByMemberId(id);
-    }
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public ResponseMemberDTO getMemberByOAuthId(String oauthId) {
-        Member member = memberRepository.findByOauthId(oauthId).orElse(null);
-
-        return ResponseMemberDTO.builder()
-                .memberId(member.getMemberId())
-                .nickname(member.getNickname())
-                .profileUrl(member.getProfileUrl())
-                .build();
+    public MemberDataResponse.Info getMemberById(Long id) {
+        Member member = memberRepository.findByMemberId(id)
+                .orElseThrow(NoSuchElementException::new);
+        return new MemberDataResponse.Info(member);
     }
 
     @Transactional
-    public Member join(RequestJoinDto requestJoinDto) {
+    public MemberDataResponse.Join join(MemberDataRequest.Join  requestJoinDto) {
+        isRegistrationBy(requestJoinDto.getOauthId());
+
         Member member = Member.builder()
                 .nickname(requestJoinDto.getNickname())
                 .profileUrl(requestJoinDto.getProfileUrl())
@@ -51,15 +48,22 @@ public class MemberService {
             Location location = locationRepository.findById(locationId)
                     .orElseThrow(NoSuchFieldError::new); // 과연 적절한 에러일까?
             MemberAndLocation memberAndLocation = new MemberAndLocation(member, location);
-            member.add(memberAndLocation);
+            member.addLocation(memberAndLocation);
         }
         memberRepository.save(member);
-        return member;
+        return new MemberDataResponse.Join(member, createToken(member));
     }
 
-    public boolean isRegistrationBy(String oauthId) {
-        Optional<Member> optionalMember = memberRepository.findByOauthId(oauthId);
-        return optionalMember.isPresent();
+
+    private void isRegistrationBy(String oauthId) {
+        if (memberRepository.findByOauthId(oauthId).isPresent()) {
+            throw new DataIntegrityViolationException("");
+        }
+    }
+
+    private String createToken(Member savedMember) {
+        String memberId = String.valueOf(savedMember.getMemberId());
+        return jwtTokenProvider.createToken(memberId);
     }
 
 }
