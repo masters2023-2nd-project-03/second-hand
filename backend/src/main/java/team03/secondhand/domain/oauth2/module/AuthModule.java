@@ -1,4 +1,4 @@
-package team03.secondhand.oauth2.module;
+package team03.secondhand.domain.oauth2.module;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -8,7 +8,7 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import team03.secondhand.oauth2.dto.MemberDto;
+import team03.secondhand.domain.oauth2.dto.Oauth2Data;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -28,7 +28,7 @@ abstract public class AuthModule extends DefaultApi20 {
 
     abstract protected String getMemberInfoEndPoint();
 
-    abstract public MemberDto getMemberEntity(String body) throws JsonProcessingException;
+    abstract public Oauth2Data.LoginInfo getMemberLoginInfo(String body) throws JsonProcessingException;
 
     public String getAuthorizationUrl() {
         return service.getAuthorizationUrl();
@@ -38,9 +38,10 @@ abstract public class AuthModule extends DefaultApi20 {
         return service.getAccessToken(code);
     }
 
-    public Response getMemberInfo(String access) throws IOException, ExecutionException, InterruptedException {
+    public Response getMemberInfo(OAuth2AccessToken oAuth2AccessToken) throws IOException, ExecutionException, InterruptedException {
+        String accessToken = oAuth2AccessToken.getAccessToken();
         OAuthRequest oAuthRequest = new OAuthRequest(Verb.GET, getMemberInfoEndPoint());
-        service.signRequest(access, oAuthRequest);
+        service.signRequest(accessToken, oAuthRequest);
         return service.execute(oAuthRequest);
     }
 

@@ -1,4 +1,4 @@
-package team03.secondhand.oauth2.module;
+package team03.secondhand.domain.oauth2.module;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,7 +16,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import team03.secondhand.Util;
-import team03.secondhand.oauth2.dto.MemberDto;
+import team03.secondhand.domain.oauth2.dto.Oauth2Data;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -72,17 +72,16 @@ public class GithubAuthModule extends AuthModule{
     }
 
     @Override
-    public Response getMemberInfo(String access) throws IOException, ExecutionException, InterruptedException {
+    public Response getMemberInfo(OAuth2AccessToken oAuth2AccessToken) throws IOException, ExecutionException, InterruptedException {
+        String accessToken = oAuth2AccessToken.getAccessToken();
         OAuthRequest oAuthRequest = new OAuthRequest(Verb.GET, getMemberInfoEndPoint());
-        oAuthRequest.addHeader("Authorization", Util.builder("Bearer ", access));
-
-        service.signRequest(access, oAuthRequest);
-
+        oAuthRequest.addHeader("Authorization", Util.builder("Bearer ", accessToken));
+        service.signRequest(accessToken, oAuthRequest);
         return service.execute(oAuthRequest);
     }
 
     @Override
-    public MemberDto getMemberEntity(String body) throws JsonProcessingException {
+    public Oauth2Data.LoginInfo getMemberLoginInfo(String body) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode node = mapper.readTree(body);
@@ -91,11 +90,10 @@ public class GithubAuthModule extends AuthModule{
         Long id = node.get("id") == null ? 0 : node.get("id").longValue();
         String profileUrl = node.get("avatar_url") == null ? "미동의" : node.get("avatar_url").textValue();
 
-        return MemberDto.builder()
-                .nickname(nickname)
-                .oauthId(MODULE_NAME + "_" + id)
-                .profileUrl(profileUrl)
-                .build();
+        return new Oauth2Data.LoginInfo(
+                nickname
+                ,profileUrl
+                ,MODULE_NAME + "_" + id);
     }
 
     public Boolean isProcessPossible(String platform) {
