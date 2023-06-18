@@ -8,6 +8,8 @@ on:
 # flow에서 사용할 변수 같은 느낌입니다.
 env:
   working-directory: ./backend
+  docker-container-name: second-hand-be
+  docker-image-name: ${{ secrets.DOCKERHUB_USERNAME }}/second-hand-be
 
 permissions:
   contents: read
@@ -61,7 +63,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/back-end
+          tags: ${{ env.docker-image-name }}
 
 
       - name: Pull and restart Docker Container
@@ -71,6 +73,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           script: |
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/back-end
-            sudo docker stop jmdb-be
-            sudo docker run -d --rm --name jmdb-be -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/back-end
+            sudo docker stop ${{ env.docker-container-name }}
+            sudo docker rmi ${{ env.docker-image-name }}
+            sudo docker pull ${{ env.docker-image-name }}
+            sudo docker run -d --rm --name ${{ env.docker-container-name }} -p 8080:8080 ${{ env.docker-image-name }}
