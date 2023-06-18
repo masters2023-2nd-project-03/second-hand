@@ -3,7 +3,7 @@ package team03.secondhand.domain.oauth2.dto;
 import lombok.Data;
 
 @Data
-public class Oauth2Data {
+public class Oauth2DataDto {
     @Data
     public static class LoginInfo {
         private String nickname;

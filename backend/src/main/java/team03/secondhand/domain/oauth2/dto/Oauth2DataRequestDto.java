@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Oauth2DataRequest {
+public class Oauth2DataRequestDto {
     @Data
     public static class Login {
         private String platform;

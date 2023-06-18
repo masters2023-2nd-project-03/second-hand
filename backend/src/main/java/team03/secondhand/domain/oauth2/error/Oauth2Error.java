@@ -1,20 +1,20 @@
 package team03.secondhand.domain.oauth2.error;
 
 import lombok.Data;
-import team03.secondhand.domain.oauth2.dto.Oauth2Data;
+import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 
 @Data
 public class Oauth2Error{
 
     @Data
     public static class RequireRegistration extends RuntimeException{
-        private Oauth2Data.LoginInfo loginInfo;
+        private Oauth2DataDto.LoginInfo loginInfo;
 
-        public RequireRegistration(Oauth2Data.LoginInfo loginInfo) {
+        public RequireRegistration(Oauth2DataDto.LoginInfo loginInfo) {
             this.loginInfo = loginInfo;
         }
 
-        public Oauth2Data.LoginInfo getLoginInfo() {
+        public Oauth2DataDto.LoginInfo getLoginInfo() {
             return loginInfo;
         }
     }

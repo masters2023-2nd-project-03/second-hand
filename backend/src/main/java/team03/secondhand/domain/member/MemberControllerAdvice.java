@@ -7,7 +7,7 @@ import team03.secondhand.domain.StatusCode;
 import team03.secondhand.domain.member.error.MemberError;
 
 @RestControllerAdvice(basePackages = "team03.secondhand.domain.member")
-public class MemberControllerAdvise {
+public class MemberControllerAdvice {
     @ExceptionHandler(MemberError.DuplicatedUser.class)
     public BaseResponse duplicatedUserHandler() {
         return new BaseResponse(StatusCode.DUPLICATED_USER);

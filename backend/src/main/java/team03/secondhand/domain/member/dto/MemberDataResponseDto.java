@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class MemberDataResponse {
+public class MemberDataResponseDto {
 
     @Data
     @NoArgsConstructor

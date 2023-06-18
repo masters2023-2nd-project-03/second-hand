@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class MemberDataRequest {
+public class MemberDataRequestDto {
     @Data
     public static class Join {
         private String nickname;

@@ -3,11 +3,11 @@ package team03.secondhand.domain.oauth2.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import team03.secondhand.domain.member.Member;
-import team03.secondhand.domain.member.dto.MemberDataResponse;
+import team03.secondhand.domain.member.dto.MemberDataResponseDto;
 
 @Data
 @NoArgsConstructor
-public class Oauth2DataResponse {
+public class Oauth2DataResponseDto {
 
     @Data
     public static class AuthorizationUrl {
@@ -20,7 +20,7 @@ public class Oauth2DataResponse {
 
     @Data
     @NoArgsConstructor
-    public static class LoginInfo extends MemberDataResponse.Join {
+    public static class LoginInfo extends MemberDataResponseDto.Join {
 
         public LoginInfo(Member member, String jwt) {
             super(member, jwt);

@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
-import team03.secondhand.domain.member.dto.MemberDataRequest;
-import team03.secondhand.domain.member.dto.MemberDataResponse;
+import team03.secondhand.domain.member.dto.MemberDataRequestDto;
+import team03.secondhand.domain.member.dto.MemberDataResponseDto;
 import team03.secondhand.domain.member.error.MemberError;
 
 import java.util.List;
@@ -29,14 +29,14 @@ public class MemberService {
     /**********************************************************************
      */
 
-    public MemberDataResponse.Info getMemberById(Long id) {
+    public MemberDataResponseDto.Info getMemberById(Long id) {
         Member member = memberRepository.findByMemberId(id)
                 .orElseThrow(MemberError.RequireRegistration::new);
-        return new MemberDataResponse.Info(member);
+        return new MemberDataResponseDto.Info(member);
     }
 
     @Transactional
-    public MemberDataResponse.Join join(MemberDataRequest.Join requestJoinDto) {
+    public MemberDataResponseDto.Join join(MemberDataRequestDto.Join requestJoinDto) {
         isRegistrationBy(requestJoinDto.getOauthId());
 
         Member member = Member.builder()
@@ -46,11 +46,11 @@ public class MemberService {
                 .build();
         updateLocations(member, requestJoinDto.getLocationIdList());
         memberRepository.save(member);
-        return new MemberDataResponse.Join(member, createToken(member));
+        return new MemberDataResponseDto.Join(member, createToken(member));
     }
 
     @Transactional
-    public void updateLocations(Long memberId, MemberDataRequest.UpdateLocation requestUpdateLocationDto) {
+    public void updateLocations(Long memberId, MemberDataRequestDto.UpdateLocation requestUpdateLocationDto) {
         Member member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(MemberError.RequireRegistration::new);
         updateLocations(member, requestUpdateLocationDto.getLocationIdList());

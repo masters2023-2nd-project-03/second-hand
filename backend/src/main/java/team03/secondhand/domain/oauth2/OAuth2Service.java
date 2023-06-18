@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.member.MemberRepository;
-import team03.secondhand.domain.oauth2.dto.Oauth2Data;
-import team03.secondhand.domain.oauth2.dto.Oauth2DataRequest;
-import team03.secondhand.domain.oauth2.dto.Oauth2DataResponse;
+import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
+import team03.secondhand.domain.oauth2.dto.Oauth2DataRequestDto;
+import team03.secondhand.domain.oauth2.dto.Oauth2DataResponseDto;
 import team03.secondhand.domain.oauth2.error.Oauth2Error;
 import team03.secondhand.domain.oauth2.module.AuthModule;
 import team03.secondhand.domain.oauth2.module.GithubAuthModule;
@@ -43,23 +43,23 @@ public class OAuth2Service {
     /**********************************************************************
      */
 
-    public Oauth2DataResponse.AuthorizationUrl authorizationUrlResponse(String platform) {
+    public Oauth2DataResponseDto.AuthorizationUrl authorizationUrlResponse(String platform) {
         AuthModule authModule = getAuthModule(platform);
-        return new Oauth2DataResponse.AuthorizationUrl(authModule.getAuthorizationUrl());
+        return new Oauth2DataResponseDto.AuthorizationUrl(authModule.getAuthorizationUrl());
     }
 
-    public Oauth2Data.LoginInfo getLoginInfo(Oauth2DataRequest.Login requestLoginDto) throws IOException, ExecutionException, InterruptedException {
+    public Oauth2DataDto.LoginInfo getLoginInfo(Oauth2DataRequestDto.Login requestLoginDto) throws IOException, ExecutionException, InterruptedException {
         AuthModule authModule = getAuthModule(requestLoginDto.getPlatform());
         OAuth2AccessToken oAuth2AccessToken = getoAuth2AccessToken(authModule, requestLoginDto);
         Response memberInfoResponse = getMemberInfoResponse(authModule, oAuth2AccessToken);
         return getLoginInfo(authModule, memberInfoResponse);
     }
 
-    public Oauth2DataResponse.LoginInfo findMember(Oauth2Data.LoginInfo loginInfo) {
+    public Oauth2DataResponseDto.LoginInfo findMember(Oauth2DataDto.LoginInfo loginInfo) {
         Member member = memberRepository.findByOauthId(loginInfo.getOauthId())
                 .orElseThrow(() -> new Oauth2Error.RequireRegistration(loginInfo));
         String jwt = getJwtByMember(member);
-        return new Oauth2DataResponse.LoginInfo(member, jwt);
+        return new Oauth2DataResponseDto.LoginInfo(member, jwt);
     }
 
     /*
@@ -68,7 +68,7 @@ public class OAuth2Service {
     /**********************************************************************
      */
 
-    private static Oauth2Data.LoginInfo getLoginInfo(AuthModule authModule, Response memberInfoResponse) throws InvalidPropertiesFormatException {
+    private static Oauth2DataDto.LoginInfo getLoginInfo(AuthModule authModule, Response memberInfoResponse) throws InvalidPropertiesFormatException {
         try {
             return authModule.getLoginInfo(memberInfoResponse.getBody());
         } catch (Exception e) {
@@ -84,7 +84,7 @@ public class OAuth2Service {
         }
     }
 
-    private static OAuth2AccessToken getoAuth2AccessToken(AuthModule authModule, Oauth2DataRequest.Login requestLoginDto) throws IOException, ExecutionException, InterruptedException {
+    private static OAuth2AccessToken getoAuth2AccessToken(AuthModule authModule, Oauth2DataRequestDto.Login requestLoginDto) throws IOException, ExecutionException, InterruptedException {
         try {
             return authModule.getAccessToken(requestLoginDto.getCode());
         } catch (Exception e) {

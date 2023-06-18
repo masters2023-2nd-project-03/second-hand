@@ -8,7 +8,7 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import team03.secondhand.domain.oauth2.dto.Oauth2Data;
+import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -28,7 +28,7 @@ abstract public class AuthModule extends DefaultApi20 {
 
     abstract protected String getMemberInfoEndPoint();
 
-    abstract public Oauth2Data.LoginInfo getLoginInfo(String body) throws JsonProcessingException;
+    abstract public Oauth2DataDto.LoginInfo getLoginInfo(String body) throws JsonProcessingException;
 
     public String getAuthorizationUrl() {
         return service.getAuthorizationUrl();

@@ -16,7 +16,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import team03.secondhand.Util;
-import team03.secondhand.domain.oauth2.dto.Oauth2Data;
+import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -81,7 +81,7 @@ public class GithubAuthModule extends AuthModule{
     }
 
     @Override
-    public Oauth2Data.LoginInfo getLoginInfo(String body) throws JsonProcessingException {
+    public Oauth2DataDto.LoginInfo getLoginInfo(String body) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode node = mapper.readTree(body);
@@ -90,7 +90,7 @@ public class GithubAuthModule extends AuthModule{
         Long id = node.get("id") == null ? 0 : node.get("id").longValue();
         String profileUrl = node.get("avatar_url") == null ? "미동의" : node.get("avatar_url").textValue();
 
-        return new Oauth2Data.LoginInfo(
+        return new Oauth2DataDto.LoginInfo(
                 nickname
                 ,profileUrl
                 ,MODULE_NAME + "_" + id);
