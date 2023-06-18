@@ -1,31 +1,34 @@
 package team03.secondhand.domain.member;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team03.secondhand.domain.BaseResponse;
 import team03.secondhand.domain.StatusCode;
-
-import java.util.NoSuchElementException;
+import team03.secondhand.domain.member.error.MemberError;
 
 @RestControllerAdvice(basePackages = "team03.secondhand.domain.member")
 public class MemberControllerAdvise {
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public BaseResponse conflictHandler() {
+    @ExceptionHandler(MemberError.DuplicatedUser.class)
+    public BaseResponse duplicatedUserHandler() {
         return new BaseResponse(StatusCode.DUPLICATED_USER);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public BaseResponse expiredTokenHandler() {
+    @ExceptionHandler(MemberError.TokenExpired.class)
+    public BaseResponse tokenExpiredHandler() {
         return new BaseResponse(StatusCode.TOKEN_EXPIRED);
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public BaseResponse notFoundMemberHandler() {
+    @ExceptionHandler(MemberError.TokenIsNull.class)
+    public BaseResponse tokenIsNullHandler() {
+        return new BaseResponse(StatusCode.TOKEN_IS_NULL);
+    }
+
+    @ExceptionHandler(MemberError.RequireRegistration.class)
+    public BaseResponse requiredSignUpHandler() {
         return new BaseResponse(StatusCode.REQUIRED_SIGNUP);
     }
 
-    @ExceptionHandler(NoSuchFieldError.class)
+    @ExceptionHandler(MemberError.NotFoundLocation.class)
     public BaseResponse notFoundLocationHandler() {
         return new BaseResponse(StatusCode.NOT_FOUND_LOCATION);
     }

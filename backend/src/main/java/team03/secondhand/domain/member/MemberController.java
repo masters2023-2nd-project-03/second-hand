@@ -3,7 +3,6 @@ package team03.secondhand.domain.member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.BaseResponse;
 import team03.secondhand.domain.DataResponse;
 import team03.secondhand.domain.StatusCode;
@@ -17,7 +16,6 @@ import team03.secondhand.domain.member.dto.MemberDataResponse;
 public class MemberController {
 
     private final MemberService memberService;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/join")
     public DataResponse<MemberDataResponse.Join> join(@RequestBody MemberDataRequest.Join requestJoinDto) {
@@ -31,11 +29,10 @@ public class MemberController {
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, memberDataInfo);
     }
 
-    }
-
-    private String createToken(Member savedMember) {
-        String memberId = String.valueOf(savedMember.getMemberId());
-        return jwtTokenProvider.createToken(memberId);
+    @PatchMapping("/locations")
+    public BaseResponse updateLocation(@RequestAttribute Long memberId , @RequestBody MemberDataRequest.UpdateLocation requestUpdateLocationDto) {
+        memberService.updateLocations(memberId, requestUpdateLocationDto);
+        return new BaseResponse(StatusCode.RESPONSE_SUCCESS);
     }
 
 }

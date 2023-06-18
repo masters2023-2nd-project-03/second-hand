@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import team03.secondhand.AuthorizationExtractor;
 import team03.secondhand.JwtTokenProvider;
+import team03.secondhand.domain.member.error.MemberError;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +24,10 @@ public class MemberInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = authorizationExtractor.extract(request, "Bearer");
         if (Strings.EMPTY.equals(token)) {
-            return true;
+            throw new MemberError.TokenIsNull();
         }
         if (!jwtTokenProvider.validateToken(token)) {
-            throw new IllegalArgumentException();
+            throw new MemberError.TokenExpired();
         }
 
         Long memberId = jwtTokenProvider.getMemberId(token);

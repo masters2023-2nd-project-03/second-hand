@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.memberAndLocation.MemberAndLocation;
 import team03.secondhand.domain.product.Product;
 import team03.secondhand.domain.watchlist.Watchlist;
@@ -34,13 +35,11 @@ public class Member {
     @OneToMany(mappedBy = "member" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberAndLocation> memberAndLocationList = new ArrayList<>();
 
-    public void addLocation(MemberAndLocation memberAndLocation) {
-        memberAndLocationList.add(memberAndLocation);
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Product> products = new ArrayList<>();
 
-    public void deleteAllLocation() {
-        memberAndLocationList.clear();
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Watchlist> watchlistArrayList = new ArrayList<>();
 
     @Builder
     public Member(String nickname, String profileUrl, String oauthId) {
@@ -49,10 +48,12 @@ public class Member {
         this.oauthId = oauthId;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
-    private List<Product> products = new ArrayList<>();
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
-    private List<Watchlist> watchlistArrayList = new ArrayList<>();
+    public void addLocation(Location location) {
+        memberAndLocationList.add(new MemberAndLocation(this, location));
+    }
+
+    public void deleteAllLocation() {
+        memberAndLocationList.clear();
+    }
 
 }

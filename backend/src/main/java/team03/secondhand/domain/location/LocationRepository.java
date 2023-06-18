@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
     List<Location> findAllByLocationDetailsLike(String searchKey);
+
+    List<Location> findAllByLocationIdIn(List<Long> locationIdList);
 }
