@@ -12,7 +12,7 @@ import team03.secondhand.domain.member.MemberRepository;
 import team03.secondhand.domain.oauth2.dto.Oauth2Data;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataRequest;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataResponse;
-import team03.secondhand.domain.oauth2.error.RequireRegistrationError;
+import team03.secondhand.domain.oauth2.error.Oauth2Error;
 import team03.secondhand.domain.oauth2.module.AuthModule;
 import team03.secondhand.domain.oauth2.module.GithubAuthModule;
 
@@ -37,6 +37,12 @@ public class OAuth2Service {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    /*
+    /**********************************************************************
+    /* Public Method
+    /**********************************************************************
+     */
+
     public Oauth2DataResponse.AuthorizationUrl authorizationUrlResponse(String platform) {
         AuthModule authModule = getAuthModule(platform);
         return new Oauth2DataResponse.AuthorizationUrl(authModule.getAuthorizationUrl());
@@ -44,32 +50,53 @@ public class OAuth2Service {
 
     public Oauth2Data.LoginInfo getLoginInfo(Oauth2DataRequest.Login requestLoginDto) throws IOException, ExecutionException, InterruptedException {
         AuthModule authModule = getAuthModule(requestLoginDto.getPlatform());
-
-        // TODO: 아래의 코드는 가독성이 매우 떨어진다.
-        Response memberInfo = null;
-        try {
-            OAuth2AccessToken oAuth2AccessToken = authModule.getAccessToken(requestLoginDto.getCode());
-            memberInfo = authModule.getMemberInfo(oAuth2AccessToken);
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
-        }
-       try {
-           return authModule.getMemberLoginInfo(memberInfo.getBody());
-       } catch (Exception e) {
-           throw new InvalidPropertiesFormatException(e);
-       }
+        OAuth2AccessToken oAuth2AccessToken = getoAuth2AccessToken(authModule, requestLoginDto);
+        Response memberInfoResponse = getMemberInfoResponse(authModule, oAuth2AccessToken);
+        return getLoginInfo(authModule, memberInfoResponse);
     }
 
     public Oauth2DataResponse.LoginInfo findMember(Oauth2Data.LoginInfo loginInfo) {
         Member member = memberRepository.findByOauthId(loginInfo.getOauthId())
-                .orElseThrow(() -> new RequireRegistrationError(loginInfo));
+                .orElseThrow(() -> new Oauth2Error.RequireRegistration(loginInfo));
         String jwt = getJwtByMember(member);
         return new Oauth2DataResponse.LoginInfo(member, jwt);
     }
 
-    private AuthModule getAuthModule(String platform) {
-        // TODO : 인증 서비스 모듈이 늘어날 수 있다.
-        return githubAuthModule;
+    /*
+    /**********************************************************************
+    /* Private Method
+    /**********************************************************************
+     */
+
+    private static Oauth2Data.LoginInfo getLoginInfo(AuthModule authModule, Response memberInfoResponse) throws InvalidPropertiesFormatException {
+        try {
+            return authModule.getLoginInfo(memberInfoResponse.getBody());
+        } catch (Exception e) {
+            throw new Oauth2Error.InvalidPlatform();
+        }
+    }
+
+    private static Response getMemberInfoResponse(AuthModule authModule, OAuth2AccessToken oAuth2AccessToken) throws IOException, ExecutionException, InterruptedException {
+        try {
+            return authModule.getMemberInfoResponse(oAuth2AccessToken);
+        } catch (Exception e) {
+         throw new Oauth2Error.TokenInvalid();
+        }
+    }
+
+    private static OAuth2AccessToken getoAuth2AccessToken(AuthModule authModule, Oauth2DataRequest.Login requestLoginDto) throws IOException, ExecutionException, InterruptedException {
+        try {
+            return authModule.getAccessToken(requestLoginDto.getCode());
+        } catch (Exception e) {
+            throw new Oauth2Error.TokenInvalid();
+        }
+    }
+
+    private AuthModule getAuthModule(String platform){
+        if (platform.equals("github")) {
+            return githubAuthModule;
+        }
+        throw new Oauth2Error.NotFoundPlatform();
     }
 
     private String getJwtByMember(Member member) {

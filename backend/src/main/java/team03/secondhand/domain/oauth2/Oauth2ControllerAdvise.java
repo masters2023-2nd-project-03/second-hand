@@ -6,25 +6,22 @@ import team03.secondhand.domain.BaseResponse;
 import team03.secondhand.domain.DataResponse;
 import team03.secondhand.domain.StatusCode;
 import team03.secondhand.domain.oauth2.dto.Oauth2Data;
-import team03.secondhand.domain.oauth2.error.RequireRegistrationError;
-
-import java.util.InvalidPropertiesFormatException;
+import team03.secondhand.domain.oauth2.error.Oauth2Error;
 
 @RestControllerAdvice("team03.secondhand.oauth2")
 public class Oauth2ControllerAdvise {
 
-    @ExceptionHandler(RequireRegistrationError.class)
-    public DataResponse<Oauth2Data.LoginInfo> loginFailHandler(RequireRegistrationError requireRegistrationError) {
-
-        return new DataResponse<>(StatusCode.REQUIRED_SIGNUP, requireRegistrationError.getLoginInfo());
+    @ExceptionHandler(Oauth2Error.RequireRegistration.class)
+    public DataResponse<Oauth2Data.LoginInfo> loginFailHandler(Oauth2Error.RequireRegistration requireRegistration) {
+        return new DataResponse<>(StatusCode.REQUIRED_SIGNUP, requireRegistration.getLoginInfo());
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(Oauth2Error.TokenInvalid.class)
     public BaseResponse invalidTokenHandler() {
         return new BaseResponse(StatusCode.TOKEN_INVALID);
     }
 
-    @ExceptionHandler(InvalidPropertiesFormatException.class)
+    @ExceptionHandler(Oauth2Error.NotFoundPlatform.class)
     public BaseResponse invalidPlatformHandler() {
         return new BaseResponse(StatusCode.NOT_FOUND_PLATFORM);
     }

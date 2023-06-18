@@ -28,7 +28,7 @@ abstract public class AuthModule extends DefaultApi20 {
 
     abstract protected String getMemberInfoEndPoint();
 
-    abstract public Oauth2Data.LoginInfo getMemberLoginInfo(String body) throws JsonProcessingException;
+    abstract public Oauth2Data.LoginInfo getLoginInfo(String body) throws JsonProcessingException;
 
     public String getAuthorizationUrl() {
         return service.getAuthorizationUrl();
@@ -38,7 +38,7 @@ abstract public class AuthModule extends DefaultApi20 {
         return service.getAccessToken(code);
     }
 
-    public Response getMemberInfo(OAuth2AccessToken oAuth2AccessToken) throws IOException, ExecutionException, InterruptedException {
+    public Response getMemberInfoResponse(OAuth2AccessToken oAuth2AccessToken) throws IOException, ExecutionException, InterruptedException {
         String accessToken = oAuth2AccessToken.getAccessToken();
         OAuthRequest oAuthRequest = new OAuthRequest(Verb.GET, getMemberInfoEndPoint());
         service.signRequest(accessToken, oAuthRequest);

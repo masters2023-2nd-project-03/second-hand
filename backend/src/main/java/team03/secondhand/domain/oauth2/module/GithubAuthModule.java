@@ -72,7 +72,7 @@ public class GithubAuthModule extends AuthModule{
     }
 
     @Override
-    public Response getMemberInfo(OAuth2AccessToken oAuth2AccessToken) throws IOException, ExecutionException, InterruptedException {
+    public Response getMemberInfoResponse(OAuth2AccessToken oAuth2AccessToken) throws IOException, ExecutionException, InterruptedException {
         String accessToken = oAuth2AccessToken.getAccessToken();
         OAuthRequest oAuthRequest = new OAuthRequest(Verb.GET, getMemberInfoEndPoint());
         oAuthRequest.addHeader("Authorization", Util.builder("Bearer ", accessToken));
@@ -81,7 +81,7 @@ public class GithubAuthModule extends AuthModule{
     }
 
     @Override
-    public Oauth2Data.LoginInfo getMemberLoginInfo(String body) throws JsonProcessingException {
+    public Oauth2Data.LoginInfo getLoginInfo(String body) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode node = mapper.readTree(body);
