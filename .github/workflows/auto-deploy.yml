@@ -5,6 +5,8 @@ on:
 
 env:
   working-directory: ./frontend
+  docker-container-name: second-hand-fe
+  docker-image-name: ${{ secrets.DOCKERHUB_USERNAME }}/second-hand-fe
 
 jobs:
   deploy:
@@ -53,7 +55,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/front-end
+          tags: ${{ env.docker-image-name }}
 
       - name: Pull and restart Docker Container
         uses: appleboy/ssh-action@master
@@ -62,6 +64,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           script: |
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/front-end
-            sudo docker stop ${{ secrets.DOCKERHUB_USERNAME }}/front-end
-            sudo docker run -d --rm --name jmdb -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/front-end
+            sudo docker stop ${{ env.docker-container-name }}
+            sudo docker rmi ${{ env.docker-image-name }}
+            sudo docker pull ${{ env.docker-image-name }}
+            sudo docker run -d --rm --name ${{ env.docker-container-name }} -p 80:80 ${{ env.docker-image-name }}

@@ -8,5 +8,4 @@ COPY ./frontend/build /usr/share/nginx/html
 RUN rm /etc/nginx/nginx.conf   
 COPY ./conf/nginx/nginx.conf /etc/nginx/nginx.conf
 
-
-CMD [ "nginx", "-g", "daemon off;" ] 
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ] 
