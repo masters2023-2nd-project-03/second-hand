@@ -8,7 +8,7 @@ import team03.secondhand.domain.StatusCode;
 import team03.secondhand.domain.oauth2.dto.Oauth2Data;
 import team03.secondhand.domain.oauth2.error.Oauth2Error;
 
-@RestControllerAdvice("team03.secondhand.oauth2")
+@RestControllerAdvice("team03.secondhand.domain.oauth2")
 public class Oauth2ControllerAdvise {
 
     @ExceptionHandler(Oauth2Error.RequireRegistration.class)
