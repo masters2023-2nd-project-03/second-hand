@@ -1,18 +1,20 @@
 package team03.secondhand.domain.member.dto;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.memberAndLocation.dto.LocationData;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
+@Getter @Setter
 @NoArgsConstructor
 public class MemberDataResponseDto {
 
-    @Data
+    @Getter @Setter
     @NoArgsConstructor
     public static class SimpleInfo {
         private String nickname;
@@ -24,7 +26,7 @@ public class MemberDataResponseDto {
         }
     }
 
-    @Data
+    @Getter @Setter
     @NoArgsConstructor
     public static class Info extends SimpleInfo {
         private List<LocationData.Info> locationDatas;
@@ -38,7 +40,7 @@ public class MemberDataResponseDto {
         }
     }
 
-    @Data
+    @Getter @Setter
     @NoArgsConstructor
     public static class Join extends Info {
         private String jwt;

@@ -8,10 +8,8 @@ import team03.secondhand.domain.member.error.MemberError;
 
 @RestControllerAdvice(basePackages = "team03.secondhand.domain.member")
 public class MemberControllerAdvice {
-    @ExceptionHandler(MemberError.DuplicatedUser.class)
-    public BaseResponse duplicatedUserHandler() {
-        return new BaseResponse(StatusCode.DUPLICATED_USER);
-    }
+    @ExceptionHandler(MemberError.DuplicatedMember.class)
+    public BaseResponse duplicatedMemberHandler() {return new BaseResponse(StatusCode.DUPLICATED_MEMBER);}
 
     @ExceptionHandler(MemberError.TokenExpired.class)
     public BaseResponse tokenExpiredHandler() {

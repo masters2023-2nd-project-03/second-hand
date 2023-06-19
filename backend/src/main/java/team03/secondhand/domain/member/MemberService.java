@@ -73,7 +73,7 @@ public class MemberService {
 
     private void isRegistrationBy(String oauthId) {
         if (memberRepository.existsByOauthId(oauthId)) {
-            throw new MemberError.DuplicatedUser();
+            throw new MemberError.DuplicatedMember();
         }
     }
 

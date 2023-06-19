@@ -1,12 +1,14 @@
 package team03.secondhand.domain.oauth2.error;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 
-@Data
+@Getter @Setter
 public class Oauth2Error{
 
-    @Data
+    @Getter @Setter
     public static class RequireRegistration extends RuntimeException{
         private Oauth2DataDto.LoginInfo loginInfo;
 
@@ -19,11 +21,11 @@ public class Oauth2Error{
         }
     }
 
-    @Data
+    @Getter @Setter
     public static class NotFoundPlatform extends RuntimeException {}
-    @Data
+    @Getter @Setter
     public static class InvalidPlatform extends RuntimeException {}
-    @Data
+    @Getter @Setter
     public static class TokenInvalid extends RuntimeException {}
 
 

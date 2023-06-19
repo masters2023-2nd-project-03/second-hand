@@ -1,23 +1,25 @@
 package team03.secondhand.domain.member.error;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import team03.secondhand.domain.StatusCode;
 
-@Data
+@Getter @Setter
 public class MemberError {
 
-    @Data
-    public static class DuplicatedUser extends RuntimeException {};
+    @Getter @Setter
+    public static class DuplicatedMember extends RuntimeException {};
 
-    @Data
+    @Getter @Setter
     public static class TokenExpired extends RuntimeException {};
 
-    @Data
+    @Getter @Setter
     public static class RequireRegistration extends RuntimeException {};
 
-    @Data
+    @Getter @Setter
     public static class NotFoundLocation extends RuntimeException {};
 
-    @Data
+    @Getter @Setter
     public static class TokenIsNull extends RuntimeException {};
 
 }

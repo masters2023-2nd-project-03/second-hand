@@ -1,12 +1,14 @@
 package team03.secondhand.domain.oauth2.dto;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 @NoArgsConstructor
 public class Oauth2DataRequestDto {
-    @Data
+    @Getter @Setter
     public static class Login {
         private String platform;
         private String code;

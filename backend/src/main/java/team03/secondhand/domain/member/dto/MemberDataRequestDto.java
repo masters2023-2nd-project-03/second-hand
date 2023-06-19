@@ -1,15 +1,17 @@
 package team03.secondhand.domain.member.dto;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter @Setter
 @NoArgsConstructor
 public class MemberDataRequestDto {
-    @Data
+    @Getter @Setter
     public static class Join {
         private String nickname;
         private String profileUrl;
@@ -18,7 +20,7 @@ public class MemberDataRequestDto {
 
     }
 
-    @Data
+    @Getter @Setter
     public static class UpdateLocation {
         private List<Long> locationIdList = new ArrayList<>();
 
