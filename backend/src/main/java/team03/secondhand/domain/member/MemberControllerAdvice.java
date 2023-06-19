@@ -34,7 +34,7 @@ public class MemberControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public BaseResponse methodArgumentErrorHandler(MethodArgumentNotValidException e) {
-        return new BaseResponse(StatusCode.RESPONSE_FAILURE, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        return new BaseResponse(StatusCode.BAD_PARAMETER, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
     @ExceptionHandler(Exception.class)
