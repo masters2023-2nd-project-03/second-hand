@@ -12,6 +12,7 @@ import static org.springframework.http.HttpStatus.*;
 @AllArgsConstructor
 public enum StatusCode {
     RESPONSE_SUCCESS(true, OK, 20000, "요청이 완료되었습니다."),
+    REQUEST_SUCCESS(true, OK, 20001, "물품 등록이 완료되었습니다."),
     RESPONSE_FAILURE(false,  UNAUTHORIZED, 40000, "요청이 실패하였습니다."),
     TOKEN_INVALID(false, UNAUTHORIZED, 40100, "유효하지 않은 토큰입니다."),
     TOKEN_EXPIRED(false, UNAUTHORIZED, 40101, "만료된 토큰입니다."),

@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `product`
     `price`        INT          NULL,
     `content`      TEXT         NOT NULL,
     `lookup_count` INT          NOT NULL DEFAULT 0,
-    `sales_status` VARCHAR(15)  NOT NULL DEFAULT 'sale',
+    `sales_status` VARCHAR(15)  NOT NULL DEFAULT '판매중',
     `create_at`    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `update_at`    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `category_id`  BIGINT       NOT NULL,

@@ -46,4 +46,9 @@ VALUES
 
 INSERT INTO member (nickname, profile_url, oauth_id)
 VALUES
-    ('만주', 'https://avatars.githubusercontent.com/u/20828490?s=40&v=4', 'JeonHyoChang');
+    ('노아', 'https://avatars.githubusercontent.com/u/63908856?v=4', 'noah0316'),
+    ('에이든', 'https://avatars.githubusercontent.com/u/115064144?v=4', 'wnsqhs'),
+    ('시레', 'https://avatars.githubusercontent.com/u/80495427?v=4', 'dltpwns0'),
+    ('만주', 'https://avatars.githubusercontent.com/u/20828490?s=40&v=4', 'JeonHyoChang'),
+    ('시저', 'https://avatars.githubusercontent.com/u/76683390?v=4', 'sarangdaddy'),
+    ('사랑대디', 'https://avatars.githubusercontent.com/u/109648042?v=4', 'zlx454545');
