@@ -33,8 +33,13 @@ public class MemberControllerAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public BaseResponse globalErrorHandler(MethodArgumentNotValidException e) {
+    public BaseResponse methodArgumentErrorHandler(MethodArgumentNotValidException e) {
         return new BaseResponse(StatusCode.RESPONSE_FAILURE, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public BaseResponse exceptionHandler(Exception e) {
+        return new BaseResponse(StatusCode.RESPONSE_FAILURE);
     }
 
 }

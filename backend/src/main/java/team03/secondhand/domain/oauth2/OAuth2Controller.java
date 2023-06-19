@@ -24,7 +24,7 @@ public class OAuth2Controller {
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, authorizationUrl);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public DataResponse<Oauth2DataResponseDto.LoginInfo> login(@Valid @RequestBody Oauth2DataRequestDto.Login requestLoginDto) throws Exception {
         Oauth2DataDto.LoginInfo loginInfo = oAuth2Service.getLoginInfo(requestLoginDto);
         Oauth2DataResponseDto.LoginInfo oauth2DataResponse = oAuth2Service.findMember(loginInfo);

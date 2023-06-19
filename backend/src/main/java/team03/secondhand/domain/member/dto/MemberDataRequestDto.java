@@ -26,12 +26,6 @@ public class MemberDataRequestDto {
         @NotEmpty(message = "동네를 설정해주세요")
         private List<Long> locationIdList = new ArrayList<>();
 
-        public Join(String nickname, String profileUrl, String oauthId, List<Long> locationIdList) {
-            this.nickname = nickname;
-            this.profileUrl = profileUrl;
-            this.oauthId = oauthId;
-            this.locationIdList = locationIdList;
-        }
     }
 
     @Getter @Setter
