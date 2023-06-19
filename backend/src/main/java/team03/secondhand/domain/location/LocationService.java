@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import team03.secondhand.domain.location.dto.response.ResponseLocationDTO;
+import team03.secondhand.domain.location.dto.LocationResponseDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,26 +17,21 @@ public class LocationService {
     private final LocationRepository locationRepository;
 
     @Transactional
-    public List<ResponseLocationDTO> getAllLocations() {
-        List<Location> locations = locationRepository.findAll();
+    public List<LocationResponseDTO.Info> getAllLocations(String searchKey) {
+        List<Location> locations;
+        if (searchKey == null) {
+            log.debug("모두 출력");
+            locations = locationRepository.findAll();
+        } else {
+            log.debug("필터 출력");
+            locations = locationRepository.findAllByLocationDetailsContains(searchKey);
+        }
         return locations.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public List<ResponseLocationDTO> getAllLocationsByLocationDetailsLike(String searchKey) {
-        List<Location> locations = locationRepository.findAllByLocationDetailsLike("%" + searchKey + "%");
-        return locations.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    private ResponseLocationDTO convertToDTO(Location location) {
-        return ResponseLocationDTO.builder()
-                .locationId(location.getLocationId())
-                .locationDetails(location.getLocationDetails())
-                .locationShortening(location.getLocationShortening())
-                .build();
+    private LocationResponseDTO.Info convertToDTO(Location location) {
+        return new LocationResponseDTO.Info(location);
     }
 }
