@@ -13,12 +13,9 @@ public class LocationData {
 
         private String locationShortening;
 
-        private Boolean isMainLocation;
-
         public Info(MemberAndLocation memberAndLocation) {
             this.locationDetails = memberAndLocation.getLocation().getLocationDetails();
             this.locationShortening = memberAndLocation.getLocation().getLocationShortening();
-            this.isMainLocation = memberAndLocation.getIsMainLocation();
         }
     }
     

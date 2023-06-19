@@ -19,15 +19,12 @@ public class MemberAndLocation {
     private Long memberLocationId;
 
     @ManyToOne()
-    @JoinColumn(name = "member_member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne()
-    @JoinColumn(name = "location_location_id")
+    @JoinColumn(name = "location_id")
     private Location location;
-
-    @Column(name = "main_status")
-    private Boolean isMainLocation;
 
     public MemberAndLocation(Member member, Location location) {
         this.member = member;
