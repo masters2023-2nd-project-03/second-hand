@@ -9,9 +9,9 @@ import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.member.MemberRepository;
-import team03.secondhand.domain.product.dto.request.RequestProductCreateDTO;
-import team03.secondhand.domain.product.dto.response.ResponseProductCreateDTO;
-import team03.secondhand.domain.product.dto.response.ResponseProductHomeDTO;
+import team03.secondhand.domain.product.dto.ProductDataRequestDTO;
+import team03.secondhand.domain.product.dto.ProductDataResponseDTO;
+import team03.secondhand.domain.product.dto.ProductDataResponseVO;
 import team03.secondhand.domain.productImg.ProductImg;
 import team03.secondhand.domain.productImg.ProductImgRepository;
 import team03.secondhand.domain.watchlist.WatchlistRepository;
@@ -32,7 +32,7 @@ public class ProductService {
     private final WatchlistRepository watchlistRepository;
 
     @Transactional
-    public ResponseProductCreateDTO createProduct(RequestProductCreateDTO request) {
+    public ProductDataResponseDTO.SimpleInfo createProduct(ProductDataRequestDTO request) {
         // Get Info
         Category category = categoryRepository.getReferenceById(request.getCategoryId());
         Location location = locationRepository.getReferenceById(request.getLocationId());
@@ -62,38 +62,28 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ResponseProductHomeDTO> getAllProductByFilter(Long locationId, Long categoryId) {
+    public List<ProductDataResponseDTO.HomeInfo> getAllProductByFilter(Long locationId, Long categoryId) {
         List<Product> products = productRepository.findProductByFilter(locationId, categoryId);
         return products.stream()
                 .map(this::convertToHomeDTO)
                 .collect(Collectors.toList());
     }
 
-    private ResponseProductCreateDTO convertToProductDTO(Product product) {
-        return ResponseProductCreateDTO.builder()
-                .productId(product.getProductId())
-                .build();
+    private ProductDataResponseDTO.SimpleInfo convertToProductDTO(Product product) {
+        return new ProductDataResponseDTO.SimpleInfo(product);
     }
 
     // TODO: 1. 채팅룸 기능 구현시 카운터 체크 기능 추가 바람
-    private ResponseProductHomeDTO convertToHomeDTO(Product product) {
+    private ProductDataResponseDTO.HomeInfo convertToHomeDTO(Product product) {
         String locationShortening = product.getLocation().getLocationShortening();
         String productImgUrl = productImgRepository.findFirstByProduct_ProductId(product.getProductId()).getImgUrl();
         List<Long> watchlistMemberIdList = watchlistRepository.findAllByProduct_ProductId(product.getProductId()).stream()
                 .map(watchlist -> watchlist.getMember().getMemberId())
                 .collect(Collectors.toList());
 
-        return ResponseProductHomeDTO.builder()
-                .productId(product.getProductId())
-                .title(product.getTitle())
-                .createAt(product.getCreatedAt())
-                .updatedAt(product.getUpdatedAt())
-                .price(product.getPrice())
-                .location(locationShortening)
-                .chatRoomCount(0L)
-                .watchListMemberIdList(watchlistMemberIdList)
-                .productImgUrl(productImgUrl)
-                .build();
+        ProductDataResponseVO responseVO = new ProductDataResponseVO(locationShortening, 0L, watchlistMemberIdList, productImgUrl);
+
+        return new ProductDataResponseDTO.HomeInfo(product, responseVO);
     }
 
 }

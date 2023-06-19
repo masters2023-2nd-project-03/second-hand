@@ -1,11 +1,11 @@
-package team03.secondhand.domain.product.dto.request;
+package team03.secondhand.domain.product.dto;
 
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-public class RequestProductCreateDTO {
+public class ProductDataRequestDTO {
     private String title;
     private Integer price;
     private String content;

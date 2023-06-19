@@ -35,10 +35,10 @@ public class Product {
     private String content;
 
     @Column(name = "lookup_count")
-    private Integer lookupCount;
+    private Integer lookupCount = 0;
 
     @Column(name = "sales_status")
-    private String salesStatus;
+    private String salesStatus = "판매중";
 
     @Column(name = "create_at")
     private LocalDateTime createdAt;
@@ -70,8 +70,6 @@ public class Product {
         this.title = title;
         this.price = price;
         this.content = content;
-        this.lookupCount = 0;
-        this.salesStatus = "sale";
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
         this.category = category;
