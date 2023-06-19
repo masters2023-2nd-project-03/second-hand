@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public DataResponse<List<ProductDataResponseDTO.HomeInfo>> getAllProductByFilter(@RequestParam("location-id") Long locationId, @RequestParam(value = "category-id", required = false) Long categoryId) {
+    public DataResponse<List<ProductDataResponseDTO.HomeInfo>> getAllProductByFilter(@RequestParam(value = "location-id", required = false) Long locationId, @RequestParam(value = "category-id", required = false) Long categoryId) {
         log.debug("물품 목록 응답(필터 적용)");
         List<ProductDataResponseDTO.HomeInfo> productInfoList = productService.getAllProductByFilter(locationId, categoryId);
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, productInfoList);
