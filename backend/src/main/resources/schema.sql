@@ -162,16 +162,16 @@ CREATE TABLE IF NOT EXISTS `chat`
 CREATE TABLE IF NOT EXISTS `member_location`
 (
     `member_location_id`   BIGINT  NOT NULL AUTO_INCREMENT,
-    `member_member_id`     BIGINT  NOT NULL,
-    `location_location_id` BIGINT  NOT NULL,
+    `member_id`     BIGINT  NOT NULL,
+    `location_id` BIGINT  NOT NULL,
     `main_location_status` TINYINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`member_location_id`),
-    INDEX `fk_member_location_location_idx` (`location_location_id` ASC) VISIBLE,
-    INDEX `fk_member_location_member_idx` (`member_member_id` ASC) VISIBLE,
+    INDEX `fk_member_location_location_idx` (`location_id` ASC) VISIBLE,
+    INDEX `fk_member_location_member_idx` (`member_id` ASC) VISIBLE,
     CONSTRAINT `fk_member_location_member`
-    FOREIGN KEY (`member_member_id`)
+    FOREIGN KEY (`member_id`)
     REFERENCES `member` (`member_id`),
     CONSTRAINT `fk_member_location_location`
-    FOREIGN KEY (`location_location_id`)
+    FOREIGN KEY (`location_id`)
     REFERENCES `location` (`location_id`)
     );

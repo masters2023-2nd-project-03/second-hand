@@ -202,7 +202,5 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,macos,gradle
 .idea
-.idea/
-.idea/**
 
 **/application.properties
