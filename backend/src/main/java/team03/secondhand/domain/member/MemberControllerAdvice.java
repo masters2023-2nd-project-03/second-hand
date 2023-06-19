@@ -1,5 +1,6 @@
 package team03.secondhand.domain.member;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team03.secondhand.domain.BaseResponse;
@@ -29,6 +30,11 @@ public class MemberControllerAdvice {
     @ExceptionHandler(MemberError.NotFoundLocation.class)
     public BaseResponse notFoundLocationHandler() {
         return new BaseResponse(StatusCode.NOT_FOUND_LOCATION);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public BaseResponse globalErrorHandler(MethodArgumentNotValidException e) {
+        return new BaseResponse(StatusCode.RESPONSE_FAILURE, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
 }

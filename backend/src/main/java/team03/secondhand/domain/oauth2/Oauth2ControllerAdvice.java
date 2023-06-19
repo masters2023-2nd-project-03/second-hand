@@ -1,5 +1,6 @@
 package team03.secondhand.domain.oauth2;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team03.secondhand.domain.BaseResponse;
@@ -24,6 +25,11 @@ public class Oauth2ControllerAdvice {
     @ExceptionHandler(Oauth2Error.NotFoundPlatform.class)
     public BaseResponse invalidPlatformHandler() {
         return new BaseResponse(StatusCode.NOT_FOUND_PLATFORM);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public BaseResponse globalErrorHandler(MethodArgumentNotValidException e) {
+        return new BaseResponse(StatusCode.RESPONSE_FAILURE, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
 }

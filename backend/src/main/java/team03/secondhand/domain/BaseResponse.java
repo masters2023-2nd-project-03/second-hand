@@ -17,4 +17,12 @@ public class BaseResponse {
         this.code = statusCode.getCode();
         this.message = statusCode.getMessage();
     }
+
+    public BaseResponse(StatusCode statusCode, String message) {
+        this.success = statusCode.isSuccess();
+        this.status = statusCode.getStatus();
+        this.code = statusCode.getCode();
+        this.message = message;
+
+    }
 }

@@ -1,6 +1,5 @@
 package team03.secondhand.domain.member.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

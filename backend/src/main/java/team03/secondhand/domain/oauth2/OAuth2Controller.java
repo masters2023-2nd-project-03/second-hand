@@ -2,15 +2,14 @@ package team03.secondhand.domain.oauth2;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team03.secondhand.domain.DataResponse;
 import team03.secondhand.domain.StatusCode;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataRequestDto;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataResponseDto;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,7 +25,7 @@ public class OAuth2Controller {
     }
 
     @GetMapping("/login")
-    public DataResponse<Oauth2DataResponseDto.LoginInfo> login(Oauth2DataRequestDto.Login requestLoginDto) throws Exception {
+    public DataResponse<Oauth2DataResponseDto.LoginInfo> login(@Valid @RequestBody Oauth2DataRequestDto.Login requestLoginDto) throws Exception {
         Oauth2DataDto.LoginInfo loginInfo = oAuth2Service.getLoginInfo(requestLoginDto);
         Oauth2DataResponseDto.LoginInfo oauth2DataResponse = oAuth2Service.findMember(loginInfo);
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, oauth2DataResponse);

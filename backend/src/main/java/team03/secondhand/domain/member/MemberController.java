@@ -9,6 +9,8 @@ import team03.secondhand.domain.StatusCode;
 import team03.secondhand.domain.member.dto.MemberDataRequestDto;
 import team03.secondhand.domain.member.dto.MemberDataResponseDto;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
@@ -18,7 +20,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public DataResponse<MemberDataResponseDto.Join> join(@RequestBody MemberDataRequestDto.Join requestJoinDto) {
+    public DataResponse<MemberDataResponseDto.Join> join(@Valid @RequestBody MemberDataRequestDto.Join requestJoinDto) {
         MemberDataResponseDto.Join memberDataJoin = memberService.join(requestJoinDto);
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, memberDataJoin);
     }
@@ -30,7 +32,7 @@ public class MemberController {
     }
 
     @PatchMapping("/locations")
-    public BaseResponse updateLocation(@RequestAttribute Long memberId , @RequestBody MemberDataRequestDto.UpdateLocation requestUpdateLocationDto) {
+    public BaseResponse updateLocation(@RequestAttribute Long memberId , @Valid @RequestBody MemberDataRequestDto.UpdateLocation requestUpdateLocationDto) {
         memberService.updateLocations(memberId, requestUpdateLocationDto);
         return new BaseResponse(StatusCode.RESPONSE_SUCCESS);
     }
