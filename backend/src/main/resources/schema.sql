@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `category`
     `title`            VARCHAR(120) NOT NULL,
     `category_img_url` VARCHAR(200) NOT NULL,
     PRIMARY KEY (`category_id`)
-    );
+);
 
 
 -- -----------------------------------------------------
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `location`
     `location_details`    VARCHAR(120) NOT NULL,
     `location_shortening` VARCHAR(30)  NOT NULL,
     PRIMARY KEY (`location_id`)
-    );
+);
 
 
 -- -----------------------------------------------------
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `member`
     PRIMARY KEY (`member_id`),
     UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC) VISIBLE,
     UNIQUE INDEX `oauth_id_UNIQUE` (`oauth_id` ASC) VISIBLE
-    );
+);
 
 
 -- -----------------------------------------------------
@@ -60,15 +60,15 @@ CREATE TABLE IF NOT EXISTS `product`
     INDEX `fk_product_location_idx` (`location_id` ASC) VISIBLE,
     INDEX `fk_product_member_idx` (`member_id` ASC) VISIBLE,
     CONSTRAINT `fk_product_category`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `category` (`category_id`),
+        FOREIGN KEY (`category_id`)
+            REFERENCES `category` (`category_id`),
     CONSTRAINT `fk_product_location`
-    FOREIGN KEY (`location_id`)
-    REFERENCES `location` (`location_id`),
+        FOREIGN KEY (`location_id`)
+            REFERENCES `location` (`location_id`),
     CONSTRAINT `fk_product_member`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `member` (`member_id`)
-    );
+        FOREIGN KEY (`member_id`)
+            REFERENCES `member` (`member_id`)
+);
 
 
 -- -----------------------------------------------------
@@ -82,9 +82,9 @@ CREATE TABLE IF NOT EXISTS `product_img`
     PRIMARY KEY (`product_img_id`),
     INDEX `fk_product_img_product_idx` (`product_id` ASC) VISIBLE,
     CONSTRAINT `fk_product_img_product`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `product` (`product_id`)
-    );
+        FOREIGN KEY (`product_id`)
+            REFERENCES `product` (`product_id`)
+);
 
 
 -- -----------------------------------------------------
@@ -99,12 +99,12 @@ CREATE TABLE IF NOT EXISTS `watchlist`
     INDEX `fk_watchlist_member_idx` (`member_id` ASC) VISIBLE,
     INDEX `fk_watchlist_product_idx` (`product_id` ASC) VISIBLE,
     CONSTRAINT `fk_watchlist_product`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `product` (`product_id`),
+        FOREIGN KEY (`product_id`)
+            REFERENCES `product` (`product_id`),
     CONSTRAINT `fk_watchlist_member`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `member` (`member_id`)
-    );
+        FOREIGN KEY (`member_id`)
+            REFERENCES `member` (`member_id`)
+);
 
 
 -- -----------------------------------------------------
@@ -123,15 +123,15 @@ CREATE TABLE IF NOT EXISTS `chatroom`
     INDEX `fk_chatroom_seller_idx` (`seller_id` ASC) VISIBLE,
     INDEX `fk_chatroom_buyer_idx` (`buyer_id` ASC) VISIBLE,
     CONSTRAINT `fk_chatroom_product`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `product` (`product_id`),
+        FOREIGN KEY (`product_id`)
+            REFERENCES `product` (`product_id`),
     CONSTRAINT `fk_chatroom_seller`
-    FOREIGN KEY (`seller_id`)
-    REFERENCES `member` (`member_id`),
+        FOREIGN KEY (`seller_id`)
+            REFERENCES `member` (`member_id`),
     CONSTRAINT `fk_chatroom_buyer`
-    FOREIGN KEY (`buyer_id`)
-    REFERENCES `member` (`member_id`)
-    );
+        FOREIGN KEY (`buyer_id`)
+            REFERENCES `member` (`member_id`)
+);
 
 
 -- -----------------------------------------------------
@@ -148,12 +148,12 @@ CREATE TABLE IF NOT EXISTS `chat`
     INDEX `fk_chat_chatroom_idx` (`chatroom_id` ASC) VISIBLE,
     INDEX `fk_chat_member_idx` (`sender_id` ASC) VISIBLE,
     CONSTRAINT `fk_chat_chatroom`
-    FOREIGN KEY (`chatroom_id`)
-    REFERENCES `chatroom` (`chatroom_id`),
+        FOREIGN KEY (`chatroom_id`)
+            REFERENCES `chatroom` (`chatroom_id`),
     CONSTRAINT `fk_chat_member`
-    FOREIGN KEY (`sender_id`)
-    REFERENCES `member` (`member_id`)
-    );
+        FOREIGN KEY (`sender_id`)
+            REFERENCES `member` (`member_id`)
+);
 
 
 -- -----------------------------------------------------
@@ -162,16 +162,16 @@ CREATE TABLE IF NOT EXISTS `chat`
 CREATE TABLE IF NOT EXISTS `member_location`
 (
     `member_location_id`   BIGINT  NOT NULL AUTO_INCREMENT,
-    `member_id`     BIGINT  NOT NULL,
-    `location_id` BIGINT  NOT NULL,
+    `member_id`            BIGINT  NOT NULL,
+    `location_id`          BIGINT  NOT NULL,
     `main_location_status` TINYINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`member_location_id`),
     INDEX `fk_member_location_location_idx` (`location_id` ASC) VISIBLE,
     INDEX `fk_member_location_member_idx` (`member_id` ASC) VISIBLE,
     CONSTRAINT `fk_member_location_member`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `member` (`member_id`),
+        FOREIGN KEY (`member_id`)
+            REFERENCES `member` (`member_id`),
     CONSTRAINT `fk_member_location_location`
-    FOREIGN KEY (`location_id`)
-    REFERENCES `location` (`location_id`)
-    );
+        FOREIGN KEY (`location_id`)
+            REFERENCES `location` (`location_id`)
+);
