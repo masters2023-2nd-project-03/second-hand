@@ -1180,10 +1180,10 @@ export const itemList = [
   },
   {
     id: 99,
-    title: '(상태좋음)샘키즈수납장 1305 모던',
+    title: '시레',
     imageURI:
       'https://dnvefa72aowie.cloudfront.net/origin/article/202306/f997c23d57a25d73d00c14ceeebc6029f84920d78e802908f7ba9761cb521501_0.webp?q=82&s=300x300&t=crop',
-    price: 80000,
+    price: 8000000,
     chatCount: 13,
     interestCount: 7,
     location: '구로제5동',
