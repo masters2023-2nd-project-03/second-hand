@@ -7,6 +7,11 @@ env:
   working-directory: ./frontend
   docker-container-name: second-hand-fe
   docker-image-name: ${{ secrets.DOCKERHUB_USERNAME }}/second-hand-fe
+  REACT_APP_GITHUB_OAUTH_URL: ${{ secrets.REACT_APP_GITHUB_OAUTH_URL }}
+  REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
+  REACT_APP_GITHUB_REDIRECT_URI: ${{ secrets.REACT_APP_GITHUB_REDIRECT_URI }}
+  REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+  DISABLE_ESLINT_PLUGIN: ${{ secrets.DISABLE_ESLINT_PLUGIN }}
 
 jobs:
   deploy:
