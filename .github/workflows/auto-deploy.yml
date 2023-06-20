@@ -1,0 +1,70 @@
+name: Deploy
+on:
+  push:
+    branches: [FE-release-v2] # main 브랜치에 push 발생하면 트리거
+
+env:
+  working-directory: ./frontend
+  docker-container-name: second-hand-fe
+  docker-image-name: ${{ secrets.DOCKERHUB_USERNAME }}/second-hand-fe
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # ubuntu 최신 버전 환경에서 실행
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: lts/Hydrogen
+
+      - name: Cache node modules
+        uses: actions/cache@v2.1.8
+        # 해당 step을 대표하는 id를 설정할 수도 있다. 해당 값은 뒤의 step에서 사용한다.
+        id: cache
+        with:
+          # node_modules라는 폴더를 검사하여
+          path: node_modules
+          # 아래 키값으로 cache가 돼있는지 확인한다.
+          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        # if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: ${{ env.working-directory }}
+
+      - name: Build
+        run: npm run build
+        working-directory: ${{ env.working-directory }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ env.docker-image-name }}
+
+      - name: Pull and restart Docker Container
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          script: |
+            sudo docker stop ${{ env.docker-container-name }}
+            sudo docker rmi ${{ env.docker-image-name }}
+            sudo docker pull ${{ env.docker-image-name }}
+            sudo docker run -d --rm --name ${{ env.docker-container-name }} -p 80:80 ${{ env.docker-image-name }}
