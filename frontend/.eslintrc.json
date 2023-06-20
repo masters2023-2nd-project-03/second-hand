@@ -10,7 +10,8 @@
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/react-in-jsx-scope": 0,
-    "react/self-closing-comp": "error"
+    "react/self-closing-comp": "error",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
   },
   "settings": {
     "react": {
