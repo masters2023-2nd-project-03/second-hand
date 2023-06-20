@@ -1,0 +1,26 @@
+included:
+  - Second-Hand
+disabled_rules:
+  - todo
+  - trailing_whitespace
+
+indentation_width:
+  indentation_width: 4
+
+force_unwrapping:
+  severity: error
+
+function_body_length:
+  - 10 # warning
+  - 20 # error
+
+type_body_length:
+  - 200 # warning
+  - 400 # error
+
+opt_in_rules:
+  - force_unwrapping
+  - indentation_width
+  - sorted_imports
+  - multiline_arguments
+  - multiline_parameters_brackets
