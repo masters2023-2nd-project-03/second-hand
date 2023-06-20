@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A353B5C2A4021190023AF68 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A353B5B2A4021190023AF68 /* ProfileImageView.swift */; };
 		2A4F263C2A38736D00A55FF5 /* IDInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F263B2A38736C00A55FF5 /* IDInputView.swift */; };
-		2A4F263E2A38C2EB00A55FF5 /* ImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F263D2A38C2EB00A55FF5 /* ImageSelectButton.swift */; };
 		2A4F26402A38DE5E00A55FF5 /* LocationAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F263F2A38DE5E00A55FF5 /* LocationAddButton.swift */; };
 		2A6295232A35C3B100B3AC7E /* FontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6295222A35C3B100B3AC7E /* FontStyle.swift */; };
 		2A6295262A3801E000B3AC7E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6295252A3801E000B3AC7E /* SignUpViewController.swift */; };
@@ -26,8 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A353B5B2A4021190023AF68 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		2A4F263B2A38736C00A55FF5 /* IDInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputView.swift; sourceTree = "<group>"; };
-		2A4F263D2A38C2EB00A55FF5 /* ImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectButton.swift; sourceTree = "<group>"; };
 		2A4F263F2A38DE5E00A55FF5 /* LocationAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAddButton.swift; sourceTree = "<group>"; };
 		2A6295222A35C3B100B3AC7E /* FontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyle.swift; sourceTree = "<group>"; };
 		2A6295252A3801E000B3AC7E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 			children = (
 				2A4F263B2A38736C00A55FF5 /* IDInputView.swift */,
 				2A4F263F2A38DE5E00A55FF5 /* LocationAddButton.swift */,
-				2A4F263D2A38C2EB00A55FF5 /* ImageSelectButton.swift */,
+				2A353B5B2A4021190023AF68 /* ProfileImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -296,12 +296,12 @@
 			files = (
 				2A4F26402A38DE5E00A55FF5 /* LocationAddButton.swift in Sources */,
 				4F05FF752A31AB5800A1BF50 /* HomeViewController.swift in Sources */,
-				2A4F263E2A38C2EB00A55FF5 /* ImageSelectButton.swift in Sources */,
 				4F05FF712A31AB5800A1BF50 /* AppDelegate.swift in Sources */,
 				2A6295262A3801E000B3AC7E /* SignUpViewController.swift in Sources */,
 				4F05FF732A31AB5800A1BF50 /* SceneDelegate.swift in Sources */,
 				4F05FF902A36FA3900A1BF50 /* ColorPalette.swift in Sources */,
 				4F05FF932A37F8C100A1BF50 /* SecondHandTabBarController.swift in Sources */,
+				2A353B5C2A4021190023AF68 /* ProfileImageView.swift in Sources */,
 				2A4F263C2A38736D00A55FF5 /* IDInputView.swift in Sources */,
 				4F3709772A3C0A9400918DF5 /* ImageSelectButton+Constant.swift in Sources */,
 				4F3709752A3BFCA100918DF5 /* LocationAddButton+Constant.swift in Sources */,

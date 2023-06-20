@@ -1,5 +1,5 @@
 //
-//  ImageSelectButton+Constant.swift
+//  ProfileImageView+Constant.swift
 //  Second-Hand
 //
 //  Created by Noah on 2023/06/16.
@@ -7,20 +7,20 @@
 
 import UIKit
 
-extension ImageSelectButton {
+extension ProfileImageView {
     enum Constant { }
 }
 
-extension ImageSelectButton.Constant {
+extension ProfileImageView.Constant {
     enum ImageAsset { }
     enum Layout { }
 }
 
-extension ImageSelectButton.Constant.ImageAsset {
+extension ProfileImageView.Constant.ImageAsset {
     static let camera = UIImage(systemName: "camera")
 }
 
-extension ImageSelectButton.Constant.Layout {
+extension ProfileImageView.Constant.Layout {
     static let diameter: CGFloat = 80
     static let borderWidth: CGFloat = 1
     static let horizontalPadding: CGFloat = 22.5
