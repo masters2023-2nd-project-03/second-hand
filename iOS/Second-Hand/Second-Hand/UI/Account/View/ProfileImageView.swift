@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileImageView: UIImageView {
+final class ProfileImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupProfileImageViewUI()
@@ -15,7 +15,7 @@ class ProfileImageView: UIImageView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupProfileImageViewUI()
+        self.setupProfileImageViewUI()
     }
 }
 

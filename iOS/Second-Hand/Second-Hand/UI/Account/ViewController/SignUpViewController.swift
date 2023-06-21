@@ -9,7 +9,7 @@ import UIKit
 
 final class SignUpViewController: UIViewController {
     private let idInputView = IDInputView()
-    private let imageSelectButton = ImageSelectButton()
+    private let profileImageView = ProfileImageView(frame: .zero)
     private let locationAddButton = LocationAddButton()
     private let navigationBar = UINavigationBar()
     
@@ -26,7 +26,7 @@ final class SignUpViewController: UIViewController {
 extension SignUpViewController {
     private func addSubViews() {
         self.view.addSubview(self.idInputView)
-        self.view.addSubview(self.imageSelectButton)
+        self.view.addSubview(self.profileImageView)
         self.view.addSubview(self.locationAddButton)
         self.view.addSubview(self.navigationBar)
     }
@@ -52,23 +52,23 @@ extension SignUpViewController {
         
         NSLayoutConstraint.activate(
             [
-                self.imageSelectButton.topAnchor.constraint(
+                self.profileImageView.topAnchor.constraint(
                     equalTo: self.navigationBar.bottomAnchor,
                     constant: Constant.Layout.ImageSelectButton.imageButtonTopPadding
                 ),
-                self.imageSelectButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+                self.profileImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ]
         )
     }
     
     // swiftlint:disable:next function_body_length
     private func setupIDInputViewLayoutConstraint() {
-        self.imageSelectButton.translatesAutoresizingMaskIntoConstraints = false
+        self.profileImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
             [
                 self.idInputView.topAnchor.constraint(
-                    equalTo: self.imageSelectButton.bottomAnchor,
+                    equalTo: self.profileImageView.bottomAnchor,
                     constant: Constant.Layout.IDInputView.idInputViewTopPadding
                 ),
                 self.idInputView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
