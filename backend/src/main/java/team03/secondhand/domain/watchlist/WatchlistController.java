@@ -18,7 +18,7 @@ public class WatchlistController {
     @PostMapping
     public ResponseEntity<String> addToWatchlist(@RequestBody RequestWatchlistDTO addToWatchlistDTO) {
         try {
-            watchlistService.addToWatchlist(addToWatchlistDTO.getMemberId(), addToWatchlistDTO.getProductId());
+            watchlistService.addToWatchlist(addToWatchlistDTO.getProductId(), addToWatchlistDTO.getMemberId());
             return ResponseEntity.ok("Added to watchlist");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add to watchlist");

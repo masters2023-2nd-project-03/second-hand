@@ -35,10 +35,10 @@ public class Product {
     private String content;
 
     @Column(name = "lookup_count")
-    private Integer lookupCount = 0;
+    private final Integer lookupCount = 0;
 
     @Column(name = "sales_status")
-    private String salesStatus = "판매중";
+    private final String salesStatus = "판매중";
 
     @Column(name = "create_at")
     private LocalDateTime createdAt;

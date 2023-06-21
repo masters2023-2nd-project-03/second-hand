@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import team03.secondhand.domain.product.Product;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,7 +31,8 @@ public class ProductDataResponseDTO {
         private Integer price;
         private String location;
         private Long chatRoomCount;
-        private List<Long> watchListMemberIds;
+        private Integer watchlistCount;
+        private Boolean isWatchlistChecked;
         private String productMainImgUrl;
 
         public HomeInfo(Product product, ProductDataResponseVO responseVO) {
@@ -44,7 +44,8 @@ public class ProductDataResponseDTO {
             this.price = product.getPrice();
             this.location = responseVO.getLocation();
             this.chatRoomCount = responseVO.getChatRoomCount();
-            this.watchListMemberIds = responseVO.getWatchListMemberIds();
+            this.watchlistCount = responseVO.getWatchlistCount();
+            this.isWatchlistChecked = responseVO.getIsWatchlistChecked();
             this.productMainImgUrl = responseVO.getProductMainImgUrl();
         }
     }

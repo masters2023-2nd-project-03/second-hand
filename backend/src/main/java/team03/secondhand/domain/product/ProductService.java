@@ -62,7 +62,7 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ProductDataResponseDTO.HomeInfo> getAllProductByFilter(Long locationId, Long categoryId) {
+    public List<ProductDataResponseDTO.HomeInfo> getAllProductByFilter(Long memberId, Long locationId, Long categoryId) {
         List<Product> products;
         if (locationId == null) {
             products = productRepository.findAllByOrderByUpdatedAtDesc();
@@ -71,7 +71,7 @@ public class ProductService {
         }
 
         return products.stream()
-                .map(this::convertToHomeDTO)
+                .map(product -> convertToHomeDTO(product, memberId))
                 .collect(Collectors.toList());
     }
 
@@ -79,15 +79,21 @@ public class ProductService {
         return new ProductDataResponseDTO.SimpleInfo(product);
     }
 
-    // TODO: 1. 채팅룸 기능 구현시 카운터 체크 기능 추가 바람
-    private ProductDataResponseDTO.HomeInfo convertToHomeDTO(Product product) {
-        String locationShortening = product.getLocation().getLocationShortening();
-        String productImgUrl = productImgRepository.findFirstByProduct_ProductId(product.getProductId()).getImgUrl();
-        List<Long> watchlistMemberIdList = watchlistRepository.findAllByProduct_ProductId(product.getProductId()).stream()
-                .map(watchlist -> watchlist.getMember().getMemberId())
-                .collect(Collectors.toList());
 
-        ProductDataResponseVO responseVO = new ProductDataResponseVO(locationShortening, 0L, watchlistMemberIdList, productImgUrl);
+    private ProductDataResponseDTO.HomeInfo convertToHomeDTO(Product product, Long memberId) {
+        String locationShortening = product.getLocation().getLocationShortening();
+        // TODO: 1. 채팅룸 기능 구현시 카운터 체크 기능 추가 바람
+        int watchlistCount = watchlistRepository.countByProduct_ProductId(product.getProductId());
+        boolean isWatchlistChecked = watchlistRepository.existsByProductProductIdAndMember_MemberId(product.getProductId(), memberId);
+        String productImgUrl = productImgRepository.findFirstByProduct_ProductId(product.getProductId()).getImgUrl();
+
+        ProductDataResponseVO responseVO = ProductDataResponseVO.builder()
+                .location(locationShortening)
+                .chatRoomCount(0L)
+                .watchlistCount(watchlistCount)
+                .isWatchlistChecked(isWatchlistChecked)
+                .productMainImgUrl(productImgUrl)
+                .build();
 
         return new ProductDataResponseDTO.HomeInfo(product, responseVO);
     }
