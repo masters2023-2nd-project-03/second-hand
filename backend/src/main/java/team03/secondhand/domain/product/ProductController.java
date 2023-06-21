@@ -19,9 +19,9 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public DataResponse<ProductDataResponseDTO.SimpleInfo> createProduct(@RequestBody ProductDataRequestDTO requestDTO) {
+    public DataResponse<ProductDataResponseDTO.SimpleInfo> createProduct(@RequestAttribute Long memberId, @ModelAttribute ProductDataRequestDTO requestDTO) {
         log.debug("새로운 물품 등록");
-        ProductDataResponseDTO.SimpleInfo createdProductInfo = productService.createProduct(requestDTO);
+        ProductDataResponseDTO.SimpleInfo createdProductInfo = productService.createProduct(memberId, requestDTO);
         return new DataResponse<>(StatusCode.REQUEST_SUCCESS, createdProductInfo);
     }
 
@@ -34,4 +34,3 @@ public class ProductController {
     }
 
 }
-
