@@ -3,23 +3,25 @@ package team03.secondhand.configure;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import team03.secondhand.domain.member.MemberInterceptor;
-import team03.secondhand.domain.product.ProductInterceptor;
+import team03.secondhand.domain.global.interceptor.MemberIdInterceptor;
+import team03.secondhand.domain.global.interceptor.OAuthInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    private final MemberInterceptor memberInterceptor;
-    private final ProductInterceptor productInterceptor;
+    private final OAuthInterceptor oAuthInterceptor;
+    private final MemberIdInterceptor memberIdInterceptor;
 
-    public WebMvcConfig(MemberInterceptor memberInterceptor, ProductInterceptor productInterceptor) {
-        this.memberInterceptor = memberInterceptor;
-        this.productInterceptor = productInterceptor;
+    public WebMvcConfig(OAuthInterceptor oAuthInterceptor, MemberIdInterceptor memberIdInterceptor) {
+        this.oAuthInterceptor = oAuthInterceptor;
+        this.memberIdInterceptor = memberIdInterceptor;
     }
 
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(memberInterceptor)
+        // 인증이 필요한 요청
+        registry.addInterceptor(oAuthInterceptor)
                 .addPathPatterns("/api/members", "/api/members/locations");
-        registry.addInterceptor(productInterceptor)
+        // 인증이 필요하지 않은 요청
+        registry.addInterceptor(memberIdInterceptor)
                 .addPathPatterns("/api/products");
     }
 
