@@ -33,5 +33,5 @@ public class Watchlist {
         this.product = product;
         this.member = member;
     }
-    // Getter and Setter methods
+    
 }

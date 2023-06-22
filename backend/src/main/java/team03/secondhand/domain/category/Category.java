@@ -28,5 +28,5 @@ public class Category {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
-    // Getter and Setter methods
+    
 }
