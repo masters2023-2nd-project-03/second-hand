@@ -15,6 +15,7 @@ import team03.secondhand.domain.oauth2.dto.Oauth2DataResponseDto;
 import team03.secondhand.domain.oauth2.error.Oauth2Error;
 import team03.secondhand.domain.oauth2.module.AuthModule;
 import team03.secondhand.domain.oauth2.module.GithubAuthModule;
+import team03.secondhand.domain.oauth2.module.GithubIosAuthModule;
 
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
@@ -27,12 +28,17 @@ public class OAuth2Service {
 
     private final MemberRepository memberRepository;
     private final GithubAuthModule githubAuthModule;
+    private final GithubIosAuthModule githubIosAuthModule;
     private final JwtTokenProvider jwtTokenProvider;
 
 
     @Autowired
-    public OAuth2Service(GithubAuthModule githubAuthModule, MemberRepository memberRepository,  JwtTokenProvider jwtTokenProvider) {
+    public OAuth2Service(GithubAuthModule githubAuthModule,
+                         GithubIosAuthModule githubIosAuthModule,
+                         MemberRepository memberRepository,
+                         JwtTokenProvider jwtTokenProvider) {
         this.githubAuthModule = githubAuthModule;
+        this.githubIosAuthModule = githubIosAuthModule;
         this.memberRepository = memberRepository;
         this.jwtTokenProvider = jwtTokenProvider;
     }
@@ -95,6 +101,9 @@ public class OAuth2Service {
     private AuthModule getAuthModule(String platform){
         if (platform.equals("github")) {
             return githubAuthModule;
+        }
+        if (platform.equals("github-iOS")) {
+            return githubIosAuthModule;
         }
         throw new Oauth2Error.NotFoundPlatform();
     }

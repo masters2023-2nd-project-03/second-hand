@@ -1,8 +1,15 @@
 package team03.secondhand.domain.product;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import team03.secondhand.domain.category.Category;
 import team03.secondhand.domain.category.CategoryRepository;
 import team03.secondhand.domain.location.Location;
@@ -31,12 +38,23 @@ public class ProductService {
     private final ProductImgRepository productImgRepository;
     private final WatchlistRepository watchlistRepository;
 
+    @Value("${aws.bucketName}")
+    private String S3Bucket; // Bucket 이름
+    @Value("${aws.bucketFolderPath}")
+    private String folderPath; // 폴더 경로
+    @Autowired
+    AmazonS3Client amazonS3Client;
+
+    /**
+     * Public Method
+     */
+
     @Transactional
-    public ProductDataResponseDTO.SimpleInfo createProduct(ProductDataRequestDTO request) {
+    public ProductDataResponseDTO.SimpleInfo createProduct(Long memberId, ProductDataRequestDTO request) {
         // Get Info
         Category category = categoryRepository.getReferenceById(request.getCategoryId());
         Location location = locationRepository.getReferenceById(request.getLocationId());
-        Member member = memberRepository.getReferenceById(request.getMemberId());
+        Member member = memberRepository.getReferenceById(memberId);
 
         // Create Product
         Product product = Product.builder()
@@ -49,20 +67,14 @@ public class ProductService {
                 .build();
         Product savedProduct = productRepository.save(product);
 
-        // Create Product Images
-        for (String imageUrl : request.getProductImageUrls()) {
-            ProductImg productImg = ProductImg.builder()
-                    .imgUrl(imageUrl)
-                    .product(product)
-                    .build();
-            productImgRepository.save(productImg);
-        }
+        // Upload Product Images
+        uploadProductImages(request.getProductImageUrls(), product);
 
         return convertToProductDTO(savedProduct);
     }
 
     @Transactional
-    public List<ProductDataResponseDTO.HomeInfo> getAllProductByFilter(Long locationId, Long categoryId) {
+    public List<ProductDataResponseDTO.HomeInfo> getAllProductByFilter(Long memberId, Long locationId, Long categoryId) {
         List<Product> products;
         if (locationId == null) {
             products = productRepository.findAllByOrderByUpdatedAtDesc();
@@ -71,7 +83,7 @@ public class ProductService {
         }
 
         return products.stream()
-                .map(this::convertToHomeDTO)
+                .map(product -> convertToHomeDTO(product, memberId))
                 .collect(Collectors.toList());
     }
 
@@ -79,17 +91,57 @@ public class ProductService {
         return new ProductDataResponseDTO.SimpleInfo(product);
     }
 
-    // TODO: 1. 채팅룸 기능 구현시 카운터 체크 기능 추가 바람
-    private ProductDataResponseDTO.HomeInfo convertToHomeDTO(Product product) {
-        String locationShortening = product.getLocation().getLocationShortening();
-        String productImgUrl = productImgRepository.findFirstByProduct_ProductId(product.getProductId()).getImgUrl();
-        List<Long> watchlistMemberIdList = watchlistRepository.findAllByProduct_ProductId(product.getProductId()).stream()
-                .map(watchlist -> watchlist.getMember().getMemberId())
-                .collect(Collectors.toList());
+    /**
+     * Private Method
+     */
 
-        ProductDataResponseVO responseVO = new ProductDataResponseVO(locationShortening, 0L, watchlistMemberIdList, productImgUrl);
+    private ProductDataResponseDTO.HomeInfo convertToHomeDTO(Product product, Long memberId) {
+        String locationShortening = product.getLocation().getLocationShortening();
+        // TODO: 1. 채팅룸 기능 구현시 카운터 체크 기능 추가 바람
+        int watchlistCount = watchlistRepository.countByProduct_ProductId(product.getProductId());
+        boolean isWatchlistChecked = watchlistRepository.existsByProductProductIdAndMember_MemberId(product.getProductId(), memberId);
+        String productImgUrl = productImgRepository.findFirstByProduct_ProductId(product.getProductId()).getImgUrl();
+
+        ProductDataResponseVO responseVO = ProductDataResponseVO.builder()
+                .location(locationShortening)
+                .chatRoomCount(0L)
+                .watchlistCount(watchlistCount)
+                .isWatchlistChecked(isWatchlistChecked)
+                .productMainImgUrl(productImgUrl)
+                .build();
 
         return new ProductDataResponseDTO.HomeInfo(product, responseVO);
+    }
+
+    private void uploadProductImages(List<MultipartFile> multipartFiles, Product product) {
+        int indexNum = 0;
+        for (MultipartFile multipartFile : multipartFiles) {
+            indexNum += 1;
+            String imgName = "product" + product.getProductId() + "-" + indexNum; // 파일 이름(물품ID + index)
+            long size = multipartFile.getSize(); // 파일 크기
+
+
+            ObjectMetadata objectMetaData = new ObjectMetadata();
+            objectMetaData.setContentType(multipartFile.getContentType());
+            objectMetaData.setContentLength(size);
+
+            // S3에 업로드
+            try {
+                amazonS3Client.putObject(
+                        new PutObjectRequest(S3Bucket, folderPath + imgName, multipartFile.getInputStream(), objectMetaData)
+                                .withCannedAcl(CannedAccessControlList.PublicRead)
+                );
+            } catch (Exception e) {
+                log.error(("예외 발생: " + e.getMessage()));
+            }
+            String imagePath = amazonS3Client.getUrl(S3Bucket, folderPath + imgName).toString(); // 접근가능한 URL 가져오기
+
+            ProductImg productImg = ProductImg.builder()
+                    .imgUrl(imagePath)
+                    .product(product)
+                    .build();
+            productImgRepository.save(productImg);
+        }
     }
 
 }

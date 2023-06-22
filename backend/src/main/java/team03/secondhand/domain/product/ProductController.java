@@ -19,18 +19,18 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public DataResponse<ProductDataResponseDTO.SimpleInfo> createProduct(@RequestBody ProductDataRequestDTO requestDTO) {
+    public DataResponse<ProductDataResponseDTO.SimpleInfo> createProduct(@RequestAttribute Long memberId, @ModelAttribute ProductDataRequestDTO requestDTO) {
         log.debug("새로운 물품 등록");
-        ProductDataResponseDTO.SimpleInfo createdProductInfo = productService.createProduct(requestDTO);
+        ProductDataResponseDTO.SimpleInfo createdProductInfo = productService.createProduct(memberId, requestDTO);
         return new DataResponse<>(StatusCode.REQUEST_SUCCESS, createdProductInfo);
     }
 
+    // TODO: 프론트 테스트 끝나면 동네ID 부분 수정 바람(필수로)
     @GetMapping
-    public DataResponse<List<ProductDataResponseDTO.HomeInfo>> getAllProductByFilter(@RequestParam(value = "location-id", required = false) Long locationId, @RequestParam(value = "category-id", required = false) Long categoryId) {
+    public DataResponse<List<ProductDataResponseDTO.HomeInfo>> getAllProductByFilter(@RequestAttribute Long memberId, @RequestParam(value = "location-id", required = false) Long locationId, @RequestParam(value = "category-id", required = false) Long categoryId) {
         log.debug("물품 목록 응답(필터 적용)");
-        List<ProductDataResponseDTO.HomeInfo> productInfoList = productService.getAllProductByFilter(locationId, categoryId);
+        List<ProductDataResponseDTO.HomeInfo> productInfoList = productService.getAllProductByFilter(memberId, locationId, categoryId);
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, productInfoList);
     }
 
 }
-
