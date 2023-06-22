@@ -44,7 +44,7 @@ public class MemberService {
                 .profileUrl(requestJoinDto.getProfileUrl())
                 .oauthId(requestJoinDto.getOauthId())
                 .build();
-        updateLocations(member, requestJoinDto.getLocationIdList());
+        setLocations(member, "역삼1동"); // 최초 가입시 '역삼1동' 으로 설정
         memberRepository.save(member);
         return new MemberDataResponseDto.Join(member, createToken(member));
     }
@@ -69,6 +69,12 @@ public class MemberService {
         }
         member.deleteAllLocation();
         foundLocations.forEach(member::addLocation);
+    }
+
+    private void setLocations(Member member, String searchKey) {
+        Location foundLocations = locationRepository.findByLocationShortening(searchKey);
+        member.deleteAllLocation();
+        member.addLocation(foundLocations);
     }
 
     private void isRegistrationBy(String oauthId) {
