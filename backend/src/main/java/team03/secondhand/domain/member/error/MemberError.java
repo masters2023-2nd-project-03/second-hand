@@ -22,4 +22,7 @@ public class MemberError {
     @Getter @Setter
     public static class TokenIsNull extends RuntimeException {};
 
+    @Getter @Setter
+    public static class InvalidGuest extends RuntimeException {};
+
 }
