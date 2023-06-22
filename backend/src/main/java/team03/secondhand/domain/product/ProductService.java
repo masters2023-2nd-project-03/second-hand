@@ -16,10 +16,10 @@ import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.member.MemberRepository;
+import team03.secondhand.domain.member.error.MemberError;
 import team03.secondhand.domain.product.dto.ProductDataRequestDTO;
 import team03.secondhand.domain.product.dto.ProductDataResponseDTO;
 import team03.secondhand.domain.product.dto.ProductDataResponseVO;
-import team03.secondhand.domain.productImg.ProductImg;
 import team03.secondhand.domain.productImg.ProductImgRepository;
 import team03.secondhand.domain.watchlist.WatchlistRepository;
 
@@ -51,6 +51,10 @@ public class ProductService {
 
     @Transactional
     public ProductDataResponseDTO.SimpleInfo createProduct(Long memberId, ProductDataRequestDTO request) {
+        if (memberId == 0L) {
+            throw new MemberError.InvalidGuest();
+        }
+
         // Get Info
         Category category = categoryRepository.getReferenceById(request.getCategoryId());
         Location location = locationRepository.getReferenceById(request.getLocationId());
@@ -117,9 +121,8 @@ public class ProductService {
         int indexNum = 0;
         for (MultipartFile multipartFile : multipartFiles) {
             indexNum += 1;
-            String imgName = "product" + product.getProductId() + "-" + indexNum; // 파일 이름(물품ID + index)
+            String imgName = "product_" + product.getProductId() + "-" + indexNum; // 파일 이름(물품ID + index)
             long size = multipartFile.getSize(); // 파일 크기
-
 
             ObjectMetadata objectMetaData = new ObjectMetadata();
             objectMetaData.setContentType(multipartFile.getContentType());
@@ -135,12 +138,7 @@ public class ProductService {
                 log.error(("예외 발생: " + e.getMessage()));
             }
             String imagePath = amazonS3Client.getUrl(S3Bucket, folderPath + imgName).toString(); // 접근가능한 URL 가져오기
-
-            ProductImg productImg = ProductImg.builder()
-                    .imgUrl(imagePath)
-                    .product(product)
-                    .build();
-            productImgRepository.save(productImg);
+            product.addProductId(imagePath);
         }
     }
 
