@@ -20,7 +20,6 @@ public class MemberDataRequestDto {
         @NotBlank(message = "닉네임을 설정해주세요")
         @Size(min = 1, max = 60, message = "닉네임의 길이는 1이상 60이하여야 합니다.")
         private String nickname;
-        @NotBlank(message = "프로필 사진은 필수입니다.")
         private MultipartFile profileUrl;
         @NotBlank(message = "잘못된 요청입니다.")
         @Pattern(regexp = "^\\D+_\\d+$", message = "잘못된 OAuth Id 입니다.")
