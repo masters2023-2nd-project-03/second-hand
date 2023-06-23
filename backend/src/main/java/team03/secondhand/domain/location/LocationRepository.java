@@ -8,4 +8,6 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     List<Location> findAllByLocationDetailsContains(String searchKey);
 
     List<Location> findAllByLocationIdIn(List<Long> locationIdList);
+
+    Location findByLocationShortening(String searchKey);
 }

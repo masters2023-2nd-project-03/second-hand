@@ -16,10 +16,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         this.memberIdInterceptor = memberIdInterceptor;
     }
 
-    public void addInterceptors(InterceptorRegistry registry){
+    public void addInterceptors(InterceptorRegistry registry) {
         // 인증이 필요한 요청
         registry.addInterceptor(oAuthInterceptor)
-                .addPathPatterns("/api/members", "/api/members/locations");
+                .addPathPatterns("/api/members", "/api/members/locations", "/api/watchlist");
         // 인증이 필요하지 않은 요청
         registry.addInterceptor(memberIdInterceptor)
                 .addPathPatterns("/api/products");

@@ -28,5 +28,5 @@ public class Location {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
     private List<Product> products = new ArrayList<>();
 
-    // Getter and Setter methods
+    
 }

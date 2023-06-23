@@ -20,6 +20,7 @@ public enum StatusCode {
     TOKEN_IS_NULL(false, UNAUTHORIZED, 40102, "토큰이 없습니다."),
     TOKEN_CAN_NOT_DECODE(false, UNAUTHORIZED, 40103, "올바르지 않은 토큰 형식입니다."),
     AUTHENTICATION_INVALID_MEMBER(false, UNAUTHORIZED, 40104, "이용할 수 없는 멤버입니다."),
+    AUTHENTICATION_INVALID_GUEST(false, UNAUTHORIZED, 40105, "로그인이 필요합니다."),
     NOT_FOUND_LOCATION(false, NOT_FOUND, 40400, "유효하지 않는 동네입니다."),
     NOT_FOUND_PLATFORM(false, NOT_FOUND, 40401, "유효하지 않는 플랫폼 입니다."),
     REQUIRED_SIGNUP(false, FORBIDDEN, 40300, "추가 회원가입이 필요한 멤버입니다."),
