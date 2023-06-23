@@ -1,5 +1,20 @@
+import Button from '../../components/Button';
+import { useAuthContext } from '../../context/Auth';
+
 const Account = () => {
-  return <div>내 계정 페이지</div>;
+  const { handleLogout } = useAuthContext();
+
+  const onClick = () => {
+    handleLogout();
+  };
+
+  return (
+    <div>
+      <Button fullWidth active onClick={onClick}>
+        로그아웃
+      </Button>
+    </div>
+  );
 };
 
 export default Account;
