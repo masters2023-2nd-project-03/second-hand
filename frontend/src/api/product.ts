@@ -5,11 +5,21 @@ export const getProducts = async () => {
   const res = await axiosInstanceWithoutBearer.get(`/api/products?`);
   return res;
 };
+
 export const postProducts = async (formData: PostObjectType, token: string) => {
   const res = await axiosInstanceWithBearer.post(`/api/products`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res;
+};
+
+export const getMembers = async (token: string) => {
+  const res = await axiosInstanceWithBearer.get(`/api/members?`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
   return res;

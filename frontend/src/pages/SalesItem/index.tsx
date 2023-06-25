@@ -14,7 +14,7 @@ import UploadTitle from '../../components/UploadTitle';
 import UploadPrice from '../../components/UploadPrice';
 import UploadComment from '../../components/UploadComment';
 import { BASE_URL } from '../../constants/api';
-import TabBar from '../../components/TabBar';
+import UploadLocation from '../../components/UploadLocation';
 
 const SalesItemPage = () => {
   const navigation = useNavigate();
@@ -94,7 +94,7 @@ const SalesItemPage = () => {
           <UploadComment />
         </postSalesItemContext.Provider>
       </S.Main>
-      <TabBar />
+      <UploadLocation />
     </>
   );
 };

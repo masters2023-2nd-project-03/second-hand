@@ -6,9 +6,11 @@ import * as S from './styles';
 
 interface DropdownProps {
   options: string[];
+  useSetting: boolean;
+  isReverse: boolean;
 }
 
-const Dropdown = ({ options }: DropdownProps) => {
+const Dropdown = ({ options, useSetting, isReverse }: DropdownProps) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,10 +34,10 @@ const Dropdown = ({ options }: DropdownProps) => {
       <S.DropdownWrapper />
       <S.DropdownHeader onClick={toggleDropdown}>
         <S.SelectedOption>{selectedOption}</S.SelectedOption>
-        <Icon name={'chevronDown'} width="17" />
+        {isReverse === false && <Icon name={'chevronDown'} width="17" />}
       </S.DropdownHeader>
       {isOpen && (
-        <S.PanelContainer>
+        <S.PanelContainer isReverse={isReverse}>
           {options.map((option, index) => (
             <DropdownPanel
               key={index}
@@ -43,12 +45,14 @@ const Dropdown = ({ options }: DropdownProps) => {
               onClick={handleOptionClick}
             />
           ))}
-          <DropdownPanel
-            key={2}
-            option={'내 동네 변경하기'}
-            onClick={handleChangeOptionClick}
-            isLastPanel={true}
-          />
+          {useSetting && (
+            <DropdownPanel
+              key={2}
+              option={'내 동네 변경하기'}
+              onClick={handleChangeOptionClick}
+              isLastPanel={true}
+            />
+          )}
         </S.PanelContainer>
       )}
     </S.DropdownContainer>
