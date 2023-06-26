@@ -12,8 +12,9 @@ export const postJoin = async (
   formData.append('profileUrl', profileUrl, profileUrl.name);
 
   //  TODO (시저) : 서버 배포후 주석 해제하고 밑에 axios 주석........
+  // `http://3.39.207.31:8080/api/members/join`
   const res = await axios.post(
-    `http://3.39.207.31:8080/api/members/join`,
+    `http://52.79.159.39:8080/api/members/join`,
     formData,
     {
       headers: {
