@@ -19,7 +19,15 @@ export const NavBarContainer = styled.div<NavBarContainerProps>`
     return opacityList[type] || opacityList['high'];
   }};
 
-  border-bottom: solid 1px #b3b3b3;
+  border-bottom: ${({ type }) => {
+    const opacityList: Record<string, string> = {
+      low: 'solid 1px transparent',
+      medium: 'solid 1px #b3b3b3',
+      high: 'solid 1px #b3b3b3',
+    };
+    return opacityList[type] || opacityList['high'];
+  }};
+
   display: flex;
   align-items: center;
 `;
