@@ -51,9 +51,7 @@ const HomePage = () => {
                 <SecondHandItem
                   title={item.title}
                   updatedAt={item.updatedAt}
-                  salesStatus={
-                    item.salesStatus as '판매중' | '예약중' | '판매완료'
-                  }
+                  salesStatus={item.salesStatus}
                   price={item.price}
                   location={item.location}
                   chatRoomCount={item.chatRoomCount}
