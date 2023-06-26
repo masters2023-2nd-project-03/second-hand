@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import axios from 'axios';
 
+import { ACCESS_TOKEN } from '../../constants/login';
 import Dropdown from '../Dropdown';
 import Icon from '../Icon';
 import * as S from './styles';
@@ -11,12 +12,16 @@ const UploadLocation = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        /* 마스터 토큰?
         const token =
           'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg3MTAyMjc1LCJleHAiOjE2ODg5MDIyNzV9.AhaCUeK_M_Ph3dVTf4VCceB-Wk2AWp1ukYdP5G4VpCU';
+        */
+
+        const accessToken = localStorage.getItem(ACCESS_TOKEN);
 
         const response = await axios.get(`${BASE_URL}/api/members`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         });
 
