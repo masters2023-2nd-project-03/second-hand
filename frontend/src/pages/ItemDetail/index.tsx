@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import NavBarTitle from '../../components/NavBarTitle';
 import DetailSliderPhotos from '../../components/DetailSliderPhotos';
 import DetailItem from '../../components/DetailItem';
-import DetailTapBar from '../../components/DetailTapBar';
 import * as S from './styles';
 
 interface Item {
@@ -66,7 +65,6 @@ const ItemDetail = () => {
         option={false}
       />
       <S.Main>
-        <div>현재 제품은 {productsId} 번 입니다.</div>
         <div className="DetaulSellerInfo">판매자 정보</div>
         <DetailItem
           title={sampleItem.title}
@@ -79,8 +77,9 @@ const ItemDetail = () => {
           isWatchlistChecked={sampleItem.isWatchlistChecked}
           productMainImgUrl={sampleItem.productMainImgUrl}
         />
+        <div className="DetailTapBar">관심 + 채팅</div>
       </S.Main>
-      <DetailTapBar price={sampleItem.price} />
+      <div>현재 제품은 {productsId} 번 입니다.</div>
     </>
   );
 };
