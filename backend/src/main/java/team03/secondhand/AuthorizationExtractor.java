@@ -1,6 +1,10 @@
 package team03.secondhand;
 
+import net.bytebuddy.implementation.bind.annotation.Empty;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.lang.Nullable;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,4 +26,23 @@ public class AuthorizationExtractor {
 
         return Strings.EMPTY;
     }
+
+    public String extract(Message<?> message, String type) {
+        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+        String value = accessor.getFirstNativeHeader(AUTHORIZATION);
+        if (value.toLowerCase().startsWith(type.toLowerCase())) {
+            return value.substring(type.length()).trim();
+        }
+
+        return Strings.EMPTY;
+    }
+
+    public String extract(String tokenHead, String type) {
+        if (tokenHead.toLowerCase().startsWith(type.toLowerCase())) {
+            return tokenHead.substring(type.length()).trim();
+        }
+
+        return Strings.EMPTY;
+    }
+
 }
