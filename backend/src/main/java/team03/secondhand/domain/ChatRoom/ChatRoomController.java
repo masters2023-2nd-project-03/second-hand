@@ -61,4 +61,10 @@ public class ChatRoomController {
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, roomData);
     }
 
+    @ResponseBody
+    @GetMapping("/room/history/{roomId}")
+    public DataResponse<ChatRoomDataResponseDto.ChatHistory> chatHistory(@PathVariable Long roomId) {
+        ChatRoomDataResponseDto.ChatHistory chatHistory = chatRoomService.getChatHistory(roomId);
+        return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, chatHistory);
+    }
 }
