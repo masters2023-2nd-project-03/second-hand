@@ -7,17 +7,14 @@ type IconName = keyof typeof iconfiles;
 interface IconWithCountProps {
   name: IconName;
   count: number;
-  checked: boolean;
 }
 
-const IconWithCount = ({ name, count, checked }: IconWithCountProps) => {
-  const myCount = checked === true ? 'red' : '';
-
+const IconWithCount = ({ name, count }: IconWithCountProps) => {
   return (
     <>
       {count > 0 && (
         <S.IconWithCountStyle>
-          <Icon name={name} width={'20'} height={'16'} fill={myCount} />
+          <Icon name={name} width={'20'} height={'16'} />
           <span>{count}</span>
         </S.IconWithCountStyle>
       )}

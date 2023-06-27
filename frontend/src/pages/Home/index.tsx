@@ -19,8 +19,7 @@ interface Item {
   price: number | null;
   location: string;
   chatRoomCount: number;
-  watchlistCount: number;
-  isWatchlistChecked: boolean;
+  watchListMemberIds: number[];
   productMainImgUrl: string;
   option?: boolean;
 }
@@ -57,8 +56,7 @@ const HomePage = () => {
                   price={item.price}
                   location={item.location}
                   chatRoomCount={item.chatRoomCount}
-                  watchlistCount={item.watchlistCount}
-                  isWatchlistChecked={item.isWatchlistChecked}
+                  watchListMemberIds={item.watchListMemberIds}
                   productMainImgUrl={item.productMainImgUrl}
                   option={false}
                 />
