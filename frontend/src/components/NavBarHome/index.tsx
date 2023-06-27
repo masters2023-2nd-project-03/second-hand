@@ -12,11 +12,7 @@ const NavBarHome = ({ type, iconOnClick }: NavBarHomeProps) => {
     <S.NavBarContainer type={type}>
       <S.NavBarBody>
         <S.ClinkElement>
-          <Dropdown
-            options={['역삼1동', '역삼2동']}
-            useSetting={true}
-            isReverse={false}
-          />
+          <Dropdown options={['역삼1동', '역삼2동']} />
         </S.ClinkElement>
         <S.ClinkElement>
           <Icon onClick={iconOnClick} name={'label'} />
