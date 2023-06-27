@@ -31,9 +31,7 @@ const NavBarTitle = ({
             {prevTitle && <span>{prevTitle}</span>}
           </S.PrevTitleContents>
         </S.PrevTitle>
-        <S.CenterTitle>
-          {centerTitle && <span>{centerTitle}</span>}
-        </S.CenterTitle>
+        {centerTitle && <S.CenterTitle>{centerTitle}</S.CenterTitle>}
         <S.RightTitle>
           <S.RightTitleContents onClick={rightTitleClick}>
             {rightTitle && <span>{rightTitle}</span>}

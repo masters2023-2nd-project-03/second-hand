@@ -82,7 +82,7 @@ const SalesItemPage = () => {
         <postSalesItemContext.Provider value={{ postObject, setPostObject }}>
           <NavBarTitle
             prevTitle="닫기"
-            type="high"
+            type="low"
             preTitleClick={handleBackIconClick}
             rightTitleClick={handleUploadComplete}
             centerTitle="내 물건 팔기"

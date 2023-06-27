@@ -9,7 +9,6 @@ export const UploadPhotoContainer = styled.div`
 
 export const UploadInput = styled.input`
   display: none;
-  margin-top: 16px;
 `;
 
 export const UploadIcon = styled.div`
@@ -23,7 +22,7 @@ export const UploadIcon = styled.div`
   flex-shrink: 0;
   border-radius: 12px;
   border: 1px solid rgba(179, 179, 179, 0.39);
-  margin-top: 5px;
+  margin-top: 16px;
 
   span {
     margin-top: 10px;
