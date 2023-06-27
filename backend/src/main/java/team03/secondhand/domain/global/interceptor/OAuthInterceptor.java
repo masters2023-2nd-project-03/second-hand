@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import team03.secondhand.AuthorizationExtractor;
 import team03.secondhand.JwtTokenProvider;
-import team03.secondhand.domain.member.error.MemberError;
+import team03.secondhand.error.MemberError;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
