@@ -25,13 +25,11 @@ import {
   CATEGORY,
   SALESITEM,
   REGISTER,
-  ITEMDETAIL,
 } from '../../constants/routeUrl';
 import { AuthProvider } from '../../context/Auth';
 import ProtectedRoute from '../ProtectedRoute';
 import Callback from '../Callback/';
 import Register from '../../pages/Register';
-import ItemDetail from '../../pages/ItemDetail';
 
 const router = createBrowserRouter([
   {
@@ -93,7 +91,6 @@ const router = createBrowserRouter([
     element: <SalesItemPage />,
   },
   { path: REGISTER, element: <Register /> },
-  { path: `${ITEMDETAIL}/:productsId`, element: <ItemDetail /> },
 ]);
 
 const App = () => {

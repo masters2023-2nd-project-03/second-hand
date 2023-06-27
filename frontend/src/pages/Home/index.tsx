@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import NavBarHome from '../../components/NavBarHome';
 import SecondHandItem from '../../components/SecondHandItem';
 import ErrorPage from '../Error';
-import { CATEGORY, ITEMDETAIL, SALESITEM } from '../../constants/routeUrl';
+import { CATEGORY, SALESITEM } from '../../constants/routeUrl';
 import Button from '../../components/Button';
 import * as S from './styles';
 import Icon from '../../components/Icon';
@@ -40,10 +40,6 @@ const HomePage = () => {
     navigate(SALESITEM);
   };
 
-  const handleItemClick = (productId: number) => {
-    navigate(`${ITEMDETAIL}/${productId}`);
-  };
-
   return (
     <>
       <NavBarHome type="medium" iconOnClick={handleIconClick} />
@@ -51,10 +47,7 @@ const HomePage = () => {
         <div>
           {itemList?.map((item: Item) => {
             return (
-              <li
-                key={item.productId}
-                onClick={() => handleItemClick(item.productId)}
-              >
+              <li key={item.productId}>
                 <SecondHandItem
                   title={item.title}
                   updatedAt={item.updatedAt}
