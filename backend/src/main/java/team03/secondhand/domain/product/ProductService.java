@@ -16,7 +16,7 @@ import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.member.MemberRepository;
-import team03.secondhand.domain.member.error.MemberError;
+import team03.secondhand.error.MemberError;
 import team03.secondhand.domain.product.dto.ProductDataRequestDTO;
 import team03.secondhand.domain.product.dto.ProductDataResponseDTO;
 import team03.secondhand.domain.product.dto.ProductDataResponseVO;

@@ -12,7 +12,7 @@ import team03.secondhand.domain.member.MemberRepository;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataRequestDto;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataResponseDto;
-import team03.secondhand.domain.oauth2.error.Oauth2Error;
+import team03.secondhand.error.Oauth2Error;
 import team03.secondhand.domain.oauth2.module.AuthModule;
 import team03.secondhand.domain.oauth2.module.GithubAuthModule;
 import team03.secondhand.domain.oauth2.module.GithubIosAuthModule;

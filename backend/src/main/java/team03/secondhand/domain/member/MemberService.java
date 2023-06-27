@@ -16,7 +16,7 @@ import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
 import team03.secondhand.domain.member.dto.MemberDataRequestDto;
 import team03.secondhand.domain.member.dto.MemberDataResponseDto;
-import team03.secondhand.domain.member.error.MemberError;
+import team03.secondhand.error.MemberError;
 
 import java.util.List;
 
