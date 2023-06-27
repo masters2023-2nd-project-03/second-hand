@@ -7,11 +7,11 @@ import team03.secondhand.domain.global.interceptor.MemberIdInterceptor;
 import team03.secondhand.domain.global.interceptor.OAuthInterceptor;
 
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfiguration implements WebMvcConfigurer {
     private final OAuthInterceptor oAuthInterceptor;
     private final MemberIdInterceptor memberIdInterceptor;
 
-    public WebMvcConfig(OAuthInterceptor oAuthInterceptor, MemberIdInterceptor memberIdInterceptor) {
+    public WebMvcConfiguration(OAuthInterceptor oAuthInterceptor, MemberIdInterceptor memberIdInterceptor) {
         this.oAuthInterceptor = oAuthInterceptor;
         this.memberIdInterceptor = memberIdInterceptor;
     }
@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/members", "/api/members/locations", "/api/watchlist");
         // 인증이 필요하지 않은 요청
         registry.addInterceptor(memberIdInterceptor)
-                .addPathPatterns("/api/products", "/api/products/*" );
+                .addPathPatterns("/api/products", "/api/products/*", "/chat/rooms",  "/chat/room/create");
     }
 
 }
