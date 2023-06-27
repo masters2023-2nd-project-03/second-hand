@@ -6,15 +6,14 @@ interface SecondHandItemProps {
 
 export const ItemContainer = styled.div`
   display: flex;
+  border-top: 1px solid #b3b3b3;
   border-bottom: 1px solid #b3b3b3;
   padding: 0 16px;
   align-items: center;
-  background-color: white;
 
   margin-top: 50px;
   width: 100%;
   position: fixed;
-  z-index: 2;
 `;
 
 export const ItemImage = styled.div<SecondHandItemProps>`

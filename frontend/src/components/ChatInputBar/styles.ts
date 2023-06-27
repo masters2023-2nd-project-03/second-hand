@@ -11,7 +11,6 @@ export const ChatInputContainer = styled.div`
   ${({ theme }) => theme.color.neutralBorder}
   padding: 7px 16px 0 16px;
   flex-direction: column;
-  z-index: 2;
 `;
 
 export const Menu = styled.div`
