@@ -1,8 +1,7 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import NavBarTitle from '../../components/NavBarTitle';
 import DetailSliderPhotos from '../../components/DetailSliderPhotos';
-import DetailItem from '../../components/DetailItem';
+import NavBarTitle from '../../components/NavBarTitle';
 import * as S from './styles';
 
 interface Item {
@@ -23,12 +22,6 @@ interface Item {
 const ItemDetail = () => {
   const { productsId } = useParams();
 
-  const navigation = useNavigate();
-
-  const handleBackIconClick = () => {
-    navigation(-1);
-  };
-
   // Todo : 컴포넌트 제작을 위한 샘플 아이템 (추후 삭제)
   const sampleItem: Item = {
     productId: 100,
@@ -46,12 +39,7 @@ const ItemDetail = () => {
   };
   return (
     <>
-      <NavBarTitle
-        backIcon
-        moreIcon
-        type="low"
-        preTitleClick={handleBackIconClick}
-      />
+      <NavBarTitle backIcon moreIcon type="low" />
       <DetailSliderPhotos
         title={sampleItem.title}
         updatedAt={sampleItem.updatedAt}
@@ -66,17 +54,7 @@ const ItemDetail = () => {
       />
       <S.Main>
         <div className="DetaulSellerInfo">판매자 정보</div>
-        <DetailItem
-          title={sampleItem.title}
-          updatedAt={sampleItem.updatedAt}
-          salesStatus={sampleItem.salesStatus}
-          price={sampleItem.price}
-          location={sampleItem.location}
-          chatRoomCount={sampleItem.chatRoomCount}
-          watchlistCount={sampleItem.watchlistCount}
-          isWatchlistChecked={sampleItem.isWatchlistChecked}
-          productMainImgUrl={sampleItem.productMainImgUrl}
-        />
+        <div className="DetailItem">물품 내용</div>
         <div className="DetailTapBar">관심 + 채팅</div>
       </S.Main>
       <div>현재 제품은 {productsId} 번 입니다.</div>
