@@ -12,9 +12,7 @@ import NavBarTitle from '../../components/NavBarTitle';
 import UploadPhoto from '../../components/UploadPhoto';
 import UploadTitle from '../../components/UploadTitle';
 import UploadPrice from '../../components/UploadPrice';
-import UploadComment from '../../components/UploadComment';
 import { BASE_URL } from '../../constants/api';
-import TabBar from '../../components/TabBar';
 
 const SalesItemPage = () => {
   const navigation = useNavigate();
@@ -75,25 +73,21 @@ const SalesItemPage = () => {
   };
 
   return (
-    <>
-      <S.Main>
-        <postSalesItemContext.Provider value={{ postObject, setPostObject }}>
-          <NavBarTitle
-            prevTitle="닫기"
-            type="low"
-            preTitleClick={handleBackIconClick}
-            rightTitleClick={handleUploadComplete}
-            centerTitle="내 물건 팔기"
-            rightTitle="완료"
-          />
-          <UploadPhoto />
-          <UploadTitle />
-          <UploadPrice />
-          <UploadComment />
-        </postSalesItemContext.Provider>
-      </S.Main>
-      <TabBar />
-    </>
+    <S.Main>
+      <postSalesItemContext.Provider value={{ postObject, setPostObject }}>
+        <NavBarTitle
+          prevTitle="닫기"
+          type="low"
+          preTitleClick={handleBackIconClick}
+          rightTitleClick={handleUploadComplete}
+          centerTitle="내 물건 팔기"
+          rightTitle="완료"
+        />
+        <UploadPhoto />
+        <UploadTitle />
+        <UploadPrice />
+      </postSalesItemContext.Provider>
+    </S.Main>
   );
 };
 

@@ -25,7 +25,6 @@ export const ItemImage = styled.div<SecondHandItemProps>`
   margin-bottom: 16px;
   margin-top: 16px;
   background-size: cover;
-  border-radius: 15px;
 `;
 
 export const ItemInfo = styled.div`

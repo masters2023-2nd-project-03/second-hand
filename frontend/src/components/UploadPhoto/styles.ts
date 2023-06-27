@@ -22,7 +22,7 @@ export const UploadIcon = styled.div`
   flex-shrink: 0;
   border-radius: 12px;
   border: 1px solid rgba(179, 179, 179, 0.39);
-  margin-top: 16px;
+  margin-top: 5px;
 
   span {
     margin-top: 10px;
