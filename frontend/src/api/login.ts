@@ -4,8 +4,7 @@ export const postLogin = async (code: string | null) => {
   if (!code) throw new Error("Code couldn't be null");
 
   // TODO (시저) :상수로 빼기
-  // http://3.39.207.31:8080/api/oauth2/login
-  const res = await axios.post(`http://52.79.159.39:8080/api/oauth2/login`, {
+  const res = await axios.post(`http://3.39.207.31:8080/api/oauth2/login`, {
     code: code,
     platform: 'github',
   });
