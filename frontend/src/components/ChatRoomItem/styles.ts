@@ -10,10 +10,6 @@ export const ItemContainer = styled.div`
   border-bottom: 1px solid #b3b3b3;
   padding: 0 16px;
   align-items: center;
-
-  margin-top: 50px;
-  width: 100%;
-  position: fixed;
 `;
 
 export const ItemImage = styled.div<SecondHandItemProps>`
