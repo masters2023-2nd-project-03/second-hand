@@ -19,7 +19,7 @@ const DetailTapBar = ({ price }: DetailTapBarProps) => {
             </S.Left>
           </div>
           <S.Right>
-            <Button active>대화 중인 채팅방</Button>
+            <Button active>채팅하기</Button>
           </S.Right>
         </S.Menu>
       </S.DetailTapBarContainer>
