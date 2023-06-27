@@ -7,7 +7,7 @@ const ChatRoom = () => {
   return (
     <>
       <NavBarTitle
-        type="low"
+        type="high"
         backIcon
         prevTitle="뒤로"
         centerTitle="판매자"
