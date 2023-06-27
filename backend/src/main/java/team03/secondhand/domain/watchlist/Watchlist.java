@@ -34,4 +34,8 @@ public class Watchlist {
         this.member = member;
     }
     
+    public boolean isWatchedByMemberId(Long memberId) {
+        return this.member.getMemberId().equals(memberId);
+    }
+
 }

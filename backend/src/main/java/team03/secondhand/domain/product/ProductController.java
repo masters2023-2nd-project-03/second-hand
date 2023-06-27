@@ -33,4 +33,10 @@ public class ProductController {
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, productInfoList);
     }
 
+    @GetMapping("/{productId}")
+    public DataResponse<ProductDataResponseDTO.DetailInfo> getProduct(@RequestAttribute Long memberId, @PathVariable Long productId) {
+        ProductDataResponseDTO.DetailInfo productDetailInfo = productService.getProductBy(memberId, productId);
+        return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, productDetailInfo);
+    }
+
 }
