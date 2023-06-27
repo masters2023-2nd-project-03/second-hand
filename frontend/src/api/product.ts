@@ -16,7 +16,7 @@ export const postProducts = async (formData: PostObjectType, token: string) => {
   return res;
 };
 
-export const getMembers = async (token: string | null) => {
+export const getMembers = async (token: string) => {
   const res = await axiosInstanceWithBearer.get(`/api/members?`, {
     headers: {
       Authorization: `Bearer ${token}`,
