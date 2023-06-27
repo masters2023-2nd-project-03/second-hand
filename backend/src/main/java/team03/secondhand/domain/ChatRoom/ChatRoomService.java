@@ -58,4 +58,10 @@ public class ChatRoomService {
         return ChatRoomDataResponseDto.Info.of(chatRoom);
     }
 
+    public ChatRoomDataResponseDto.ChatHistory getChatHistory(Long roomId) {
+        List<Chat> chatHistory = chatRepository.getChatByRoomId(roomId);
+        return new ChatRoomDataResponseDto.ChatHistory(chatHistory);
+    }
+
+
 }
