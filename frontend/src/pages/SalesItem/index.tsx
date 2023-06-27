@@ -26,7 +26,7 @@ const SalesItemPage = () => {
   const initialPostObject: PostObjectType = {
     title: null,
     price: null,
-    content: null,
+    content: '', //TODO(sarang_daddy) : content 컴포넌트 필요
     categoryId: null,
     locationId: 18, //TODO(시저) : 로그인 및 동네설정 필요
     files: null,
@@ -73,8 +73,6 @@ const SalesItemPage = () => {
 
     navigation(-1);
   };
-
-  console.log(postObject);
 
   return (
     <>

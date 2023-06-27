@@ -9,7 +9,7 @@ import formatNumber from '../../utils/formatNumber';
 
 const UploadPrice = () => {
   const [inputPrice, setInputPrice] = useState<string>('');
-  const { setPostObject } = useContext(postSalesItemContext);
+  const { postObject, setPostObject } = useContext(postSalesItemContext);
 
   const formattedPrice = formatNumber(parseInt(inputPrice));
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import {
   postSalesItemContext,
@@ -20,9 +20,9 @@ const UploadComment = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const inputValue = event.target.value;
-    const newHeight = event.target.scrollHeight;
-
     setTextareaValue(inputValue);
+
+    const newHeight = event.target.scrollHeight;
 
     if (textareaValue.length > inputValue.length) {
       setTextareaHeight(newHeight - 22);
@@ -30,13 +30,6 @@ const UploadComment = () => {
       setTextareaHeight(newHeight);
     }
   };
-
-  useEffect(() => {
-    setPostObject((prevPostObject: PostObjectType) => ({
-      ...prevPostObject,
-      content: textareaValue,
-    }));
-  }, [textareaValue]);
 
   return (
     <>
