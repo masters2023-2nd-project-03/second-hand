@@ -18,7 +18,7 @@ final class SignInViewController: UIViewController {
         self.addSubViews()
         self.setupNavigationBarUI()
         self.setupComponentsLayoutConstraint()
-        self.presentSignUpViewController()
+        self.addPresentActionToSignInButton()
     }
 }
 
@@ -104,7 +104,7 @@ extension SignInViewController {
         )
     }
     
-    private func presentSignUpViewController() {
+    private func addPresentActionToSignInButton() {
         let presentAction = UIAction { _ in
             self.present(SignUpViewController(), animated: true)
         }
