@@ -7,11 +7,11 @@
 
 import UIKit
 
-class SignInButton: UIButton {
+final class SignInButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLoginButtonLayer()
-        self.setupLoginButtonContent()
+        self.setupLoginButtonTitle()
         self.setupLoginButtonAppearance()
         self.setupLoginButtonConstraint()
     }
@@ -19,27 +19,26 @@ class SignInButton: UIButton {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setupLoginButtonLayer()
-        self.setupLoginButtonContent()
+        self.setupLoginButtonTitle()
         self.setupLoginButtonAppearance()
         self.setupLoginButtonConstraint()
     }
 }
 
 extension SignInButton {
-    
     private func setupLoginButtonLayer() {
         self.layer.cornerRadius = Constant.Layout.cornerRadius
         self.clipsToBounds = true
     }
     
-    private func setupLoginButtonContent() {
+    private func setupLoginButtonTitle() {
         self.setTitle(Constant.StringLiteral.title, for: .normal)
     }
     
     private func setupLoginButtonAppearance() {
-        self.titleLabel?.font = FontStyle.subHead
+        self.titleLabel?.font = FontStyle.title3
         self.tintColor = ColorPalette.white
-        self.backgroundColor = ColorPalette.orange
+        self.backgroundColor = ColorPalette.black
     }
     
     private func setupLoginButtonConstraint() {
