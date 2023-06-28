@@ -17,7 +17,7 @@ extension SignInButton.Constant {
 }
 
 extension SignInButton.Constant.StringLiteral {
-    static let title = "로그인"
+    static let title = "Sign in with GitHub"
 }
 
 extension SignInButton.Constant.Layout {
