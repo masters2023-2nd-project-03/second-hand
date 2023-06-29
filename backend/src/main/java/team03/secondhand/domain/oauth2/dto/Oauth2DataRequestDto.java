@@ -6,7 +6,8 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 
 public class Oauth2DataRequestDto {
-    @Getter @Setter
+    @Getter
+    @Setter
     public static class Login {
 
         @NotBlank(message = "로그인을 위한 플랫폼 정보를 입력해주세요")

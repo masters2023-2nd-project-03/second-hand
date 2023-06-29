@@ -1,12 +1,13 @@
 package team03.secondhand.domain.oauth2.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class Oauth2DataDto {
-    @Getter @Setter
+    @Getter
+    @Setter
     public static class LoginInfo {
         private String nickname;
         private String profileUrl;

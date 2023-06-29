@@ -22,7 +22,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/api/members", "/api/members/locations", "/api/watchlist");
         // 인증이 필요하지 않은 요청
         registry.addInterceptor(memberIdInterceptor)
-                .addPathPatterns("/api/products", "/api/products/*", "/chat/rooms",  "/chat/room/create");
+                .addPathPatterns("/api/products", "/api/products/*", "/chat/rooms", "/chat/room/create");
     }
 
 }

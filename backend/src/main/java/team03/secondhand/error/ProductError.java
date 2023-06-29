@@ -9,5 +9,6 @@ public class ProductError {
 
     @Getter
     @Setter
-    public static class NotFoundProduct extends RuntimeException {}
+    public static class NotFoundProduct extends RuntimeException {
+    }
 }

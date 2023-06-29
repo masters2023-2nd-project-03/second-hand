@@ -89,7 +89,7 @@ public class Product {
         return this.category.getTitle();
     }
 
-    public String  getLocationShortening() {
+    public String getLocationShortening() {
         return this.location.getLocationShortening();
     }
 

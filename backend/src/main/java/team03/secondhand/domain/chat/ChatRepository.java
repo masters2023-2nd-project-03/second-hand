@@ -12,6 +12,6 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
             "JOIN ChatRoom cr on c.chatRoom.chatroomId = cr.chatroomId " +
             "WHERE cr.chatroomId = :roomId " +
             "ORDER BY c.chatId")
-    List<Chat> getChatByRoomId(@Param("roomId")Long roomId);
+    List<Chat> getChatByRoomId(@Param("roomId") Long roomId);
 
 }
