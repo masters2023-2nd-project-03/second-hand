@@ -23,6 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 인증이 필요하지 않은 요청
         registry.addInterceptor(memberIdInterceptor)
                 .addPathPatterns("/api/products", "/api/products/*" );
+
     }
 
 }

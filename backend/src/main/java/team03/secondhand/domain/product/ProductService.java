@@ -103,7 +103,6 @@ public class ProductService {
     private ProductDataResponseDTO.SimpleInfo convertToProductDTO(Product product) {
         return new ProductDataResponseDTO.SimpleInfo(product);
     }
-
     /**
      * Private Method
      */
