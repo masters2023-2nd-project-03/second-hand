@@ -9,37 +9,67 @@ const elapsedTime = (createdAt: string) => {
   const currentDate = new Date();
   const createdDate = new Date(createdAt);
   const elapsedTime = currentDate.getTime() - createdDate.getTime();
-  let result = '';
 
-  if (elapsedTime < week) {
-    if (elapsedTime < hour) {
-      const minutes = Math.floor(elapsedTime / minute);
-      result = minutes + '분 전';
-    } else if (elapsedTime < day) {
-      const hours = Math.floor(elapsedTime / hour);
-      result = hours + '시간 전';
-    } else {
-      const days = Math.floor(elapsedTime / day);
-      result = days + '일 전';
-    }
-  } else if (elapsedTime < month) {
-    const weeks = Math.floor(elapsedTime / week);
-    result = weeks + '주 전';
-  } else if (elapsedTime < year) {
-    const months = Math.floor(elapsedTime / month);
-    result = months + '개월 전';
-  } else {
-    const years = Math.floor(elapsedTime / year);
-    const remainingMonths = Math.floor((elapsedTime % year) / month);
-
-    if (remainingMonths === 0) {
-      result = years + '년 전';
-    } else {
-      result = years + '년 ' + remainingMonths + '개월 전';
-    }
+  if (elapsedTime < hour) {
+    return getMinutesAgo(elapsedTime);
   }
 
-  return result;
+  if (elapsedTime < day) {
+    return getHoursAgo(elapsedTime);
+  }
+
+  if (elapsedTime < week) {
+    return getDaysAgo(elapsedTime);
+  }
+
+  if (elapsedTime < month) {
+    return getWeeksAgo(elapsedTime);
+  }
+
+  if (elapsedTime < year) {
+    return getMonthsAgo(elapsedTime);
+  }
+
+  return getYearsAgo(elapsedTime);
+};
+
+const getMinutesAgo = (elapsedTime: number) => {
+  const minutes = Math.floor(elapsedTime / (60 * 1000));
+  return minutes + '분 전';
+};
+
+const getHoursAgo = (elapsedTime: number) => {
+  const hours = Math.floor(elapsedTime / (60 * 60 * 1000));
+  return hours + '시간 전';
+};
+
+const getDaysAgo = (elapsedTime: number) => {
+  const days = Math.floor(elapsedTime / (24 * 60 * 60 * 1000));
+  return days + '일 전';
+};
+
+const getWeeksAgo = (elapsedTime: number) => {
+  const weeks = Math.floor(elapsedTime / (7 * 24 * 60 * 60 * 1000));
+  return weeks + '주 전';
+};
+
+const getMonthsAgo = (elapsedTime: number) => {
+  const months = Math.floor(elapsedTime / (4 * 7 * 24 * 60 * 60 * 1000));
+  return months + '개월 전';
+};
+
+const getYearsAgo = (elapsedTime: number) => {
+  const years = Math.floor(elapsedTime / (12 * 4 * 7 * 24 * 60 * 60 * 1000));
+  const remainingMonths = Math.floor(
+    (elapsedTime % (12 * 4 * 7 * 24 * 60 * 60 * 1000)) /
+      (4 * 7 * 24 * 60 * 60 * 1000),
+  );
+
+  if (remainingMonths === 0) {
+    return years + '년 전';
+  } else {
+    return years + '년 ' + remainingMonths + '개월 전';
+  }
 };
 
 export default elapsedTime;

@@ -1,4 +1,3 @@
-import React from 'react';
 import iconfiles from '../../assets/icons/index';
 
 type IconName = keyof typeof iconfiles;
@@ -8,7 +7,7 @@ interface IconProps {
   width?: string;
   height?: string;
   fill?: string;
-  onClick?: () => void; // onClick 속성 추가
+  onClick?: () => void;
 }
 
 const Icon = ({
@@ -16,17 +15,17 @@ const Icon = ({
   width = '24',
   height = '24',
   fill = 'black',
-  onClick, // onClick 속성 추가
+  onClick,
 }: IconProps) => {
   const IconComponent = iconfiles[name];
 
   return (
-    <div
-      style={{ width: `${width}px`, height: `${height}px` }}
+    <IconComponent
+      width={width}
+      height={height}
+      fill={fill}
       onClick={onClick}
-    >
-      <IconComponent width={width} height={height} fill={fill} />
-    </div>
+    />
   );
 };
 

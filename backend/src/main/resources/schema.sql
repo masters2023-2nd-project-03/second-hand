@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `watchlist`
     `product_id`   BIGINT NOT NULL,
     `member_id`    BIGINT NOT NULL,
     PRIMARY KEY (`watchlist_id`),
+    UNIQUE INDEX `uk_watchlist_product_member` (`product_id`, `member_id`),
     INDEX `fk_watchlist_member_idx` (`member_id` ASC) VISIBLE,
     INDEX `fk_watchlist_product_idx` (`product_id` ASC) VISIBLE,
     CONSTRAINT `fk_watchlist_product`

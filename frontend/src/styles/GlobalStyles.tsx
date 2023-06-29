@@ -15,6 +15,12 @@ const GlobalStyles = createGlobalStyle`
         border:none; 
         cursor:pointer
     }
+
+    input {
+        border: none;
+        outline: none;
+    }
+
 `;
 
 export default GlobalStyles;

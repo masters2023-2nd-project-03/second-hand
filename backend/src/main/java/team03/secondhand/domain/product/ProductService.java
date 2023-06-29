@@ -22,6 +22,7 @@ import team03.secondhand.domain.product.dto.ProductDataResponseDTO;
 import team03.secondhand.domain.product.dto.ProductDataResponseVO;
 import team03.secondhand.domain.productImg.ProductImgRepository;
 import team03.secondhand.domain.watchlist.WatchlistRepository;
+import team03.secondhand.error.ProductError;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -89,6 +90,14 @@ public class ProductService {
         return products.stream()
                 .map(product -> convertToHomeDTO(product, memberId))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ProductDataResponseDTO.DetailInfo getProductBy(Long memberId, Long productId) {
+        Product product = productRepository.findProductByProductId(productId)
+                .orElseThrow(() -> new ProductError.NotFoundProduct());
+
+        return new ProductDataResponseDTO.DetailInfo(product, memberId);
     }
 
     private ProductDataResponseDTO.SimpleInfo convertToProductDTO(Product product) {

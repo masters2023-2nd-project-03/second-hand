@@ -20,6 +20,8 @@ import { ReactComponent as Slider } from './slider.svg';
 import { ReactComponent as Wifi } from './wifi.svg';
 import { ReactComponent as X } from './x.svg';
 import { ReactComponent as Label } from './label.svg';
+import { ReactComponent as Symbol } from './symbol.svg';
+import { ReactComponent as ChevronRight } from './chevronRight.svg';
 
 const iconfiles = {
   arrowUp: ArrowUp,
@@ -44,6 +46,8 @@ const iconfiles = {
   wifi: Wifi,
   x: X,
   label: Label,
+  symbol: Symbol,
+  chevronRight: ChevronRight,
 };
 
 export default iconfiles;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import Button, { ButtonProps } from '../Button';
 
 interface SecondHandItemProps {
@@ -11,7 +12,6 @@ interface StatusLabelProps extends ButtonProps {
 }
 
 export const ItemContainer = styled.div`
-  margin: 16px;
   display: flex;
   border-bottom: 1px solid rgba(179, 179, 179, 0.39);
 `;
@@ -23,6 +23,8 @@ export const ItemImage = styled.div<SecondHandItemProps>`
   background-size: contain;
   margin-right: 16px;
   margin-bottom: 16px;
+  margin-top: 16px;
+  background-size: cover;
 `;
 
 export const ItemInfo = styled.div`
@@ -40,6 +42,7 @@ export const Content = styled.div`
   display: block;
   width: 220px;
   height: 100px;
+  margin-top: 16px;
 `;
 
 export const ColumnTop = styled.div`
@@ -87,23 +90,6 @@ export const ItemIssue = styled.div`
   justify-content: flex-end;
 `;
 
-export const Message = styled.div`
-  display: flex;
-  ${({ theme }) => theme.typo.footnote}
-  align-items: center;
-
-  span {
-    margin-left: 3px;
-  }
-`;
-
-export const heart = styled.div`
-  display: flex;
-  ${({ theme }) => theme.typo.footnote}
-  align-items: center;
+export const HeartIconWithCount = styled.div`
   margin-left: 5px;
-
-  span {
-    margin-left: 3px;
-  }
 `;

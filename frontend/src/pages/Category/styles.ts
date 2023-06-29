@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
-export const Catalog = styled.div`
+export const Categories = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   grid-gap: 36px;
+  justify-items: center;
   padding: 40px;
+  margin-top: 50px;
 `;
 
-export const Item = styled.div`
+export const Category = styled.div`
   width: 80px;
   height: 68px;
-  background-color: skyblue;
   display: flex;
   justify-content: center;
   flex-direction: column;

@@ -18,7 +18,7 @@ const Dropdown = ({ options }: DropdownProps) => {
   };
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
   // TODO(sarang_daddy) : "내 동네 변경하기" 기능 추후 추가 필요

@@ -5,14 +5,15 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../../styles/theme';
 import GlobalStyles from '../../styles/GlobalStyles';
 import HomePage from '../../pages/Home';
-import SalesPage from '../SalesPage';
+import SalesPage from '../../pages/Sales';
 import HeartPage from '../../pages/Heart';
 import ChatPage from '../../pages/Chat';
 import ErrorPage from '../../pages/Error';
 import Login from '../../pages/Login';
-import CatalogPage from '../../pages/Catalog';
+import CategoryPage from '../../pages/Category';
 import Layout from '../Layout';
 import Account from '../../pages/Account';
+import SalesItemPage from '../../pages/SalesItem';
 import {
   ACCOUNT,
   CALL_BACK,
@@ -21,10 +22,14 @@ import {
   HOME,
   LOGIN,
   SALES,
+  CATEGORY,
+  SALESITEM,
+  REGISTER,
 } from '../../constants/routeUrl';
 import { AuthProvider } from '../../context/Auth';
 import ProtectedRoute from '../ProtectedRoute';
 import Callback from '../Callback/';
+import Register from '../../pages/Register';
 
 const router = createBrowserRouter([
   {
@@ -35,9 +40,9 @@ const router = createBrowserRouter([
       {
         path: HOME,
         element: (
-          <ProtectedRoute>
-            <HomePage />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <HomePage />
+          // </ProtectedRoute>
         ),
       },
       {
@@ -74,9 +79,18 @@ const router = createBrowserRouter([
       },
       { path: LOGIN, element: <Login /> },
       { path: CALL_BACK, element: <Callback /> },
-      { path: '/catalog', element: <CatalogPage /> },
     ],
   },
+
+  {
+    path: CATEGORY,
+    element: <CategoryPage />,
+  },
+  {
+    path: SALESITEM,
+    element: <SalesItemPage />,
+  },
+  { path: REGISTER, element: <Register /> },
 ]);
 
 const App = () => {

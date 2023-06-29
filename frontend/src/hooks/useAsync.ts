@@ -41,14 +41,19 @@ function useAsync<T>(
   callback: () => Promise<AxiosResponse<T>>,
   deps: DependencyList = [],
   skip = false,
-) {
-  const [state, dispatch] = useReducer(reducer, {
+): {
+  isLoading: boolean;
+  data: T | null;
+  error: AxiosError | null;
+  refetch: () => Promise<void>;
+} {
+  const initialState: State<T> = {
     isLoading: false,
     data: null,
     error: null,
-  });
+  };
 
-  const { isLoading, data, error } = state;
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchData = async (): Promise<void> => {
     dispatch({ type: 'LOADING' });
@@ -65,7 +70,9 @@ function useAsync<T>(
     fetchData();
   }, deps);
 
-  return { isLoading, data, error, refetch: fetchData };
+  const { isLoading, data, error } = state;
+
+  return { isLoading, data: data as T, error, refetch: fetchData };
 }
 
 export default useAsync;

@@ -1,4 +1,4 @@
-import NavBarTitle from '../NavBarTitle';
+import NavBarTitle from '../../components/NavBarTitle';
 
 const SalesPage = () => {
   //TODO(sarang_daddy) : onClick 테스트를 위한 코드 추후 삭제
