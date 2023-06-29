@@ -1,0 +1,10 @@
+export const HOME = '/';
+export const SALES = '/sales';
+export const HEART = '/heart';
+export const CHAT = '/chat';
+export const ACCOUNT = '/account';
+export const LOGIN = '/login';
+export const CATEGORY = `/category`;
+export const SALESITEM = `/salesItem`;
+export const CALL_BACK = '/callback';
+export const REGISTER = '/register';
