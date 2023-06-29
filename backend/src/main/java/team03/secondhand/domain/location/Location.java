@@ -30,11 +30,4 @@ public class Location {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
     private List<Product> products = new ArrayList<>();
 
-    @Column(name = "create_at")
-    private final LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-
-    @Column(name = "update_at")
-    private final LocalDateTime updatedAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-
-
 }
