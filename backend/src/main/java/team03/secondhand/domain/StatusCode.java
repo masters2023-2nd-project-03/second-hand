@@ -26,7 +26,8 @@ public enum StatusCode {
     NOT_FOUND_CHATROOM(false, NOT_FOUND, 40402, "존재하지 않는 채팅방 입니다."),
     NOT_FOUND_PRODUCT(false, NOT_FOUND, 40403, "존재하지 않는 물품 입니다."),
     REQUIRED_SIGNUP(false, FORBIDDEN, 40300, "추가 회원가입이 필요한 멤버입니다."),
-    DUPLICATED_MEMBER(false, CONFLICT, 40900, "이미 회원가입된 멤버입니다.");
+    DUPLICATED_MEMBER(false, CONFLICT, 40900, "이미 회원가입된 멤버입니다."),
+    DUPLICATED_CHATROOM(false, CONFLICT, 40901, "이미 생성된 채팅방입니다.");
 
     private final boolean success;
     private final HttpStatus status;

@@ -57,7 +57,7 @@ public class ChatRoomController {
     @GetMapping("/room/{roomId}")
     @ResponseBody
     public  DataResponse<ChatRoomDataResponseDto.Info> roomInfo(@PathVariable Long roomId) {
-        ChatRoomDataResponseDto.Info roomData = chatRoomService.findRoomByMemberId(roomId);
+        ChatRoomDataResponseDto.Info roomData = chatRoomService.findRoomByRoomId(roomId);
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, roomData);
     }
 
