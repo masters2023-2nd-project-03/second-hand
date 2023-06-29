@@ -25,7 +25,7 @@ public class ProductImg {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    
+
     @Builder
     public ProductImg(String imgUrl, Product product) {
         this.imgUrl = imgUrl;

@@ -12,11 +12,13 @@ public class ChatDataResponseDto {
         public enum MessageType {
             ENTER, TALK
         }
+
         private MessageType type;
         private String sender;
         private String message;
 
-        public Message() {}
+        public Message() {
+        }
 
         public Message(Chat chat) {
             this.type = MessageType.TALK;

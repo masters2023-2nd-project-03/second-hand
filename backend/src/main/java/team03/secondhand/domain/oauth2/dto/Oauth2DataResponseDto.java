@@ -1,17 +1,18 @@
 package team03.secondhand.domain.oauth2.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.member.dto.MemberDataResponseDto;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class Oauth2DataResponseDto {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     public static class AuthorizationUrl {
         private String url;
 
@@ -20,7 +21,8 @@ public class Oauth2DataResponseDto {
         }
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @NoArgsConstructor
     public static class LoginInfo extends MemberDataResponseDto.Join {
 

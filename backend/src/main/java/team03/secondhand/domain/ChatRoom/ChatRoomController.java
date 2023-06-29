@@ -53,10 +53,11 @@ public class ChatRoomController {
         model.addAttribute("roomId", roomId);
         return "/chat/roomdetail";
     }
+
     // 특정 채팅방 조회
     @GetMapping("/room/{roomId}")
     @ResponseBody
-    public  DataResponse<ChatRoomDataResponseDto.Info> roomInfo(@PathVariable Long roomId) {
+    public DataResponse<ChatRoomDataResponseDto.Info> roomInfo(@PathVariable Long roomId) {
         ChatRoomDataResponseDto.Info roomData = chatRoomService.findRoomByRoomId(roomId);
         return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, roomData);
     }

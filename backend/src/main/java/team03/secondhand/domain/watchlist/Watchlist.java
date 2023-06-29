@@ -33,7 +33,7 @@ public class Watchlist {
         this.product = product;
         this.member = member;
     }
-    
+
     public boolean isWatchedByMemberId(Long memberId) {
         return this.member.getMemberId().equals(memberId);
     }

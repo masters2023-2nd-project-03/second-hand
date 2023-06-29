@@ -9,11 +9,13 @@ import team03.secondhand.domain.memberAndLocation.dto.LocationData;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class MemberDataResponseDto {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @NoArgsConstructor
     public static class SimpleInfo {
         private String nickname;
@@ -25,7 +27,8 @@ public class MemberDataResponseDto {
         }
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @NoArgsConstructor
     public static class Info extends SimpleInfo {
         private List<LocationData.Info> locationDatas;
@@ -39,7 +42,8 @@ public class MemberDataResponseDto {
         }
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     @NoArgsConstructor
     public static class Join extends Info {
         private String jwt;

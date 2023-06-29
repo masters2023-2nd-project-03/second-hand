@@ -15,7 +15,6 @@ import team03.secondhand.error.MemberError;
 import team03.secondhand.error.ProductError;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -40,7 +39,7 @@ public class ChatRoomService {
         return ChatRoomDataResponseDto.Info.of(chatRoom);
     }
 
-    public ChatRoomDataResponseDto.Info createRoom(Long memberId, ChatRoomDataRequestDto.create createRequest ) {
+    public ChatRoomDataResponseDto.Info createRoom(Long memberId, ChatRoomDataRequestDto.create createRequest) {
         Product product = productRepository.findProductByProductId(createRequest.getProductId())
                 .orElseThrow(() -> new ProductError.NotFoundProduct());
         Member seller = product.getMember();
@@ -67,6 +66,5 @@ public class ChatRoomService {
         List<Chat> chatHistory = chatRepository.getChatByRoomId(roomId);
         return new ChatRoomDataResponseDto.ChatHistory(chatHistory);
     }
-
 
 }

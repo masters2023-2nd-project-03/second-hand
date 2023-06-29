@@ -11,6 +11,7 @@ public class ChatDataRequestDto {
         public enum MessageType {
             ENTER, TALK
         }
+
         private MessageType type;
         private Long roomId;
         private String message;
