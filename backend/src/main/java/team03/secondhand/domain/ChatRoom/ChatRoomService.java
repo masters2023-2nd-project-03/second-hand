@@ -15,6 +15,7 @@ import team03.secondhand.error.MemberError;
 import team03.secondhand.error.ProductError;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class ChatRoomService {
                 .collect(Collectors.toList());
     }
 
-    public ChatRoomDataResponseDto.Info findRoomByMemberId(Long roomId) {
+    public ChatRoomDataResponseDto.Info findRoomByRoomId(Long roomId) {
         ChatRoom chatRoom = chatRoomRepository.findByChatroomId(roomId)
                 .orElseThrow(() -> new ChatRoomError.NotFoundChatRoom());
         return ChatRoomDataResponseDto.Info.of(chatRoom);
@@ -45,6 +46,10 @@ public class ChatRoomService {
         Member seller = product.getMember();
         Member buyer = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new MemberError.RequireRegistration());
+
+        if (chatRoomRepository.findByMemberIdAndProductId(memberId, createRequest.getProductId()).isPresent()) {
+            throw new ChatRoomError.ConflictChatRoom();
+        }
 
         // TODO : 이미 채팅방이 생성되 있을 수도 있음
         ChatRoom chatRoom = ChatRoom.builder()
