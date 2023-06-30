@@ -1,5 +1,6 @@
 package team03.secondhand.domain.global.handler;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -10,15 +11,11 @@ import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.error.MemberError;
 
 @Component
+@RequiredArgsConstructor
 public class StompHandler implements ChannelInterceptor {
 
     private final AuthorizationExtractor authorizationExtractor;
     private final JwtTokenProvider jwtTokenProvider;
-
-    public StompHandler(AuthorizationExtractor authorizationExtractor, JwtTokenProvider jwtTokenProvider) {
-        this.authorizationExtractor = authorizationExtractor;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
