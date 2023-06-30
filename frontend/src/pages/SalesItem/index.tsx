@@ -12,7 +12,10 @@ import NavBarTitle from '../../components/NavBarTitle';
 import UploadPhoto from '../../components/UploadPhoto';
 import UploadTitle from '../../components/UploadTitle';
 import UploadPrice from '../../components/UploadPrice';
+import UploadComment from '../../components/UploadComment';
 import { BASE_URL } from '../../constants/api';
+import UploadLocation from '../../components/UploadLocation';
+import { axiosInstanceWithBearer } from '../../api/axios';
 
 const SalesItemPage = () => {
   const navigation = useNavigate();
@@ -24,7 +27,7 @@ const SalesItemPage = () => {
   const initialPostObject: PostObjectType = {
     title: null,
     price: null,
-    content: '', //TODO(sarang_daddy) : content 컴포넌트 필요
+    content: null,
     categoryId: null,
     locationId: 18, //TODO(시저) : 로그인 및 동네설정 필요
     files: null,
@@ -50,15 +53,12 @@ const SalesItemPage = () => {
 
     //TODO(sarang_daddy) : 커스텀훅으로 수정해야함
     try {
-      const token =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjg3MTAyMjc1LCJleHAiOjE2ODg5MDIyNzV9.AhaCUeK_M_Ph3dVTf4VCceB-Wk2AWp1ukYdP5G4VpCU';
+      // const accessToken = localStorage.getItem(ACCESS_TOKEN);
 
-      const response = await axios.post(`${BASE_URL}/api/products`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axiosInstanceWithBearer.post(
+        `${BASE_URL}/api/products`,
+        formData,
+      );
 
       if (response.status === 200) {
         console.log('POST 요청이 성공적으로 완료되었습니다.');
@@ -72,22 +72,28 @@ const SalesItemPage = () => {
     navigation(-1);
   };
 
+  console.log(postObject);
+
   return (
-    <S.Main>
-      <postSalesItemContext.Provider value={{ postObject, setPostObject }}>
-        <NavBarTitle
-          prevTitle="닫기"
-          type="low"
-          preTitleClick={handleBackIconClick}
-          rightTitleClick={handleUploadComplete}
-          centerTitle="내 물건 팔기"
-          rightTitle="완료"
-        />
-        <UploadPhoto />
-        <UploadTitle />
-        <UploadPrice />
-      </postSalesItemContext.Provider>
-    </S.Main>
+    <>
+      <S.Main>
+        <postSalesItemContext.Provider value={{ postObject, setPostObject }}>
+          <NavBarTitle
+            prevTitle="닫기"
+            type="high"
+            preTitleClick={handleBackIconClick}
+            rightTitleClick={handleUploadComplete}
+            centerTitle="내 물건 팔기"
+            rightTitle="완료"
+          />
+          <UploadPhoto />
+          <UploadTitle />
+          <UploadPrice />
+          <UploadComment />
+        </postSalesItemContext.Provider>
+      </S.Main>
+      <UploadLocation />
+    </>
   );
 };
 

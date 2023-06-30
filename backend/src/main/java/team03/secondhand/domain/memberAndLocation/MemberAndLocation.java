@@ -1,6 +1,5 @@
 package team03.secondhand.domain.memberAndLocation;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,18 +18,13 @@ public class MemberAndLocation {
     @Column(name = "member_location_id")
     private Long memberLocationId;
 
-    @JsonBackReference
     @ManyToOne()
-    @JoinColumn(name = "member_member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @JsonBackReference
     @ManyToOne()
-    @JoinColumn(name = "location_location_id")
+    @JoinColumn(name = "location_id")
     private Location location;
-
-    @Column(name = "main_status")
-    private Boolean isMainLocation;
 
     public MemberAndLocation(Member member, Location location) {
         this.member = member;

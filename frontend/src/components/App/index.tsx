@@ -14,6 +14,7 @@ import CategoryPage from '../../pages/Category';
 import Layout from '../Layout';
 import Account from '../../pages/Account';
 import SalesItemPage from '../../pages/SalesItem';
+import ChatRoom from '../../pages/ChatRoom';
 import {
   ACCOUNT,
   CALL_BACK,
@@ -25,11 +26,14 @@ import {
   CATEGORY,
   SALESITEM,
   REGISTER,
+  ITEMDETAIL,
+  CHATROOM,
 } from '../../constants/routeUrl';
 import { AuthProvider } from '../../context/Auth';
 import ProtectedRoute from '../ProtectedRoute';
 import Callback from '../Callback/';
 import Register from '../../pages/Register';
+import ItemDetail from '../../pages/ItemDetail';
 
 const router = createBrowserRouter([
   {
@@ -91,6 +95,8 @@ const router = createBrowserRouter([
     element: <SalesItemPage />,
   },
   { path: REGISTER, element: <Register /> },
+  { path: `${ITEMDETAIL}/:productsId`, element: <ItemDetail /> },
+  { path: `${CHATROOM}/:rommId`, element: <ChatRoom /> },
 ]);
 
 const App = () => {

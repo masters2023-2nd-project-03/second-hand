@@ -12,6 +12,7 @@ import team03.secondhand.domain.watchlist.Watchlist;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,16 +36,16 @@ public class Product {
     private String content;
 
     @Column(name = "lookup_count")
-    private Integer lookupCount;
+    private final Integer lookupCount = 0;
 
     @Column(name = "sales_status")
-    private String salesStatus;
+    private final String salesStatus = "판매중";
 
     @Column(name = "create_at")
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
 
     @Column(name = "update_at")
-    private LocalDateTime updatedAt;
+    private final LocalDateTime updatedAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -58,25 +59,29 @@ public class Product {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
     private final List<ProductImg> productImgList = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private final List<Watchlist> watchlistArrayList = new ArrayList<>();
 
-    // Getter and Setter methods
+
     @Builder
     public Product(String title, Integer price, String content, Category category, Location location, Member member) {
         this.title = title;
         this.price = price;
         this.content = content;
-        this.lookupCount = 0;
-        this.salesStatus = "sale";
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
         this.category = category;
         this.location = location;
         this.member = member;
+    }
+
+    public void addProductId(String imgUrl) {
+        productImgList.add(new ProductImg(imgUrl, this));
+    }
+
+    public void clearProductId() {
+        productImgList.clear();
     }
 }
 

@@ -17,6 +17,7 @@ public class WatchlistService {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
+    // TODO: 에러부분 협의 방향으로 수정 필요
     @Transactional
     public void addToWatchlist(Long productId, Long memberId) {
         Product product = productRepository.findById(productId).orElseThrow(() ->
@@ -32,6 +33,7 @@ public class WatchlistService {
         watchlistRepository.save(watchlist);
     }
 
+    // TODO: 에러부분 협의 방향으로 수정 필요
     @Transactional
     public void deleteToWatchlist(Long productId, Long memberId) {
         Watchlist watchlist = watchlistRepository.findByProduct_ProductIdAndMember_MemberId(productId, memberId);

@@ -7,7 +7,7 @@ export const axiosInstanceWithoutBearer = axios.create({
 });
 
 export const axiosInstanceWithBearer = axios.create({
-  baseURL: BASE_URL, // API의 기본 URL을 설정하세요.
+  baseURL: BASE_URL,
 });
 
 axiosInstanceWithBearer.interceptors.request.use(

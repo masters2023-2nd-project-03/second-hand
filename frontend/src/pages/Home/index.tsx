@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import NavBarHome from '../../components/NavBarHome';
 import SecondHandItem from '../../components/SecondHandItem';
 import ErrorPage from '../Error';
-import { CATEGORY, SALESITEM } from '../../constants/routeUrl';
+import { CATEGORY, ITEMDETAIL, SALESITEM } from '../../constants/routeUrl';
 import Button from '../../components/Button';
 import * as S from './styles';
 import Icon from '../../components/Icon';
 import useAsync from '../../hooks/useAsync';
 import { getProducts } from '../../api/product';
+import { ACCESS_TOKEN } from '../../constants/login';
+import { getMembers } from '../../api/product';
 
 interface Item {
   productId: number;
@@ -19,10 +21,18 @@ interface Item {
   price: number | null;
   location: string;
   chatRoomCount: number;
-  watchListMemberIds: number[];
+  watchlistCount: number;
+  isWatchlistChecked: boolean;
   productMainImgUrl: string;
   option?: boolean;
 }
+
+const defaultLocation = [
+  {
+    locationDetails: '서울특별시 강남구 역삼1동',
+    locationShortening: '역삼1동',
+  },
+];
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -30,6 +40,12 @@ const HomePage = () => {
   const { data } = useAsync(() => getProducts());
   const itemList = data?.data;
   const isReusltEmpty: boolean = itemList?.length === 0;
+
+  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+  const { data: userData } = useAsync(() => getMembers(accessToken));
+  const userLocationDatas = userData?.data?.locationDatas || defaultLocation;
+
+  console.log(userData);
 
   const handleIconClick = () => {
     navigate(CATEGORY);
@@ -39,24 +55,34 @@ const HomePage = () => {
     navigate(SALESITEM);
   };
 
+  const handleItemClick = (productId: number) => {
+    navigate(`${ITEMDETAIL}/${productId}`);
+  };
+
   return (
     <>
-      <NavBarHome type="medium" iconOnClick={handleIconClick} />
+      <NavBarHome
+        type="medium"
+        iconOnClick={handleIconClick}
+        userLocationDatas={userLocationDatas}
+      />
       {!isReusltEmpty ? (
         <div>
           {itemList?.map((item: Item) => {
             return (
-              <li key={item.productId}>
+              <li
+                key={item.productId}
+                onClick={() => handleItemClick(item.productId)}
+              >
                 <SecondHandItem
                   title={item.title}
                   updatedAt={item.updatedAt}
-                  salesStatus={
-                    item.salesStatus as '판매중' | '예약중' | '판매완료'
-                  }
+                  salesStatus={item.salesStatus}
                   price={item.price}
                   location={item.location}
                   chatRoomCount={item.chatRoomCount}
-                  watchListMemberIds={item.watchListMemberIds}
+                  watchlistCount={item.watchlistCount}
+                  isWatchlistChecked={item.isWatchlistChecked}
                   productMainImgUrl={item.productMainImgUrl}
                   option={false}
                 />

@@ -19,7 +19,7 @@ public class JwtTokenProvider {
     private String secretKey = "llshlllshlllshlllshl";
 
     // 토큰 유효시간 30분
-    private long tokenValidTime = 30 * 60 * 1000L;
+    private long tokenValidTime = 30 * 60 * 1000000L;
 
     @PostConstruct
     protected void init() {

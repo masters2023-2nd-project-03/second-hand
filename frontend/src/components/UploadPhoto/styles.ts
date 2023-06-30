@@ -9,6 +9,7 @@ export const UploadPhotoContainer = styled.div`
 
 export const UploadInput = styled.input`
   display: none;
+  margin-top: 16px;
 `;
 
 export const UploadIcon = styled.div`

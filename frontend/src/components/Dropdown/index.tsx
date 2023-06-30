@@ -4,12 +4,21 @@ import DropdownPanel from './DropdownPanel';
 import Icon from '../Icon';
 import * as S from './styles';
 
-interface DropdownProps {
-  options: string[];
+interface LocationData {
+  locationDetails: string;
+  locationShortening: string;
 }
 
-const Dropdown = ({ options }: DropdownProps) => {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+interface DropdownProps {
+  options: LocationData[];
+  useSetting: boolean;
+  isReverse: boolean;
+}
+
+const Dropdown = ({ options, useSetting, isReverse }: DropdownProps) => {
+  const [selectedOption, setSelectedOption] = useState<string>(
+    options[0]?.locationShortening,
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option: string) => {
@@ -32,23 +41,25 @@ const Dropdown = ({ options }: DropdownProps) => {
       <S.DropdownWrapper />
       <S.DropdownHeader onClick={toggleDropdown}>
         <S.SelectedOption>{selectedOption}</S.SelectedOption>
-        <Icon name={'chevronDown'} width="17" />
+        {isReverse === false && <Icon name={'chevronDown'} width="17" />}
       </S.DropdownHeader>
       {isOpen && (
-        <S.PanelContainer>
+        <S.PanelContainer isReverse={isReverse}>
           {options.map((option, index) => (
             <DropdownPanel
               key={index}
-              option={option}
+              option={option.locationShortening}
               onClick={handleOptionClick}
             />
           ))}
-          <DropdownPanel
-            key={2}
-            option={'내 동네 변경하기'}
-            onClick={handleChangeOptionClick}
-            isLastPanel={true}
-          />
+          {useSetting && (
+            <DropdownPanel
+              key={2}
+              option={'내 동네 변경하기'}
+              onClick={handleChangeOptionClick}
+              isLastPanel={true}
+            />
+          )}
         </S.PanelContainer>
       )}
     </S.DropdownContainer>

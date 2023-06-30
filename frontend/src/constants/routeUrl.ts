@@ -8,3 +8,5 @@ export const CATEGORY = `/category`;
 export const SALESITEM = `/salesItem`;
 export const CALL_BACK = '/callback';
 export const REGISTER = '/register';
+export const ITEMDETAIL = '/products';
+export const CHATROOM = '/chatRoom';

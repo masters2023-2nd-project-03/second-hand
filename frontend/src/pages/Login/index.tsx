@@ -5,7 +5,9 @@ import NavBarTitle from '../../components/NavBarTitle';
 
 const Login = () => {
   const onLoginButtonClick = () => {
-    window.location.assign(`${GITHUB_OAUTH_URL}?client_id=${GITHUB_CLIENT_ID}`);
+    window.location.assign(
+      `${GITHUB_OAUTH_URL}?client_id=${GITHUB_CLIENT_ID}&prompt=consent`,
+    );
   };
 
   return (

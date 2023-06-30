@@ -2,11 +2,11 @@ package team03.secondhand.domain.product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import team03.secondhand.domain.product.dto.request.RequestProductCreateDTO;
-import team03.secondhand.domain.product.dto.response.ResponseProductCreateDTO;
-import team03.secondhand.domain.product.dto.response.ResponseProductHomeDTO;
+import team03.secondhand.domain.DataResponse;
+import team03.secondhand.domain.StatusCode;
+import team03.secondhand.domain.product.dto.ProductDataRequestDTO;
+import team03.secondhand.domain.product.dto.ProductDataResponseDTO;
 
 import java.util.List;
 
@@ -19,19 +19,18 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ResponseProductCreateDTO> createProduct(@RequestBody RequestProductCreateDTO requestDTO) {
+    public DataResponse<ProductDataResponseDTO.SimpleInfo> createProduct(@RequestAttribute Long memberId, @ModelAttribute ProductDataRequestDTO requestDTO) {
         log.debug("새로운 물품 등록");
-        ResponseProductCreateDTO createdProduct = productService.createProduct(requestDTO);
-        return ResponseEntity.ok(createdProduct);
+        ProductDataResponseDTO.SimpleInfo createdProductInfo = productService.createProduct(memberId, requestDTO);
+        return new DataResponse<>(StatusCode.REQUEST_SUCCESS, createdProductInfo);
     }
 
+    // TODO: 프론트 테스트 끝나면 동네ID 부분 수정 바람(필수로)
     @GetMapping
-    public ResponseEntity<List<ResponseProductHomeDTO>> getAllProductByFilter(@RequestParam("location_id") Long locationId, @RequestParam("category_id") Long categoryId) {
+    public DataResponse<List<ProductDataResponseDTO.HomeInfo>> getAllProductByFilter(@RequestAttribute Long memberId, @RequestParam(value = "location-id", required = false) Long locationId, @RequestParam(value = "category-id", required = false) Long categoryId) {
         log.debug("물품 목록 응답(필터 적용)");
-        List<ResponseProductHomeDTO> products = productService.getAllProductByFilter(locationId, categoryId);
-        return ResponseEntity.ok(products);
+        List<ProductDataResponseDTO.HomeInfo> productInfoList = productService.getAllProductByFilter(memberId, locationId, categoryId);
+        return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, productInfoList);
     }
 
-    // Other controller methods
 }
-

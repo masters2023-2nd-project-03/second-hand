@@ -2,16 +2,14 @@ package team03.secondhand.domain.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import team03.secondhand.JwtTokenProvider;
-import team03.secondhand.domain.member.dto.request.RequestJoinDto;
-import team03.secondhand.domain.member.dto.response.ResponseJoinSuccessDto;
-import team03.secondhand.domain.member.dto.response.ResponseShowSuccessDto;
+import team03.secondhand.domain.BaseResponse;
+import team03.secondhand.domain.DataResponse;
+import team03.secondhand.domain.StatusCode;
+import team03.secondhand.domain.member.dto.MemberDataRequestDto;
+import team03.secondhand.domain.member.dto.MemberDataResponseDto;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.NoSuchElementException;
+import javax.validation.Valid;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,36 +18,23 @@ import java.util.NoSuchElementException;
 public class MemberController {
 
     private final MemberService memberService;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/join")
-    public ResponseEntity<ResponseJoinSuccessDto> join(@RequestBody RequestJoinDto requestJoinDto) {
-        if (memberService.isRegistrationBy(requestJoinDto.getOauthId())) {
-            throw new DataIntegrityViolationException("");
-        }
-
-        Member member = memberService.join(requestJoinDto);
-        String jwt = createToken(member);
-        return ResponseEntity.ok(
-                ResponseJoinSuccessDto.builder()
-                        .jwt(jwt)
-                        .build());
+    public DataResponse<MemberDataResponseDto.Join> join(@Valid @ModelAttribute MemberDataRequestDto.Join requestJoinDto) {
+        MemberDataResponseDto.Join memberDataJoin = memberService.join(requestJoinDto);
+        return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, memberDataJoin);
     }
 
     @GetMapping
-    public ResponseEntity<ResponseShowSuccessDto> show(HttpServletRequest request) {
-        Long memberId = (Long) request.getAttribute("memberId");
-        Member member = memberService.getMemberById(memberId)
-                .orElseThrow(NoSuchElementException::new);
-        return ResponseEntity.ok(
-                ResponseShowSuccessDto.builder()
-                        .member(member)
-                        .build());
+    public DataResponse<MemberDataResponseDto.Info> show(@RequestAttribute Long memberId) {
+        MemberDataResponseDto.Info memberDataInfo = memberService.getMemberById(memberId);
+        return new DataResponse<>(StatusCode.RESPONSE_SUCCESS, memberDataInfo);
     }
 
-    private String createToken(Member savedMember) {
-        String memberId = String.valueOf(savedMember.getMemberId());
-        return jwtTokenProvider.createToken(memberId);
+    @PatchMapping("/locations")
+    public BaseResponse updateLocation(@RequestAttribute Long memberId , @Valid @ModelAttribute MemberDataRequestDto.UpdateLocation requestUpdateLocationDto) {
+        memberService.updateLocations(memberId, requestUpdateLocationDto);
+        return new BaseResponse(StatusCode.RESPONSE_SUCCESS);
     }
 
 }

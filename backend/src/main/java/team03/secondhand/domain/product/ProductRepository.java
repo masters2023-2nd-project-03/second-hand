@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "AND (:categoryId IS NULL OR p.category.categoryId = :categoryId) " +
             "ORDER BY p.updatedAt DESC")
     List<Product> findProductByFilter(@Param("locationId") Long locationId, @Param("categoryId") Long categoryId);
+
+    List<Product> findAllByOrderByUpdatedAtDesc();
 }
