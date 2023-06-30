@@ -57,7 +57,7 @@ const DetailTapBar = ({ price, curProductsId }: DetailTapBarProps) => {
             enterChatRoom(matchedRoom.roomId);
           } else {
             // 일치하는 방이 없으면 새로운 방 생성
-            createChatRoom();
+            createChatRoom(curProductsId);
           }
         } catch (error) {
           console.error('방 생성 에러:', error);
@@ -65,12 +65,12 @@ const DetailTapBar = ({ price, curProductsId }: DetailTapBarProps) => {
       };
 
       // 1. productsId와 accessToken으로 방 생성
-      const createChatRoom = async () => {
+      const createChatRoom = async (productId: string) => {
         try {
           const response = await axios.post(
             `http://52.79.159.39:8080/chat/room/create`,
             {
-              productId: curProductsId,
+              productId: productId,
             },
             {
               headers: {
