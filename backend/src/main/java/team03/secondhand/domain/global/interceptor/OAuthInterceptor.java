@@ -26,6 +26,13 @@ public class OAuthInterceptor implements HandlerInterceptor {
         }
 
         String token = authorizationExtractor.extract(request, "Bearer");
+
+        // 개발용 토큰
+        if (token.equals("admin")) {
+            request.setAttribute("memberId", 1L);
+            return true;
+        }
+
         if (Strings.EMPTY.equals(token)) {
             throw new MemberError.TokenIsNull();
         }

@@ -17,12 +17,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     public void addInterceptors(InterceptorRegistry registry) {
-        // 인증이 필요한 요청
-        registry.addInterceptor(oAuthInterceptor)
-                .addPathPatterns("/api/members", "/api/members/locations", "/api/watchlist");
-        // 인증이 필요하지 않은 요청
+        // 인가가 필요
         registry.addInterceptor(memberIdInterceptor)
-                .addPathPatterns("/api/products", "/api/products/*", "/chat/rooms", "/chat/room/create");
+                .addPathPatterns("/api/members", "/api/members/locations", "/api/watchlist", "/api/products", "/api/products/*");
+        // 인증이 필요
+        registry.addInterceptor(oAuthInterceptor)
+                .addPathPatterns("/chat/rooms", "/chat/room/create");
     }
 
 }

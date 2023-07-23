@@ -27,9 +27,28 @@ public class MemberAndLocation {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @Column(name = "main_location_status")
+    private boolean mainLocationState;
+
     public MemberAndLocation(Member member, Location location) {
         this.member = member;
         this.location = location;
+    }
+
+    public long getLocationId() {
+        return location.getLocationId();
+    }
+
+    public String getLocationDetails() {
+        return location.getLocationDetails();
+    }
+
+    public String getLocationShortening() {
+        return  location.getLocationShortening();
+    }
+
+    public boolean isMainLocation() {
+        return mainLocationState;
     }
 
 }

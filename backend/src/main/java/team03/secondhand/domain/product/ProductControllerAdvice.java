@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team03.secondhand.domain.BaseResponse;
 import team03.secondhand.domain.StatusCode;
+import team03.secondhand.error.MemberError;
+import team03.secondhand.error.ProductError;
 
 @RestControllerAdvice(basePackages = "team03.secondhand.domain.product")
 public class ProductControllerAdvice {
@@ -18,6 +20,11 @@ public class ProductControllerAdvice {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public BaseResponse exceptionHandler(MissingServletRequestParameterException e) {
         return new BaseResponse(StatusCode.BAD_PARAMETER);
+    }
+
+    @ExceptionHandler(ProductError.NotFoundProduct.class)
+    public BaseResponse notFoundLocationHandler() {
+        return new BaseResponse(StatusCode.NOT_FOUND_PRODUCT);
     }
 
     @ExceptionHandler(Exception.class)

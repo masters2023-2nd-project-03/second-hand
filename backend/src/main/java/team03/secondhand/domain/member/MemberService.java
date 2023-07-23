@@ -1,22 +1,16 @@
 package team03.secondhand.domain.member;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import team03.secondhand.JwtTokenProvider;
 import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
 import team03.secondhand.domain.member.dto.MemberDataRequestDto;
 import team03.secondhand.domain.member.dto.MemberDataResponseDto;
 import team03.secondhand.error.MemberError;
+import team03.secondhand.util.imageUpload.ImageUploadModule;
 
 import java.util.List;
 
@@ -31,12 +25,7 @@ public class MemberService {
     private final LocationRepository locationRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Value("${aws.bucketName}")
-    private String S3Bucket; // Bucket 이름
-    @Value("${aws.bucketProfileFolderPath}")
-    private String folderPath; // 폴더 경로
-    @Autowired
-    AmazonS3Client amazonS3Client;
+    private final ImageUploadModule imageUploadModule;
 
     /*
     /**********************************************************************
@@ -53,10 +42,11 @@ public class MemberService {
     @Transactional
     public MemberDataResponseDto.Join join(MemberDataRequestDto.Join requestJoinDto) {
         isRegistrationBy(requestJoinDto.getOauthId());
+        String profileUrl = imageUploadModule.profileImageUpload(requestJoinDto.getProfileUrl(), requestJoinDto.getOauthId());
 
         Member member = Member.builder()
                 .nickname(requestJoinDto.getNickname())
-                .profileUrl(uploadProfileImage(requestJoinDto.getProfileUrl(), requestJoinDto.getOauthId()))
+                .profileUrl(profileUrl)
                 .oauthId(requestJoinDto.getOauthId())
                 .build();
         setLocations(member, "역삼1동"); // 최초 가입시 '역삼1동' 으로 설정
@@ -101,26 +91,6 @@ public class MemberService {
     private String createToken(Member savedMember) {
         String memberId = String.valueOf(savedMember.getMemberId());
         return jwtTokenProvider.createToken(memberId);
-    }
-
-    private String uploadProfileImage(MultipartFile multipartFile, String oauthId) {
-        String imgName = "profile_" + oauthId; // 파일 이름(멤버ID)
-        long size = multipartFile.getSize(); // 파일 크기
-
-        ObjectMetadata objectMetaData = new ObjectMetadata();
-        objectMetaData.setContentType(multipartFile.getContentType());
-        objectMetaData.setContentLength(size);
-
-        // S3에 업로드
-        try {
-            amazonS3Client.putObject(
-                    new PutObjectRequest(S3Bucket, folderPath + imgName, multipartFile.getInputStream(), objectMetaData)
-                            .withCannedAcl(CannedAccessControlList.PublicRead)
-            );
-        } catch (Exception e) {
-            log.error(("예외 발생: " + e.getMessage()));
-        }
-        return amazonS3Client.getUrl(S3Bucket, folderPath + imgName).toString(); // 접근가능한 URL 가져오기
     }
 
 }

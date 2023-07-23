@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team03.secondhand.domain.product.Product;
+import team03.secondhand.domain.product.ProductState;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ProductDataResponseDTO {
     @NoArgsConstructor
     public static class HomeInfo extends SimpleInfo {
         private String title;
-        private String salesStatus;
+        private ProductState salesStatus;
         private LocalDateTime createAt;
         private LocalDateTime updatedAt;
         private Integer price;
@@ -55,7 +56,7 @@ public class ProductDataResponseDTO {
     @NoArgsConstructor
     public static class DetailInfo extends SimpleInfo {
         private String title;
-        private String salesStatus;
+        private ProductState salesStatus;
         private String contents;
         private LocalDateTime createAt;
         private LocalDateTime updatedAt;
@@ -81,7 +82,7 @@ public class ProductDataResponseDTO {
             this.categoryTitle = product.getCategoryTitle();
             this.watchlistCount = product.getWatchCount();
             this.isWatchlistChecked = product.isWatchedByMemberId(memberId);
-            this.imageList = product.getImageList();
+            this.imageList = product.getImages();
             // TODO : 채팅 기능 구현시 추가
             this.chatRoomCount = 0L;
         }
