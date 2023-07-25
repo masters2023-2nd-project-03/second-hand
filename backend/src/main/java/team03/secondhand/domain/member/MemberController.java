@@ -32,7 +32,7 @@ public class MemberController {
     }
 
     @PatchMapping("/locations")
-    public BaseResponse updateLocation(@RequestAttribute Long memberId, @Valid @ModelAttribute MemberDataRequestDto.UpdateLocation requestUpdateLocationDto) {
+    public BaseResponse updateLocation(@RequestAttribute Long memberId, @Valid @RequestBody MemberDataRequestDto.UpdateLocation requestUpdateLocationDto) {
         memberService.updateLocations(memberId, requestUpdateLocationDto);
         return new BaseResponse(StatusCode.RESPONSE_SUCCESS);
     }

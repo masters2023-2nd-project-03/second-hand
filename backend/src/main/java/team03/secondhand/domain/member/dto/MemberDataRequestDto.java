@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +30,9 @@ public class MemberDataRequestDto {
         @Size(min = 1, max = 2, message = "동네의 수는 1이상 2이하입니다.")
         @NotEmpty(message = "동네를 설정해주세요")
         private List<Long> locationIdList = new ArrayList<>();
+
+        @NotNull
+        private Integer mainLocationIndex;
 
     }
 

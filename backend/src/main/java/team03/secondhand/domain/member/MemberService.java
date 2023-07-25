@@ -58,7 +58,7 @@ public class MemberService {
     public void updateLocations(Long memberId, MemberDataRequestDto.UpdateLocation requestUpdateLocationDto) {
         Member member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(MemberError.RequireRegistration::new);
-        updateLocations(member, requestUpdateLocationDto.getLocationIdList());
+        updateLocations(member, requestUpdateLocationDto.getLocationIdList(), requestUpdateLocationDto.getMainLocationIndex());
     }
 
     /*
@@ -67,19 +67,17 @@ public class MemberService {
     /**********************************************************************
      */
 
-    private void updateLocations(Member member, List<Long> locationIdList) {
+    private void updateLocations(Member member, List<Long> locationIdList, int mainLocationId) {
         List<Location> foundLocations = locationRepository.findAllByLocationIdIn(locationIdList);
         if (foundLocations.size() != locationIdList.size()) {
             throw new MemberError.NotFoundLocation();
         }
-        member.deleteAllLocation();
-        foundLocations.forEach(member::addLocation);
+        member.changeLocation(foundLocations, mainLocationId);
     }
 
     private void setLocations(Member member, String searchKey) {
-        Location foundLocations = locationRepository.findByLocationShortening(searchKey);
-        member.deleteAllLocation();
-        member.addLocation(foundLocations);
+        List<Location> foundLocations = locationRepository.findByLocationShortening(searchKey);
+        member.changeLocation(foundLocations, 0); // TODO : 수정 필요
     }
 
     private void isRegistrationBy(String oauthId) {

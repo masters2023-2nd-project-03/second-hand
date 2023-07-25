@@ -5,13 +5,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team03.secondhand.domain.location.Location;
+import team03.secondhand.domain.member.model.MemberAndLocations;
 import team03.secondhand.domain.memberAndLocation.MemberAndLocation;
 import team03.secondhand.domain.product.Product;
 import team03.secondhand.domain.watchlist.Watchlist;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -32,8 +35,8 @@ public class Member {
     @Column(name = "oauth_id")
     private String oauthId;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<MemberAndLocation> memberAndLocationList = new ArrayList<>();
+    @Embedded
+    private MemberAndLocations memberAndLocations;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private final List<Product> products = new ArrayList<>();
@@ -48,12 +51,12 @@ public class Member {
         this.oauthId = oauthId;
     }
 
-    public void addLocation(Location location) {
-        memberAndLocationList.add(new MemberAndLocation(this, location));
+    public void changeLocation(List<Location> locations, int mainLocationIndex) {
+        memberAndLocations.changeLocation(locations, mainLocationIndex);
     }
 
-    public void deleteAllLocation() {
-        memberAndLocationList.clear();
+    public List<MemberAndLocation> getMemberAndLocationList() {
+        return memberAndLocations.getMemberAndLocationList();
     }
 
 }
