@@ -18,5 +18,5 @@ public class LocationData {
             this.locationShortening = memberAndLocation.getLocation().getLocationShortening();
         }
     }
-    
+
 }

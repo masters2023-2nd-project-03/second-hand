@@ -16,11 +16,11 @@ export const NavBarContainer = styled.div<NavBarContainerProps>`
   border-bottom: solid 1px #b3b3b3;
   background-color: ${(props) => {
     if (props.type === 'low') {
-      return 'rgba(249, 249, 249, 0)';
+      return 'rgba(255, 255, 255, 0)';
     } else if (props.type === 'medium') {
-      return 'rgba(249, 249, 249, 0.8)';
+      return 'rgba(255, 255, 255, 0.8)';
     } else {
-      return 'rgba(249, 249, 249, 1)';
+      return 'rgba(255, 255, 255, 1)';
     }
   }};
 `;

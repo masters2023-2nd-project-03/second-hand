@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 import { ACCESS_TOKEN } from '../constants/login';
-import { getMember } from '../api/member';
+import { getMembers } from '../api/member';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -24,6 +24,7 @@ interface AuthContextValue {
   userInfo: UserInfo;
   handleLogin: (accessToken: string) => void;
   handleLogout: () => void;
+  handleUpdateUserInfo: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -63,7 +64,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     const fetchUserInfo = async () => {
-      const res = await getMember();
+      const accessToken = localStorage.getItem(ACCESS_TOKEN);
+      const res = await getMembers(accessToken);
       const { data } = res;
 
       setUserInfo({
@@ -76,9 +78,27 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     fetchUserInfo();
   }, [isLoggedIn]);
 
+  const handleUpdateUserInfo = async () => {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
+    const res = await getMembers(accessToken);
+    const { data } = res;
+
+    setUserInfo({
+      nickname: data.data.nickname,
+      profileUrl: data.data.profileUrl,
+      locationDatas: data.data.locationDatas,
+    });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, userInfo, handleLogin, handleLogout }}
+      value={{
+        isLoggedIn,
+        userInfo,
+        handleLogin,
+        handleLogout,
+        handleUpdateUserInfo,
+      }}
     >
       {children}
     </AuthContext.Provider>

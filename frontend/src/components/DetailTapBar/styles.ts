@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const DetailTapBarContainer = styled.div`
+  ${({ theme }) => theme.color.neutralBackgroundWeak}
+  ${({ theme }) => theme.color.neutralBorder}
   display: flex;
   position: fixed;
   bottom: 0px;
   height: 80px;
   justify-content: space-between;
   width: 100%;
-  background: #fafafa;
-  ${({ theme }) => theme.color.neutralBorder}
   padding: 7px 16px 0 16px;
 `;
 
@@ -19,17 +19,14 @@ export const Menu = styled.div`
 `;
 
 export const Left = styled.div`
+  ${({ theme }) => theme.typo.footnote}
   display: flex;
   align-items: center;
   gap: 5px;
-
-  font-size: 13px;
-  font-weight: 400;
 `;
 
 export const Price = styled.span`
-  font-size: 13px;
-  font-weight: 400;
+  ${({ theme }) => theme.typo.footnote}
 `;
 
 export const Right = styled.div``;

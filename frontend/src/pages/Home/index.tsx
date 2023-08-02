@@ -1,16 +1,24 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { useAuthContext } from '../../context/Auth';
+import { getProducts } from '../../api/product';
+
+import * as S from './styles';
 import NavBarHome from '../../components/NavBarHome';
 import SecondHandItem from '../../components/SecondHandItem';
 import ErrorPage from '../Error';
-import { CATEGORY, ITEMDETAIL, SALESITEM } from '../../constants/routeUrl';
+import { CATEGORY, ITEM_DETAIL, SALES_ITEM } from '../../constants/routeUrl';
 import Button from '../../components/Button';
-import * as S from './styles';
 import Icon from '../../components/Icon';
-import useAsync from '../../hooks/useAsync';
-import { getProducts } from '../../api/product';
-import { ACCESS_TOKEN } from '../../constants/login';
-import { getMembers } from '../../api/product';
+import { defaultLocation } from '../../constants/defaultValues';
+
+interface Location {
+  locationId: number;
+  locationDetails: string;
+  locationShortening: string;
+  mainLocationState: boolean;
+}
 
 interface Item {
   productId: number;
@@ -24,39 +32,58 @@ interface Item {
   watchlistCount: number;
   isWatchlistChecked: boolean;
   productMainImgUrl: string;
-  option?: boolean;
+  isSetEditOption?: boolean;
 }
 
-const defaultLocation = [
-  {
-    locationDetails: '서울특별시 강남구 역삼1동',
-    locationShortening: '역삼1동',
-  },
-];
+// TODO : 무한 스크롤 구현하기
+// TODO : useMemo로 최적화 하기
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const userData = useAuthContext();
+  const isLoggedIn = userData.isLoggedIn;
+  const [curLocationData, setCurLocationData] = useState<Location[]>([]);
+  const [itemList, setItemList] = useState<Item[]>([]);
+  const params = useParams();
+  const categoryId = params.categoryId || '';
 
-  const { data } = useAsync(() => getProducts());
-  const itemList = data?.data;
-  const isReusltEmpty: boolean = itemList?.length === 0;
+  const fetchUserData = () => {
+    const userLocationData =
+      isLoggedIn === true ? userData.userInfo.locationDatas : defaultLocation;
 
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  const { data: userData } = useAsync(() => getMembers(accessToken));
-  const userLocationDatas = userData?.data?.locationDatas || defaultLocation;
+    setCurLocationData(userLocationData);
+  };
 
-  console.log(userData);
+  const fetchProductsData = async () => {
+    const curLocationId =
+      curLocationData.find((locationInfo) => locationInfo.mainLocationState)
+        ?.locationId || undefined;
+
+    const { data: productsData } = await getProducts(curLocationId, categoryId);
+    setItemList(productsData?.data);
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, [userData]);
+
+  useEffect(() => {
+    fetchProductsData();
+  }, [curLocationData, categoryId]);
+
+  // TODO : 로딩페이지 만들기
+  const isResultEmpty: boolean = itemList?.length === 0;
 
   const handleIconClick = () => {
     navigate(CATEGORY);
   };
 
   const handleFABClick = () => {
-    navigate(SALESITEM);
+    navigate(SALES_ITEM);
   };
 
   const handleItemClick = (productId: number) => {
-    navigate(`${ITEMDETAIL}/${productId}`);
+    navigate(`${ITEM_DETAIL}/${productId}`);
   };
 
   return (
@@ -64,9 +91,10 @@ const HomePage = () => {
       <NavBarHome
         type="medium"
         iconOnClick={handleIconClick}
-        userLocationDatas={userLocationDatas}
+        userLocationDatas={curLocationData}
+        isLoggedIn={isLoggedIn}
       />
-      {!isReusltEmpty ? (
+      {!isResultEmpty ? (
         <div>
           {itemList?.map((item: Item) => {
             return (
@@ -84,7 +112,7 @@ const HomePage = () => {
                   watchlistCount={item.watchlistCount}
                   isWatchlistChecked={item.isWatchlistChecked}
                   productMainImgUrl={item.productMainImgUrl}
-                  option={false}
+                  isSetEditOption={false}
                 />
               </li>
             );
@@ -95,7 +123,7 @@ const HomePage = () => {
       )}
       <S.ButtonPosition>
         <Button circle active onClick={handleFABClick}>
-          <Icon name="symbol" width="18" height="20" />
+          <Icon name="symbol" width="18" height="20" fill="white" />
         </Button>
       </S.ButtonPosition>
     </>

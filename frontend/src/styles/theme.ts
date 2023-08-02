@@ -31,6 +31,11 @@ const typo = {
     line-height: 24px;
     font-weight: 400;
   `,
+  content: css`
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 400;
+  `,
   callout: css`
     font-size: 16px;
     line-height: 21px;

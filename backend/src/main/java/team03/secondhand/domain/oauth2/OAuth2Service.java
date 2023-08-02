@@ -12,10 +12,10 @@ import team03.secondhand.domain.member.MemberRepository;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataRequestDto;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataResponseDto;
-import team03.secondhand.domain.oauth2.error.Oauth2Error;
 import team03.secondhand.domain.oauth2.module.AuthModule;
 import team03.secondhand.domain.oauth2.module.GithubAuthModule;
 import team03.secondhand.domain.oauth2.module.GithubIosAuthModule;
+import team03.secondhand.error.Oauth2Error;
 
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
@@ -86,7 +86,7 @@ public class OAuth2Service {
         try {
             return authModule.getMemberInfoResponse(oAuth2AccessToken);
         } catch (Exception e) {
-         throw new Oauth2Error.TokenInvalid();
+            throw new Oauth2Error.TokenInvalid();
         }
     }
 
@@ -98,7 +98,7 @@ public class OAuth2Service {
         }
     }
 
-    private AuthModule getAuthModule(String platform){
+    private AuthModule getAuthModule(String platform) {
         if (platform.equals("github")) {
             return githubAuthModule;
         }

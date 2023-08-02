@@ -4,29 +4,22 @@ interface DetailItemProps {
   title: string;
   salesStatus: '판매중' | '예약중' | '판매완료';
   updatedAt: string;
-  price: number | null;
-  location: string;
   chatRoomCount: number;
   watchlistCount: number;
-  isWatchlistChecked: boolean;
-  imageList: string;
   categoryTitle: string;
   contents: string;
 }
 
-// Todo : 물품상세에서는 카테고리 id 필요
-// Todo : 물품상세에서는 content 필요
+// TODO : 물품상세에서 조회수 필요
+// TODO : 물품상세에서 판매자 정보 필요 (id, 닉네임)
+// TODO : 판매 상태 표시 추가 필요
 
 const DetailItem = ({
   title,
   updatedAt,
   salesStatus,
-  price,
-  location,
   chatRoomCount,
   watchlistCount,
-  isWatchlistChecked,
-  imageList,
   categoryTitle,
   contents,
 }: DetailItemProps) => {

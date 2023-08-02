@@ -1,23 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-import axios from 'axios';
+import * as S from './styles';
 
 import {
   postSalesItemContext,
   PostObjectType,
 } from '../../context/SalesItem/useContext';
-import * as S from './styles';
 import NavBarTitle from '../../components/NavBarTitle';
 import UploadPhoto from '../../components/UploadPhoto';
 import UploadTitle from '../../components/UploadTitle';
 import UploadPrice from '../../components/UploadPrice';
 import UploadComment from '../../components/UploadComment';
-import { BASE_URL } from '../../constants/api';
 import UploadLocation from '../../components/UploadLocation';
-import { axiosInstanceWithBearer } from '../../api/axios';
+import { postProducts } from '../../api/product';
+// import { ACCESS_TOKEN } from '../../constants/login';
 
-const SalesItemPage = () => {
+// TODO : 사용자 설정 동네 ID를 가져와야함
+
+const SalesMyItemPage = () => {
+  // const accessToken = localStorage.getItem(ACCESS_TOKEN);
   const navigation = useNavigate();
 
   const handleBackIconClick = () => {
@@ -29,7 +31,7 @@ const SalesItemPage = () => {
     price: null,
     content: null,
     categoryId: null,
-    locationId: 18, //TODO(시저) : 로그인 및 동네설정 필요
+    locationId: 18, //TODO : 로그인 및 동네설정 필요
     files: null,
   };
   const [postObject, setPostObject] = useState(initialPostObject);
@@ -51,28 +53,10 @@ const SalesItemPage = () => {
       });
     }
 
-    //TODO(sarang_daddy) : 커스텀훅으로 수정해야함
-    try {
-      // const accessToken = localStorage.getItem(ACCESS_TOKEN);
-
-      const response = await axiosInstanceWithBearer.post(
-        `${BASE_URL}/api/products`,
-        formData,
-      );
-
-      if (response.status === 200) {
-        console.log('POST 요청이 성공적으로 완료되었습니다.');
-      } else {
-        console.log('POST 요청이 실패하였습니다.');
-      }
-    } catch (error) {
-      console.log('POST 요청 중 오류가 발생하였습니다.', error);
-    }
-
+    // TODO : 토큰 검토 후 상품 등록 되도록 바뀌어야 함
+    await postProducts(formData);
     navigation(-1);
   };
-
-  console.log(postObject);
 
   return (
     <>
@@ -97,4 +81,4 @@ const SalesItemPage = () => {
   );
 };
 
-export default SalesItemPage;
+export default SalesMyItemPage;

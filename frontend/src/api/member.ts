@@ -1,6 +1,4 @@
-import axios from 'axios';
-import { BASE_URL } from '../constants/api';
-import { axiosInstanceWithBearer } from './axios';
+import { axiosInstanceWithoutBearer, axiosInstanceWithBearer } from './axios';
 
 export const postJoin = async (
   nickname: string,
@@ -12,8 +10,8 @@ export const postJoin = async (
   formData.append('oauthId', oauthId);
   formData.append('profileUrl', profileUrl, profileUrl.name);
 
-  const res = await axios.post(
-    `http://52.79.159.39:8080/api/members/join`,
+  const res = await axiosInstanceWithoutBearer.post(
+    `/api/members/join`,
     formData,
     {
       headers: {
@@ -25,9 +23,41 @@ export const postJoin = async (
   return res;
 };
 
-export const getMember = async () => {
-  const res = await axiosInstanceWithBearer.get(
-    `http://52.79.159.39:8080/api/members`,
+export const getMembers = async (token: string | null) => {
+  const res = await axiosInstanceWithBearer.get(`/api/members`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const getSeller = async (
+  token: string | null,
+  curRoomId: string | undefined,
+) => {
+  const res = await axiosInstanceWithBearer.get(`chat/room/${curRoomId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+export const patchMembersLocation = async (
+  token: string | null,
+  locationIdList: number[],
+) => {
+  const res = await axiosInstanceWithBearer.patch(
+    `/api/members/locations`,
+    {
+      locationIdList,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
   );
 
   return res;

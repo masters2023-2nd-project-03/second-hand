@@ -13,8 +13,10 @@ import Login from '../../pages/Login';
 import CategoryPage from '../../pages/Category';
 import Layout from '../Layout';
 import Account from '../../pages/Account';
-import SalesItemPage from '../../pages/SalesItem';
+import SalesMyItemPage from '../../pages/SalesMyItem';
 import ChatRoom from '../../pages/ChatRoom';
+import { LocationPage } from '../../pages/Location';
+import { LocationSetPage } from '../../pages/LocationSet';
 import {
   ACCOUNT,
   CALL_BACK,
@@ -24,10 +26,12 @@ import {
   LOGIN,
   SALES,
   CATEGORY,
-  SALESITEM,
+  SALES_ITEM,
   REGISTER,
-  ITEMDETAIL,
+  ITEM_DETAIL,
   CHATROOM,
+  LOCATION,
+  LOCATION_SET,
 } from '../../constants/routeUrl';
 import { AuthProvider } from '../../context/Auth';
 import ProtectedRoute from '../ProtectedRoute';
@@ -42,12 +46,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: HOME,
-        element: (
-          // <ProtectedRoute>
-          <HomePage />
-          // </ProtectedRoute>
-        ),
+        path: `${HOME}/:categoryId?`,
+        element: <HomePage />,
       },
       {
         path: SALES,
@@ -91,12 +91,21 @@ const router = createBrowserRouter([
     element: <CategoryPage />,
   },
   {
-    path: SALESITEM,
-    element: <SalesItemPage />,
+    path: SALES_ITEM,
+    element: <SalesMyItemPage />,
   },
   { path: REGISTER, element: <Register /> },
-  { path: `${ITEMDETAIL}/:productsId`, element: <ItemDetail /> },
-  { path: `${CHATROOM}/:rommId`, element: <ChatRoom /> },
+  {
+    path: `${ITEM_DETAIL}/:productsId`,
+    element: (
+      <ProtectedRoute>
+        <ItemDetail />
+      </ProtectedRoute>
+    ),
+  },
+  { path: `${CHATROOM}/:roomId`, element: <ChatRoom /> },
+  { path: LOCATION, element: <LocationPage /> },
+  { path: LOCATION_SET, element: <LocationSetPage /> },
 ]);
 
 const App = () => {

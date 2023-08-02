@@ -1,13 +1,16 @@
 import { useEffect, useState, useContext } from 'react';
 
+import * as S from './styles';
+
 import {
   postSalesItemContext,
   PostObjectType,
 } from '../../context/SalesItem/useContext';
-import * as S from './styles';
 import Icon from '../Icon';
 import useAsync from '../../hooks/useAsync';
 import { getCategory } from '../../api/category';
+
+// TODO : 카테고리 더 보기 기능 추가 필요
 
 interface Category {
   categoryId: number;
@@ -23,7 +26,7 @@ const UploadTitle = () => {
   const [hasInputValue, setHasInputValue] = useState<boolean>(false);
   const [chooseCategory, setChooseCategory] = useState<number | null>(null);
 
-  const { postObject, setPostObject } = useContext(postSalesItemContext);
+  const { setPostObject } = useContext(postSalesItemContext);
 
   useEffect(() => {
     if (hasInputValue) {

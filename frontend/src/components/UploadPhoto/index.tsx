@@ -10,7 +10,10 @@ import Icon from '../Icon';
 interface UploadedImageType {
   id: string;
   imageUrl: string;
+  file: File;
 }
+
+// TODO : 최대 업로드 사진 수 제한 주기
 
 const UploadPhoto = () => {
   const maxImageCount = 10;
@@ -42,11 +45,26 @@ const UploadPhoto = () => {
 
   const handleUploadImage = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
+    console.log(event.target.files);
+    console.log(file);
+
     if (file) {
       const imageUrl = URL.createObjectURL(file);
+      const isDuplicate = uploadedImages.some(
+        (image) =>
+          image.file.name === file.name && image.file.size === file.size,
+      );
+
+      if (isDuplicate) {
+        event.target.value = '';
+        return;
+      }
+
       const newUploadedImage: UploadedImageType = {
         id: Date.now().toString(),
         imageUrl,
+        file,
       };
 
       setUploadedImages((prevImages) => [...prevImages, newUploadedImage]);
@@ -60,6 +78,7 @@ const UploadPhoto = () => {
         files: [...(prevPostObject.files || []), formData],
       }));
     }
+    event.target.value = '';
   };
 
   const handleUploadIconClick = () => {

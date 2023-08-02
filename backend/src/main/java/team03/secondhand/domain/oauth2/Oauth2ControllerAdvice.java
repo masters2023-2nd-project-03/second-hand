@@ -7,7 +7,7 @@ import team03.secondhand.domain.BaseResponse;
 import team03.secondhand.domain.DataResponse;
 import team03.secondhand.domain.StatusCode;
 import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
-import team03.secondhand.domain.oauth2.error.Oauth2Error;
+import team03.secondhand.error.Oauth2Error;
 
 @RestControllerAdvice("team03.secondhand.domain.oauth2")
 public class Oauth2ControllerAdvice {

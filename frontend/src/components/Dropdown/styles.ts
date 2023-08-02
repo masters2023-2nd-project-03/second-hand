@@ -4,10 +4,18 @@ interface PanelContainerProps {
   isReverse: boolean;
 }
 
-export const DropdownContainer = styled.div``;
+export const DropdownContainer = styled.div`
+  z-index: 3;
+`;
 
 export const DropdownWrapper = styled.div`
-  position: relative;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: transparent;
+  z-index: 2;
 `;
 
 export const DropdownHeader = styled.div`

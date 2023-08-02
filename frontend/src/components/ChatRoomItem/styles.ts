@@ -10,7 +10,6 @@ export const ItemContainer = styled.div`
   padding: 0 16px;
   align-items: center;
   background-color: white;
-
   margin-top: 50px;
   width: 100%;
   position: fixed;

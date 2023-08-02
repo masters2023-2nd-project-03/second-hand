@@ -1,8 +1,7 @@
-import React from 'react';
+import * as S from './styles';
 
 import Icon from '../Icon';
-import * as S from './styles';
-import currentTime from './currentTime';
+import currentTime from '../../utils/currentTime';
 
 interface StatusBarProps {
   color: string;

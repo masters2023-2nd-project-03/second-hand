@@ -5,8 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    Optional<Product> findProductByProductId(Long productId);
 
     @Query("SELECT p FROM Product p " +
             "WHERE p.location.locationId = :locationId " +
@@ -15,4 +18,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findProductByFilter(@Param("locationId") Long locationId, @Param("categoryId") Long categoryId);
 
     List<Product> findAllByOrderByUpdatedAtDesc();
+
 }

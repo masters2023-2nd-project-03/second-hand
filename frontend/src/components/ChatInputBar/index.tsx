@@ -1,6 +1,6 @@
-import Icon from '../Icon';
 import * as S from './styles';
 
+import Icon from '../Icon';
 interface ChatInputBarProps {
   onChange: (value: string) => void;
 }
@@ -10,7 +10,7 @@ const ChatInputBar = ({ onChange }: ChatInputBarProps) => {
     event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (event.key === 'Enter') {
-      const inputElement = event.target as HTMLInputElement;
+      const inputElement = event.currentTarget;
       const inputValue = inputElement.value;
       if (inputValue) {
         onChange(inputValue);
@@ -41,10 +41,8 @@ const ChatInputBar = ({ onChange }: ChatInputBarProps) => {
               onKeyDown={handleInputKeyPress}
             />
           </S.Left>
-          <S.Right>
-            <button onClick={handleButtonClick}>
-              <Icon name="arrowUp" fill="white" width="17" height="17" />
-            </button>
+          <S.Right onClick={handleButtonClick}>
+            <Icon name="arrowUp" fill="white" width="17" height="17" />
           </S.Right>
         </S.Menu>
       </S.ChatInputContainer>

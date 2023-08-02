@@ -32,14 +32,14 @@ public class Member {
     @Column(name = "oauth_id")
     private String oauthId;
 
-    @OneToMany(mappedBy = "member" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberAndLocation> memberAndLocationList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<MemberAndLocation> memberAndLocationList = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
-    private List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
-    private List<Watchlist> watchlistArrayList = new ArrayList<>();
+    private final List<Watchlist> watchlistArrayList = new ArrayList<>();
 
     @Builder
     public Member(String nickname, String profileUrl, String oauthId) {

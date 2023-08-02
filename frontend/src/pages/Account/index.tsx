@@ -1,7 +1,8 @@
+import * as S from './styles';
+
 import Button from '../../components/Button';
 import { useAuthContext } from '../../context/Auth';
 import Icon from '../../components/Icon';
-import * as S from './styles';
 import NavBarTitle from '../../components/NavBarTitle';
 
 const Account = () => {

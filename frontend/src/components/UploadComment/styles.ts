@@ -14,7 +14,6 @@ export const CommentTextarea = styled.textarea<textareaHeightType>`
   border: none;
   resize: none;
   height: ${({ height }) => (height > 0 ? `${height}px` : 'auto')};
-  max-height: 400px;
   min-height: 110px;
 
   font-size: 15px;
@@ -29,4 +28,8 @@ export const CommentLengthNotify = styled.span`
   display: flex;
   justify-content: flex-end;
   opacity: 0.5;
+`;
+
+export const testDiv = styled.div`
+  max-height: 500px;
 `;

@@ -22,6 +22,6 @@ export const Category = styled.div`
     font-size: 13px;
     line-height: 20px;
     margin-top: 4px;
-    color: #3c3c43;
+    ${({ theme }) => theme.color.neutralText}
   }
 `;

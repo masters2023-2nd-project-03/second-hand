@@ -6,7 +6,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,12 +15,13 @@ import team03.secondhand.domain.location.Location;
 import team03.secondhand.domain.location.LocationRepository;
 import team03.secondhand.domain.member.Member;
 import team03.secondhand.domain.member.MemberRepository;
-import team03.secondhand.domain.member.error.MemberError;
 import team03.secondhand.domain.product.dto.ProductDataRequestDTO;
 import team03.secondhand.domain.product.dto.ProductDataResponseDTO;
 import team03.secondhand.domain.product.dto.ProductDataResponseVO;
 import team03.secondhand.domain.productImg.ProductImgRepository;
 import team03.secondhand.domain.watchlist.WatchlistRepository;
+import team03.secondhand.error.MemberError;
+import team03.secondhand.error.ProductError;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -37,13 +37,12 @@ public class ProductService {
     private final MemberRepository memberRepository;
     private final ProductImgRepository productImgRepository;
     private final WatchlistRepository watchlistRepository;
+    private final AmazonS3Client amazonS3Client;
 
     @Value("${aws.bucketName}")
     private String S3Bucket; // Bucket 이름
     @Value("${aws.bucketFolderPath}")
     private String folderPath; // 폴더 경로
-    @Autowired
-    AmazonS3Client amazonS3Client;
 
     /**
      * Public Method
@@ -89,6 +88,14 @@ public class ProductService {
         return products.stream()
                 .map(product -> convertToHomeDTO(product, memberId))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ProductDataResponseDTO.DetailInfo getProductBy(Long memberId, Long productId) {
+        Product product = productRepository.findProductByProductId(productId)
+                .orElseThrow(() -> new ProductError.NotFoundProduct());
+
+        return new ProductDataResponseDTO.DetailInfo(product, memberId);
     }
 
     private ProductDataResponseDTO.SimpleInfo convertToProductDTO(Product product) {

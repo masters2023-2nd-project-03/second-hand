@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import team03.secondhand.domain.product.Product;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +30,4 @@ public class Location {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
     private List<Product> products = new ArrayList<>();
 
-    
 }

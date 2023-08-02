@@ -10,19 +10,16 @@ export const Title = styled.div`
 `;
 
 export const InputPrice = styled.input`
+  ${({ theme }) => theme.color.subhead}
   border: none;
   outline: none;
   background: transparent;
   box-shadow: none;
   resize: none;
   width: 100%;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 22px;
   overflow: hidden;
 `;
 
 export const FormattedPrice = styled.div`
-  font-weight: 600;
-  font-size: 18px;
+  ${({ theme }) => theme.color.headline}
 `;

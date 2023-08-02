@@ -1,13 +1,14 @@
 import { useParams, useNavigate } from 'react-router-dom';
 
+import * as S from './styles';
+
 import NavBarTitle from '../../components/NavBarTitle';
 import DetailSliderPhotos from '../../components/DetailSliderPhotos';
 import DetailItem from '../../components/DetailItem';
 import DetailTapBar from '../../components/DetailTapBar';
-import * as S from './styles';
 import useAsync from '../../hooks/useAsync';
 import { ACCESS_TOKEN } from '../../constants/login';
-import { getProductDetail } from '../../api/product';
+import { getProductsDetail } from '../../api/product';
 
 interface Item {
   productId: number;
@@ -25,16 +26,20 @@ interface Item {
   categoryTitle: string;
 }
 
+// TODO : 판매자 정보 추가로 받아오기
+// TODO : 나의 판매 상품인지 확인하기
+// TODO : 이미지 크기 조절하기, 이미지 슬라이딩 구현하기
+// TODO : 상세 페이지 꾸미기
+// TODO : 판매상품 수정하기 기능 추가 (moreIcon)
+
 const ItemDetail = () => {
+  const navigation = useNavigate();
+  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+
   const { productsId } = useParams();
   const curProductsId: string | undefined = productsId;
-
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  const { data } = useAsync(() => getProductDetail(productsId, accessToken));
-
+  const { data } = useAsync(() => getProductsDetail(productsId, accessToken));
   const selectedItem: Item = data?.data;
-
-  const navigation = useNavigate();
 
   const handleBackIconClick = () => {
     navigation(-1);
@@ -49,17 +54,7 @@ const ItemDetail = () => {
         preTitleClick={handleBackIconClick}
       />
       {selectedItem && (
-        <DetailSliderPhotos
-          title={selectedItem.title}
-          updatedAt={selectedItem.updatedAt}
-          salesStatus={selectedItem.salesStatus}
-          price={selectedItem.price}
-          location={selectedItem.location}
-          chatRoomCount={selectedItem.chatRoomCount}
-          watchlistCount={selectedItem.watchlistCount}
-          isWatchlistChecked={selectedItem.isWatchlistChecked}
-          imageList={selectedItem.imageList[0]}
-        />
+        <DetailSliderPhotos imageList={selectedItem.imageList[0]} />
       )}
       <S.Main>
         <div>현재 제품은 {productsId} 번 입니다.</div>
@@ -69,18 +64,14 @@ const ItemDetail = () => {
             title={selectedItem.title}
             updatedAt={selectedItem.updatedAt}
             salesStatus={selectedItem.salesStatus}
-            price={selectedItem.price}
-            location={selectedItem.location}
             chatRoomCount={selectedItem.chatRoomCount}
             watchlistCount={selectedItem.watchlistCount}
-            isWatchlistChecked={selectedItem.isWatchlistChecked}
-            imageList={selectedItem.imageList[0]}
             categoryTitle={selectedItem.categoryTitle}
             contents={selectedItem.contents}
           />
         )}
       </S.Main>
-
+      {/* TODO : 내가 관심 체크 했는지 정보도 전달하기*/}
       {selectedItem && (
         <DetailTapBar
           curProductsId={curProductsId}

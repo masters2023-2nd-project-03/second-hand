@@ -1,5 +1,8 @@
 import NavBarTitle from '../../components/NavBarTitle';
 
+// TODO : 판매 내역 패이지 만들기
+// TODO : 내가 판매중인 상품 리스트 받아와야 함
+
 const SalesPage = () => {
   //TODO(sarang_daddy) : onClick 테스트를 위한 코드 추후 삭제
   const checkTheBackClick = () => {

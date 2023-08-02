@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import * as S from './styles';
+
 import Icon from '../../components/Icon';
 import NavBarTitle from '../../components/NavBarTitle';
-import * as S from './styles';
 import { HOME, LOGIN } from '../../constants/routeUrl';
 import { useAuthContext } from '../../context/Auth';
 import { postJoin } from '../../api/member';

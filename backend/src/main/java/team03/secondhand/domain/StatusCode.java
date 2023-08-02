@@ -13,8 +13,8 @@ import static org.springframework.http.HttpStatus.*;
 public enum StatusCode {
     RESPONSE_SUCCESS(true, OK, 20000, "요청이 완료되었습니다."),
     REQUEST_SUCCESS(true, OK, 20001, "물품 등록이 완료되었습니다."),
-    RESPONSE_FAILURE(false,  BAD_REQUEST, 40000, "요청이 실패하였습니다."),
-    BAD_PARAMETER(false,  BAD_REQUEST, 40001, "잘못된 요청 파라미터입니다."),
+    RESPONSE_FAILURE(false, BAD_REQUEST, 40000, "요청이 실패하였습니다."),
+    BAD_PARAMETER(false, BAD_REQUEST, 40001, "잘못된 요청 파라미터입니다."),
     TOKEN_INVALID(false, UNAUTHORIZED, 40100, "유효하지 않은 토큰입니다."),
     TOKEN_EXPIRED(false, UNAUTHORIZED, 40101, "만료된 토큰입니다."),
     TOKEN_IS_NULL(false, UNAUTHORIZED, 40102, "토큰이 없습니다."),
@@ -23,8 +23,11 @@ public enum StatusCode {
     AUTHENTICATION_INVALID_GUEST(false, UNAUTHORIZED, 40105, "로그인이 필요합니다."),
     NOT_FOUND_LOCATION(false, NOT_FOUND, 40400, "유효하지 않는 동네입니다."),
     NOT_FOUND_PLATFORM(false, NOT_FOUND, 40401, "유효하지 않는 플랫폼 입니다."),
+    NOT_FOUND_CHATROOM(false, NOT_FOUND, 40402, "존재하지 않는 채팅방 입니다."),
+    NOT_FOUND_PRODUCT(false, NOT_FOUND, 40403, "존재하지 않는 물품 입니다."),
     REQUIRED_SIGNUP(false, FORBIDDEN, 40300, "추가 회원가입이 필요한 멤버입니다."),
-    DUPLICATED_MEMBER(false, CONFLICT, 40900, "이미 회원가입된 멤버입니다.");
+    DUPLICATED_MEMBER(false, CONFLICT, 40900, "이미 회원가입된 멤버입니다."),
+    DUPLICATED_CHATROOM(false, CONFLICT, 40901, "이미 생성된 채팅방입니다.");
 
     private final boolean success;
     private final HttpStatus status;

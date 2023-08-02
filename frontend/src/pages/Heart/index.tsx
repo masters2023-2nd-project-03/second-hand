@@ -1,4 +1,4 @@
-import NavBarHome from '../../components/NavBarHome';
+// TODO : 관심 목록 페이지 만들기
 
 const HeartPage = () => {
   return (

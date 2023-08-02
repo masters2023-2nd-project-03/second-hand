@@ -21,7 +21,7 @@ import team03.secondhand.domain.oauth2.dto.Oauth2DataDto;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-public class GithubIosAuthModule extends AuthModule{
+public class GithubIosAuthModule extends AuthModule {
 
     private static final String MODULE_NAME = "github_iOS";
 
@@ -33,10 +33,12 @@ public class GithubIosAuthModule extends AuthModule{
     public String getAccessTokenEndpoint() {
         return "https://github.com/login/oauth/access_token";
     }
+
     @Override
     protected String getAuthorizationBaseUrl() {
         return "https://github.com/login/oauth/authorize";
     }
+
     @Override
     protected String getMemberInfoEndPoint() {
         return "https://api.github.com/user";
@@ -92,8 +94,8 @@ public class GithubIosAuthModule extends AuthModule{
 
         return new Oauth2DataDto.LoginInfo(
                 nickname
-                ,profileUrl
-                ,MODULE_NAME + "_" + id);
+                , profileUrl
+                , MODULE_NAME + "_" + id);
     }
 
     public Boolean isProcessPossible(String platform) {

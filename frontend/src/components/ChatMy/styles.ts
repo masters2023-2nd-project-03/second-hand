@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ChatContainer = styled.div`
-  background-color: #ff9500;
+  ${({ theme }) => theme.color.accentBackgroundPrimary}
   width: auto;
   height: auto;
   max-width: 272px;
@@ -11,8 +11,6 @@ export const ChatContainer = styled.div`
 `;
 
 export const Message = styled.span`
-  font-size: 17px;
-  line-height: 22px;
-  font-weight: 400;
-  color: #ffffff;
+  ${({ theme }) => theme.typo.content}
+  ${({ theme }) => theme.color.accentText}
 `;

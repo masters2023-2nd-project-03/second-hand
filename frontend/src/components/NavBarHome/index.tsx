@@ -1,22 +1,26 @@
+import * as S from './styles';
 import Dropdown from '../Dropdown';
 import Icon from '../Icon';
-import * as S from './styles';
 
-interface LocationData {
+interface Location {
+  locationId: number;
   locationDetails: string;
   locationShortening: string;
+  mainLocationState: boolean;
 }
 
 interface NavBarHomeProps {
+  userLocationDatas: Location[];
   type: string;
+  isLoggedIn: boolean;
   iconOnClick?: () => void;
-  userLocationDatas: LocationData[];
 }
 
 const NavBarHome = ({
   type,
   iconOnClick,
   userLocationDatas,
+  isLoggedIn,
 }: NavBarHomeProps) => {
   return (
     <S.NavBarContainer type={type}>
@@ -24,7 +28,7 @@ const NavBarHome = ({
         <S.ClinkElement>
           <Dropdown
             options={userLocationDatas}
-            useSetting={true}
+            isSetLocationOption={isLoggedIn}
             isReverse={false}
           />
         </S.ClinkElement>

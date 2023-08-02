@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team03.secondhand.domain.BaseResponse;
 import team03.secondhand.domain.StatusCode;
-import team03.secondhand.domain.member.error.MemberError;
+import team03.secondhand.error.MemberError;
 
 @RestControllerAdvice(basePackages = "team03.secondhand.domain.member")
 public class MemberControllerAdvice {
     @ExceptionHandler(MemberError.DuplicatedMember.class)
-    public BaseResponse duplicatedMemberHandler() {return new BaseResponse(StatusCode.DUPLICATED_MEMBER);}
+    public BaseResponse duplicatedMemberHandler() {
+        return new BaseResponse(StatusCode.DUPLICATED_MEMBER);
+    }
 
     @ExceptionHandler(MemberError.TokenExpired.class)
     public BaseResponse tokenExpiredHandler() {

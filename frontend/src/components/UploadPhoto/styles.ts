@@ -22,8 +22,8 @@ export const UploadIcon = styled.div`
   height: 80px;
   flex-shrink: 0;
   border-radius: 12px;
-  border: 1px solid rgba(179, 179, 179, 0.39);
   margin-top: 5px;
+  ${({ theme }) => theme.color.neutralBorder}
 
   span {
     margin-top: 10px;
@@ -49,7 +49,8 @@ export const Photo = styled.img`
   height: 80px;
   margin-right: 16px;
   border-radius: 12px;
-  border: 1px solid rgba(179, 179, 179, 0.39);
+
+  ${({ theme }) => theme.color.neutralBorder}
 `;
 
 export const DeleteBtn = styled.div`

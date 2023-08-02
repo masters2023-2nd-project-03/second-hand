@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
-import TabBar from '../TabBar';
 import * as S from './styles';
+
+import TabBar from '../TabBar';
 
 const Layout = () => {
   return (

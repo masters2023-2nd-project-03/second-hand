@@ -1,9 +1,10 @@
+import * as S from './styles';
+
 import Dropdown from '../Dropdown';
 import Icon from '../Icon';
-import * as S from './styles';
 import { ACCESS_TOKEN } from '../../constants/login';
 import useAsync from '../../hooks/useAsync';
-import { getMembers } from '../../api/product';
+import { getMembers } from '../../api/member';
 
 const defaultLocation = [
   {
@@ -13,7 +14,6 @@ const defaultLocation = [
 ];
 
 const UploadLocation = () => {
-  // 사용자 정보 가져오기
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
   const { data: userData } = useAsync(() => getMembers(accessToken));
   const userLocationDatas = userData?.data?.locationDatas || defaultLocation;
@@ -26,7 +26,7 @@ const UploadLocation = () => {
             <Icon name="slider" width="20" height="18" />
             <Dropdown
               options={userLocationDatas}
-              useSetting={false}
+              isSetLocationOption={false}
               isReverse={true}
             />
           </S.Left>

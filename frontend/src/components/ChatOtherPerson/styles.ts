@@ -8,13 +8,10 @@ export const ChatContainer = styled.div`
   padding: 8px;
   border-radius: 15px;
   position: relative;
-
   border-top-left-radius: 0px;
 `;
 
 export const Message = styled.span`
-  font-size: 17px;
-  line-height: 22px;
-  font-weight: 400;
-  color: 000000;
+  ${({ theme }) => theme.typo.content}
+  ${({ theme }) => theme.color.accentTextWeak}
 `;

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -82,6 +83,33 @@ public class Product {
 
     public void clearProductId() {
         productImgList.clear();
+    }
+
+    public String getCategoryTitle() {
+        return this.category.getTitle();
+    }
+
+    public String getLocationShortening() {
+        return this.location.getLocationShortening();
+    }
+
+    public int getWatchCount() {
+        return this.watchlistArrayList.size();
+    }
+
+    public boolean isWatchedByMemberId(Long memberId) {
+        for (Watchlist watch : watchlistArrayList) {
+            if (watch.isWatchedByMemberId(memberId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<String> getImageList() {
+        return this.productImgList.stream()
+                .map(img -> img.getImgUrl())
+                .collect(Collectors.toList());
     }
 }
 

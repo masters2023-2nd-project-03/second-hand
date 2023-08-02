@@ -1,5 +1,6 @@
-import Icon from '../Icon';
 import * as S from './styles';
+
+import Icon from '../Icon';
 
 interface NavBarTitleProps {
   prevTitle?: string;
