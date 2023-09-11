@@ -66,7 +66,6 @@ const ItemDetailPage = () => {
   };
 
   const handleEditModal = () => {
-    console.log('게시물을 수정합니다.');
     setIsOptionOpen(false);
   };
 

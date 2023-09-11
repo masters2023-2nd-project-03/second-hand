@@ -68,7 +68,6 @@ const SalesPage = () => {
 
   //TODO : 수정 API 대기
   const handleEditModal = () => {
-    console.log('게시물을 수정합니다.');
     setIsOptionOpen(false);
   };
 
@@ -76,8 +75,6 @@ const SalesPage = () => {
     setIsDeleteConfirmOpen(true);
   };
 
-  //TODO : 삭제 API 대기
-  // 사용자가 삭제를 확인하면 게시물을 삭제하고 모달을 닫음
   const handleConfirmDelete = async () => {
     if (selectedProductId) {
       await deleteProducts(accessToken, selectedProductId.toString());
